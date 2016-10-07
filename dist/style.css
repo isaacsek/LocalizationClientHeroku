@@ -1,0 +1,18 @@
+.error {
+  color: red;
+}
+
+#container {
+  width: 500px;
+  height: 550px;
+  background-color: orange;
+}
+
+#gameContainer {
+  height: 300px;
+  width: 400px;
+}
+
+#left {
+  margin-left: 10px;
+}
