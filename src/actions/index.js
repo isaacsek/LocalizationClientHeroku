@@ -12,7 +12,7 @@ import {
 } from './types';
 
 //const ROOT_URL = 'http://localhost:3090';
-const ROOT_URL = "https://localization-server.herokuapp.com";
+const ROOT_URL = 'https://localization-server.herokuapp.com';
 
 export function signinUser({ username, password }) {
   return function(dispatch) {
