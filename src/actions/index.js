@@ -17,7 +17,8 @@ const ROOT_URL = 'https://localization-server.herokuapp.com';
 export function signinUser({ username, password }) {
   return function(dispatch) {
     // Submit username/password to the server
-    axios.post(`${ROOT_URL}/signin`, { username, password })
+    //console.log(ROOT_URL);
+    axios.post("https://localization-server.herokuapp.com/signin", { username, password })
       .then(response => {
         // If request is good...
         // - Update state to indicate user is authenticated
