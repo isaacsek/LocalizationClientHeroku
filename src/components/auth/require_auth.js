@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 export default function(ComposedComponent) {
   class Authentication extends Component {
     static contextTypes: {
-      router: React.PropTypes.object
+      //router = React.PropTypes.object
+      router: React.PropTypes.func.isRequired
     }
 
     componentWillMount() {
