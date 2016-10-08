@@ -21,7 +21,7 @@ var resultString = "Choose Left or Right";
 class Play extends Component {
   constructor(props) {
     super(props);
-    this.state = {startGame:false, speakersLoaded:false, redSpeakerSink: null, blueSpeakerSink: null, resultString: "none"};
+    this.state = {startGame:false, speakersLoaded:false, redSpeakerSink: null, blueSpeakerSink: null, resultString: "none", correctGuess:null};
   }
 
   // Left speaker on red, blue speaker on right
@@ -91,10 +91,10 @@ class Play extends Component {
             rightCorrect++;
         }
         console.log("correct guess!");
-        resultString = "You chose the correct speaker!";
+        resultString = "Correct! You chose the correct speaker";
     } else {
         console.log("incorrect guess!");
-        resultString = "You chose the incorrect speaker :( Try again!"
+        resultString = "Incorrect! You chose the wrong speaker."
     }
   }
 
@@ -135,27 +135,31 @@ class Play extends Component {
     correctCount = 0;
   }
 
+  renderResultString(guess) {
+
+  }
+
   renderGame() {
     if(this.state.startGame == true) {
       return (
-        <div id = "gameContainer" className = "container m-t-2">
-            <div className = "row">Test: {this.props.user.testCount + 1}</div>
-            <div className = "row">Trial: {trialCount}</div>
-            <div className = "row">Correct Guesses: {correctCount}</div>
-            <div className = "row"><button onClick = {this.playSound} className = "btn btn-secondary">Play Sound</button></div>
-            <div className = "row">
-                <button value = "red" onClick = {this.nextTrial.bind(this,"red")} className = "btn btn-secondary">Left</button>
-                <button value = "blue" onClick = {this.nextTrial.bind(this,"blue")} className = "btn btn-secondary">Right</button>
+        <div id = "gameContainer" className = "panel-primary m-t-2">
+            <div className = "small">Test #: {this.props.user.testCount + 1}</div>
+            <div className = "small">Progress: {trialCount}/{MAX_TRIALS}</div>
+            <div className = "small">Correct Guesses: {correctCount}</div>
+            <div className = "m-t-2"><button onClick = {this.playSound} className = "btn btn-secondary btn-outline-primary">Play Sound</button></div>
+            <div className = "m-t-2">
+                <button value = "red" onClick = {this.nextTrial.bind(this,"red")} className = "btn btn-secondary btn-lg btn-outline-danger">Left</button>
+                <button value = "blue" onClick = {this.nextTrial.bind(this,"blue")} className = "btn btn-secondary btn-lg btn-outline-info m-l-2">Right</button>
             </div>
-            <div className = "row"><button onClick={this.nextTrial} className = "btn btn-secondary">Next Trial</button></div>
-            <div className = "row">Results:{resultString}</div>
+            {/*}<div className = "row"><button onClick={this.nextTrial} className = "btn btn-secondary">Next Trial</button></div>*/}
+            <div className = "btn btn-warning m-t-2">Results: {resultString}</div>
         </div>
       );
     } else if (this.state.redSpeakerSink == null || this.state.blueSpeakerSink == null) {
         return <div>Loading... Are the RED/BLUE speakers plugged in?</div>
     } else {
       return (
-        <div><button onClick = {() => {startTime = new Date();this.setState({startGame:true});}} className = "btn btn-secondary">Start</button></div>
+        <div><button onClick = {() => {startTime = new Date();this.setState({startGame:true});}} className = "btn btn-primary btn-lg m-t-2">Start</button></div>
       );
     }
   }
@@ -166,7 +170,7 @@ class Play extends Component {
       {this.renderUser()}
         <h3 className = "text-md-center m-t-2">Play Mode</h3>
         {this.renderGame()}
-        <Link to = "/mainmenu" className = "btn btn-secondary m-t-2">Back to Main Menu</Link>
+        <Link to = "/mainmenu" className = "btn btn-secondary m-t-2 btn-danger">Quit</Link>
       </center>
     );
   }
@@ -201,7 +205,7 @@ function attachSinkId(element, sinkId, speakerName) {
                   'device: ' + error;
             }
             speakerPlayingSound = "red";
-            alert(errorMessage);
+            alert("Loading...");
         });
     } else {
         console.warn('Browser does not support output device selection.');
