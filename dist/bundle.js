@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2855b3b51057e193501c"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "700126e08e5f037e7c28"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -19035,7 +19035,7 @@
 
 	    var _this = _possibleConstructorReturn(this, (Play.__proto__ || Object.getPrototypeOf(Play)).call(this, props));
 
-	    _this.state = { startGame: false, speakersLoaded: false, redSpeakerSink: null, blueSpeakerSink: null, resultString: "none" };
+	    _this.state = { startGame: false, speakersLoaded: false, redSpeakerSink: null, blueSpeakerSink: null, resultString: "none", correctGuess: null };
 	    return _this;
 	  }
 
@@ -19107,10 +19107,10 @@
 	          rightCorrect++;
 	        }
 	        console.log("correct guess!");
-	        resultString = "You chose the correct speaker!";
+	        resultString = "Correct! You chose the correct speaker";
 	      } else {
 	        console.log("incorrect guess!");
-	        resultString = "You chose the incorrect speaker :( Try again!";
+	        resultString = "Incorrect! You chose the wrong speaker.";
 	      }
 	    }
 	  }, {
@@ -19162,6 +19162,9 @@
 	      correctCount = 0;
 	    }
 	  }, {
+	    key: 'renderResultString',
+	    value: function renderResultString(guess) {}
+	  }, {
 	    key: 'renderGame',
 	    value: function renderGame() {
 	      var _this2 = this;
@@ -19169,61 +19172,54 @@
 	      if (this.state.startGame == true) {
 	        return _react2.default.createElement(
 	          'div',
-	          { id: 'gameContainer', className: 'container m-t-2' },
+	          { id: 'gameContainer', className: 'panel-primary m-t-2' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'row' },
-	            'Test: ',
+	            { className: 'small' },
+	            'Test #: ',
 	            this.props.user.testCount + 1
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'row' },
-	            'Trial: ',
-	            trialCount
+	            { className: 'small' },
+	            'Progress: ',
+	            trialCount,
+	            '/',
+	            MAX_TRIALS
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'row' },
+	            { className: 'small' },
 	            'Correct Guesses: ',
 	            correctCount
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'row' },
+	            { className: 'm-t-2' },
 	            _react2.default.createElement(
 	              'button',
-	              { onClick: this.playSound, className: 'btn btn-secondary' },
+	              { onClick: this.playSound, className: 'btn btn-secondary btn-outline-primary' },
 	              'Play Sound'
 	            )
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'row' },
+	            { className: 'm-t-2' },
 	            _react2.default.createElement(
 	              'button',
-	              { value: 'red', onClick: this.nextTrial.bind(this, "red"), className: 'btn btn-secondary' },
+	              { value: 'red', onClick: this.nextTrial.bind(this, "red"), className: 'btn btn-secondary btn-lg btn-outline-danger' },
 	              'Left'
 	            ),
 	            _react2.default.createElement(
 	              'button',
-	              { value: 'blue', onClick: this.nextTrial.bind(this, "blue"), className: 'btn btn-secondary' },
+	              { value: 'blue', onClick: this.nextTrial.bind(this, "blue"), className: 'btn btn-secondary btn-lg btn-outline-info m-l-2' },
 	              'Right'
 	            )
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'row' },
-	            _react2.default.createElement(
-	              'button',
-	              { onClick: this.nextTrial, className: 'btn btn-secondary' },
-	              'Next Trial'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'row' },
-	            'Results:',
+	            { className: 'btn btn-warning m-t-2' },
+	            'Results: ',
 	            resultString
 	          )
 	        );
@@ -19241,7 +19237,7 @@
 	            'button',
 	            { onClick: function onClick() {
 	                startTime = new Date();_this2.setState({ startGame: true });
-	              }, className: 'btn btn-secondary' },
+	              }, className: 'btn btn-primary btn-lg m-t-2' },
 	            'Start'
 	          )
 	        );
@@ -19262,8 +19258,8 @@
 	        this.renderGame(),
 	        _react2.default.createElement(
 	          _reactRouter.Link,
-	          { to: '/mainmenu', className: 'btn btn-secondary m-t-2' },
-	          'Back to Main Menu'
+	          { to: '/mainmenu', className: 'btn btn-secondary m-t-2 btn-danger' },
+	          'Quit'
 	        )
 	      );
 	    }
@@ -19302,7 +19298,7 @@
 	        errorMessage = 'You need to use HTTPS for selecting audio output ' + 'device: ' + error;
 	      }
 	      speakerPlayingSound = "red";
-	      alert(errorMessage);
+	      alert("Loading...");
 	    });
 	  } else {
 	    console.warn('Browser does not support output device selection.');
