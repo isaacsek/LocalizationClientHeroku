@@ -8,11 +8,12 @@ import {
   FETCH_MESSAGE,
   FETCH_USER,
   FETCH_MEDIA_DEVICES,
-  TEST_SELECTED
+  TEST_SELECTED,
+  ROOT_URL
 } from './types';
 
 //const ROOT_URL = 'http://localhost:3090';
-const ROOT_URL = 'https://localization-server.herokuapp.com';
+
 
 export function signinUser({ username, password }) {
   return function(dispatch) {

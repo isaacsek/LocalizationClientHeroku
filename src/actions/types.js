@@ -7,3 +7,4 @@ export const FETCH_MEDIA_DEVICES = 'fetch_media_devices';
 export const SAVE_TEST = "save_user";
 export const TEST_SELECTED = "test_selected";
 export const SAVE_SETTINGS = "save_settings";
+export const ROOT_URL = 'https://localization-server.herokuapp.com';
