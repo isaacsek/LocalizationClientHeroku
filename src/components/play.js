@@ -1,81 +1,29 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../actions';
-import { Link } from 'react-router';
 import promiseMiddleware from 'redux-promise';
+import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
+import React, { Component } from 'react';
+import {ROOT_URL} from "../actions/types"
+import * as actions from '../actions';
 import axios from 'axios';
-
-
-
 
 const MAX_TRIALS = 10;
 var speakers = [];
 var whereLongSound = new Audio("/audio/whereLong.wav");
-var speakerPlayingSound = pickRandomSpeaker;//Math.round(Math.random()); //defaults to random
-var userGuess = 0, correctCount = 0, trialCount = 1, startTime,
-endTime, rightCorrect = 0, leftCorrect = 0, rightSpeakerPlay = 0,
-leftSpeakerPlay = 0, timeElapsed = 0;
-var resultString = "Choose Left or Right";
+var speakerPlayingSound = pickRandomSpeaker;
+var correctCount = 0, trialCount = 1, startTime, endTime, rightCorrect = 0, leftCorrect = 0, rightSpeakerPlay = 0, leftSpeakerPlay = 0, timeElapsed = 0;
+
 
 var redSpeakerSink = null;
 var blueSpeakerSink = null;
-
-function pickRandomSpeaker() {
-  var random = getRandomInt(1,2);
-  //console.log(random);
-  if(random == 1) {
-    speakerPlayingSound = "red";
-    attachSinkId(whereLongSound, redSpeakerSink, "red speaker");
-    return "red";
-  } else {
-    speakerPlayingSound = "blue";
-    attachSinkId(whereLongSound, blueSpeakerSink, "blue spaker");
-    return "blue";
-  }
-}
-
-// Returns a random integer between min (included) and max (included)
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function attachSinkId(element, sinkId, speakerName)
-{
-    if (typeof element.sinkId !== 'undefined')
-    {
-        element.setSinkId(sinkId).then(function()
-        {
-            console.log('Success, audio output device attached: ' + speakerName);
-        }).catch(function(error)
-        {
-            var errorMessage = error;
-            if (error.name === 'SecurityError')
-            {
-              errorMessage = 'You need to use HTTPS for selecting audio output ' +
-                  'device: ' + error;
-            }
-            console.error(errorMessage);
-            speakerPlayingSound = "red";
-            attachSinkId(whereLongSound, redSpeakerSink, "red speaker");
-        });
-    } else
-    {
-        console.warn('Browser does not support output device selection.');
-    }
-}
+var resultString = "Choose Left or Right";
 
 class Play extends Component {
   constructor(props) {
     super(props);
-    //this.renderMediaDevices();
     this.state = {startGame:false, speakersLoaded:false, redSpeakerSink: null, blueSpeakerSink: null, resultString: "none"};
-    this.nextTrial = this.nextTrial.bind(this);
-    this.leftNextTrial = this.leftNextTrial.bind(this);
-    this.rightNextTrial = this.rightNextTrial.bind(this);
-    this.startGame = this.startGame.bind(this);
-    this.endGame = this.endGame.bind(this);
-
   }
+
   // Left speaker on red, blue speaker on right
   componentWillMount() {
     this.props.fetchMessage();
@@ -111,46 +59,23 @@ class Play extends Component {
     whereLongSound.play();
   }
 
-  nextTrial() {
-    this.setState({trial: this.state.trial + 1});
-    if(trialCount <= MAX_TRIALS) {
+  nextTrial(guess) {
+    this.determineGuess(guess);
+
+    if(trialCount < MAX_TRIALS) {
       trialCount++;
-    } else {
-      this.endGame();
-    }
-  }
-  // red = left
-  leftNextTrial() {
-    this.forceUpdate();
-    this.determineGuess("red");
-    if(trialCount <= MAX_TRIALS) {
-      trialCount++;
-      console.log(trialCount);
     } else {
       alert("End of test");
-      this.endGame();
+      endTime = new Date();
+      this.setState({startGame:false});
       this.saveTestResults();
+      this.resetTest();
+      this.props.fetchUser();
+      browserHistory.push('/mainmenu');
     }
     speakerPlayingSound = pickRandomSpeaker();
     this.forceUpdate();
   }
-  // blue = right
-  rightNextTrial() {
-    this.forceUpdate();
-    this.determineGuess("blue");
-    if(trialCount <= MAX_TRIALS) {
-      trialCount++;
-      console.log(trialCount);
-    } else {
-      alert("End of test");
-      this.endGame();
-      this.saveTestResults();
-    }
-    speakerPlayingSound = pickRandomSpeaker();
-    this.forceUpdate();
-  }
-
-
 
   determineGuess(userGuess) {
     if(speakerPlayingSound == "red") {
@@ -173,62 +98,16 @@ class Play extends Component {
     }
   }
 
-  renderGame() {
-    if(this.state.startGame == true) {
-      return (
-        <div id = "gameContainer" className = "container m-t-2">
-            <div className = "row">Test: {this.props.user.testCount + 1}</div>
-            <div className = "row">Trial: {trialCount}</div>
-            <div className = "row">Correct Guesses: {correctCount}</div>
-            <div className = "row"><button onClick = {this.playSound} className = "btn btn-secondary">Play Sound</button></div>
-            <div className = "row">
-                <button onClick = {this.leftNextTrial} className = "btn btn-secondary">Left</button>
-                <button onClick = {this.rightNextTrial} className = "btn btn-secondary">Right</button>
-            </div>
-            <div className = "row"><button onClick={this.nextTrial} className = "btn btn-secondary">Next Trial</button></div>
-            <div className = "row">Results:{resultString}</div>
-        </div>
-      );
-    } else if (this.state.redSpeakerSink == null || this.state.blueSpeakerSink == null) {
-        return <div>Loading...</div>
+  renderUser() {
+    if(this.props.user === undefined) {
+      return  (<div>Loading...</div>);
     } else {
-      return (
-        <div><button onClick = {this.startGame} className = "btn btn-secondary">Start</button></div>
-      );
+      return (<div>Place RED on your left, and BLUE on your right</div>);
     }
   }
 
-  startGame() {
-    startTime = new Date();
-    this.setState({startGame:true});
-  }
-
-  endGame() {
-    endTime = new Date();
-    this.setState({startGame:false});
-  }
-
-  renderUser()
-  {
-    if(this.props.user === undefined)
-    {
-      return (
-        <div>Loading...</div>
-      );
-    }
-    else
-    {
-      return (
-        <div>Speakers Succesfully loaded. Place RED on your left, and BLUE on your right {this.props.user.username}</div>
-      );
-    }
-  }
-
-  saveTestResults()
-  {
+  saveTestResults() {
     var testing = {};
-    //console.log("pre: " + JSON.stringify(this.props.user));
-
     testing.testNumber = this.props.user.testCount + 1;
     this.props.user.testCount++;
     testing.maxTrials = MAX_TRIALS;
@@ -240,21 +119,45 @@ class Play extends Component {
     testing.rightSpeakerPlay = rightSpeakerPlay;
     testing.totalCorrect = correctCount;
     testing.timeElapsed = (endTime.getTime() - startTime.getTime()) / 1000;
-    console.log(testing);
-    const config = {
-      headers: {
-        authorization: localStorage.getItem('token')
-      }
-    };
+    console.log("Test Results: " + testing);
 
-    axios.post("http://localhost:3090/savetest", testing, config);
-    //this.props.fetchUser();
-    //console.log("user2: " + this.props.user);
-    resetTest();
-    //console.log("post: " + JSON.stringify(this.props.user));
-    this.props.fetchUser();
+    const config = { headers: { authorization: localStorage.getItem('token')}};
+    axios.post(ROOT_URL + "/savetest", testing, config);
+  }
 
+  resetTest() {
+    rightCorrect = 0;
+    leftCorrect = 0;
+    rightSpeakerPlay = 0;
+    leftSpeakerPlay = 0;
+    timeElapsed = 0;
+    trialCount = 1;
+    correctCount = 0;
+  }
 
+  renderGame() {
+    if(this.state.startGame == true) {
+      return (
+        <div id = "gameContainer" className = "container m-t-2">
+            <div className = "row">Test: {this.props.user.testCount + 1}</div>
+            <div className = "row">Trial: {trialCount}</div>
+            <div className = "row">Correct Guesses: {correctCount}</div>
+            <div className = "row"><button onClick = {this.playSound} className = "btn btn-secondary">Play Sound</button></div>
+            <div className = "row">
+                <button value = "red" onClick = {this.nextTrial.bind(this,"red")} className = "btn btn-secondary">Left</button>
+                <button value = "blue" onClick = {this.nextTrial.bind(this,"blue")} className = "btn btn-secondary">Right</button>
+            </div>
+            <div className = "row"><button onClick={this.nextTrial} className = "btn btn-secondary">Next Trial</button></div>
+            <div className = "row">Results:{resultString}</div>
+        </div>
+      );
+    } else if (this.state.redSpeakerSink == null || this.state.blueSpeakerSink == null) {
+        return <div>Loading... Are the RED/BLUE speakers plugged in?</div>
+    } else {
+      return (
+        <div><button onClick = {() => {startTime = new Date();this.setState({startGame:true});}} className = "btn btn-secondary">Start</button></div>
+      );
+    }
   }
 
   render() {
@@ -263,32 +166,54 @@ class Play extends Component {
       {this.renderUser()}
         <h3 className = "text-md-center m-t-2">Play Mode</h3>
         {this.renderGame()}
-
         <Link to = "/mainmenu" className = "btn btn-secondary m-t-2">Back to Main Menu</Link>
       </center>
     );
   }
 }
 
+// Returns a random integer between min (included) and max (included)
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
+function pickRandomSpeaker() {
+  var random = getRandomInt(1,2);
+  if(random == 1) {
+    speakerPlayingSound = "red";
+    attachSinkId(whereLongSound, redSpeakerSink, "red speaker");
+    return "red";
+  } else {
+    speakerPlayingSound = "blue";
+    attachSinkId(whereLongSound, blueSpeakerSink, "blue spaker");
+    return "blue";
+  }
+}
 
-function resetTest()
-{
-  //testNumber++;
-  rightCorrect = 0;
-  leftCorrect = 0;
-  rightSpeakerPlay = 0;
-  leftSpeakerPlay = 0;
-  timeElapsed = 0;
-  trialCount = 1;
-  correctCount = 0;
+function attachSinkId(element, sinkId, speakerName) {
+    if (typeof element.sinkId !== 'undefined') {
+        element.setSinkId(sinkId).then(function() {
+            console.log('Success, audio output device attached: ' + speakerName);
+        }).catch(function(error) {
+            var errorMessage = error;
+            if (error.name === 'SecurityError') {
+              errorMessage = 'You need to use HTTPS for selecting audio output ' +
+                  'device: ' + error;
+            }
+            speakerPlayingSound = "red";
+            alert(errorMessage);
+        });
+    } else {
+        console.warn('Browser does not support output device selection.');
+    }
 }
 
 function mapStateToProps(state) {
-  return { message: state.auth.message,
-           user: state.auth.user,
-           speakers: state.auth.mediaDevices
-         };
+  return {
+    message: state.auth.message,
+    user: state.auth.user,
+    speakers: state.auth.mediaDevices
+  };
 }
 
 export default connect(mapStateToProps, actions)(Play);
