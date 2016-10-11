@@ -143,6 +143,7 @@ class Play extends Component {
     if(this.state.startGame == true) {
       return (
         <div id = "gameContainer" className = "panel-primary m-t-2">
+
             <div className = "small">Test #: {this.props.user.testCount + 1}</div>
             <div className = "small">Progress: {trialCount}/{MAX_TRIALS}</div>
             <div className = "small">Correct Guesses: {correctCount}</div>
@@ -167,7 +168,7 @@ class Play extends Component {
   render() {
     return (
       <center>
-      {this.renderUser()}
+        {this.renderUser()}
         <h3 className = "text-md-center m-t-2">Play Mode</h3>
         {this.renderGame()}
         <Link to = "/mainmenu" className = "btn btn-secondary m-t-2 btn-danger">Quit</Link>

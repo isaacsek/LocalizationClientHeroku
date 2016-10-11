@@ -9,8 +9,11 @@
 }
 
 #gameContainer {
-  height: 300px;
-  width: 400px;
+  height: 350px;
+  width: 300px;
+  border-color: blue;
+  border-width: medium;
+  border-style: solid;
 }
 
 #left {
