@@ -44,9 +44,12 @@ app.get('*', (req, res) => {
 })
 */
 
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
 app.use(express.static(path.join(__dirname, 'dist')));
-app.get('/', function(request, response) {
-  response.sendFile(__dirname + '/dist/index.html')
+app.use('/*', function(request, response) {
+  response.render('index')
 });
 
 
