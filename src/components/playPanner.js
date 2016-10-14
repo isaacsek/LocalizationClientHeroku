@@ -15,34 +15,17 @@ var correctCount = 0, trialCount = 1, startTime, endTime, rightCorrect = 0, left
 
 var resultString = "Choose Left or Right";
 
-
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-
-var panControl = document.querySelector('.panning-control');
-var panValue = document.querySelector('.panning-value');
-
-
-
-// Create a MediaElementAudioSourceNode
-// Feed the HTMLMediaElement into it
 var source = audioCtx.createMediaElementSource(whereLongSound);
-
-// Create a stereo panner
 var panNode = audioCtx.createStereoPanner();
-// connect the AudioBufferSourceNode to the gainNode
-// and the gainNode to the destination, so we can play the
-// music and adjust the panning using the controls
 source.connect(panNode);
 panNode.connect(audioCtx.destination);
-//source.playSound();
-
-
 
 class Play extends Component {
   constructor(props) {
     super(props);
-    this.state = {startGame:false, speakersLoaded:false, redSpeakerSink: null, blueSpeakerSink: null, resultString: "none", correctGuess:null};
+    this.state = {startGame:false, speakersLoaded:false, redSpeakerSink: null, blueSpeakerSink: null,
+      resultString: "none", correctGuess:null, didUserGuess: false, userGuess: null};
   }
 
   // Left speaker on red, blue speaker on right
@@ -51,12 +34,11 @@ class Play extends Component {
     this.props.fetchUser();
     this.props.fetchMediaDevices();
     speakerPlayingSound = pickRandomSpeaker();
-    var self = this;
+    this.resetTest();
   }
 
   playSound() {
     whereLongSound.play();
-    //source.playSound();
   }
 
   nextTrial(guess) {
@@ -74,6 +56,7 @@ class Play extends Component {
       browserHistory.push('/mainmenu');
     }
     speakerPlayingSound = pickRandomSpeaker();
+    //this.renderResultString();
     this.forceUpdate();
   }
 
@@ -90,19 +73,13 @@ class Play extends Component {
         } else {
             rightCorrect++;
         }
+        this.setState({correctGuess:true});
         console.log("correct guess!");
         resultString = "Correct! You chose the correct speaker";
     } else {
+        this.setState({correctGuess:false});
         console.log("incorrect guess!");
         resultString = "Incorrect! You chose the wrong speaker."
-    }
-  }
-
-  renderUser() {
-    if(this.props.user === undefined) {
-      return  (<div>Loading...</div>);
-    } else {
-      return (<div>Place RED on your left, and BLUE on your right</div>);
     }
   }
 
@@ -133,40 +110,110 @@ class Play extends Component {
     timeElapsed = 0;
     trialCount = 1;
     correctCount = 0;
-    resultString = "Which side is the sound coming from?";
+    resultString = "Choose left or right";
+  }
+
+  renderUser() {
+    if(this.props.user === undefined) {
+      return  (<div>Loading...</div>);
+    } else {
+      return;
+    }
+  }
+
+  renderResultString() {
+    if(this.state.correctGuess == false) {
+      return (<div className = "btn btn-danger">Results: {resultString}</div>);
+    }
+    else if(this.state.correctGuess == true) {
+      return (<div className = "btn btn-success">Results: {resultString}</div>);
+    }
+    else {
+      return (<div className = "btn btn-info">Results: {resultString}</div>);
+    }
   }
 
   renderGame() {
     if(this.state.startGame == true) {
       return (
-        <div id = "gameContainer" className = "panel-primary m-t-2">
+        <div className = "m-t-2">
+        <div className = "">
+          <h3>Trial: {trialCount}/{MAX_TRIALS}</h3></div>
+          {this.renderResultString()}
+          <div className = "m-t-1">
 
-            {/*}<div className = "small">Test #: {this.props.user.testCount + 1}</div>*/}
-            <div className = "">Progress: {trialCount}/{MAX_TRIALS}</div>
-            <div className = "">Correct Guesses: {correctCount}</div>
-            <div className = "m-t-2"><button onClick = {this.playSound} className = "btn btn-secondary btn-outline-primary">Play Sound</button></div>
-            <div className = "m-t-2">
-                <button value = "red" onClick = {this.nextTrial.bind(this,"red")} className = "btn btn-secondary btn-lg btn-outline-danger">Left</button>
-                <button value = "blue" onClick = {this.nextTrial.bind(this,"blue")} className = "btn btn-secondary btn-lg btn-outline-info m-l-2">Right</button>
-            </div>
-            {/*<div className = "row"><button onClick={this.nextTrial} className = "btn btn-secondary">Next Trial</button></div>*/}
-            <div className = "btn btn-warning m-t-2">Results: {resultString}</div>
+            <figure style = {{display:"inline-block"}}>
+              <img className = "btn btn-secondary btn-lg btn-outline-danger" src="/images/redSpeaker.png" height="150px" width="150px"
+                value = "red" onClick = {this.nextTrial.bind(this,"red")}/>
+              <figcaption>Left Speaker</figcaption>
+            </figure>
+
+            <figure style = {{display:"inline-block"}}>
+              <img className = "btn btn-secondary m-l-1 m-r-1" src="/images/userIcon.png" height="200px" width="200px" />
+              <figcaption>You</figcaption>
+            </figure>
+
+            <figure style = {{display:"inline-block"}}>
+              <img className = "btn btn-secondary btn-lg btn-outline-primary" src="/images/blueSpeaker.png" height="150px" width="150px"
+                value = "blue" onClick = {this.nextTrial.bind(this,"blue")}/>
+              <figcaption>Right Speaker</figcaption>
+            </figure>
+
+          </div>
+          <div className = ""><button onClick = {this.playSound} className = "btn btn-lg btn-primary">Play Sound</button></div>
+          <div className = "row"><button onClick={this.nextTrial} className = "m-t-2 btn btn-outline-primary">Next Trial</button></div>
+          {/*}<div><Link to = "/mainmenu" className = "btn btn-secondary m-t-2 btn-danger">Quit Test</Link></div>*/}
         </div>
       );
     } else {
       return (
-        <div><button onClick = {() => {startTime = new Date();this.setState({startGame:true});}} className = "btn btn-primary btn-lg m-t-2">Start</button></div>
+        <div className = "m-t-2">
+          <h2 className = "text-md-center m-t-2">Play Mode</h2>
+          <div>
+            Place <span style = {{color:"red"}}>RED</span> on your left, and <span style = {{color:"blue"}}>BLUE</span> on your right
+          </div>
+          <div className = "m-t-2">
+            <figure style = {{display:"inline-block"}}>
+              <img disabled = "true" className = "btn btn-secondary btn-lg btn-outline-danger" src="/images/redSpeaker.png" height="150px" width="150px"
+                onClick = {this.testSpeaker.bind(this, "red")}/>
+              <figcaption>Left Speaker</figcaption>
+            </figure>
+            <figure style = {{display:"inline-block"}}>
+              <img className = "btn btn-secondary m-l-1 m-r-1" src="/images/userIcon.png" height="200px" width="200px"
+                onClick = {() => {console.log("Hello, world!")}}/>
+              <figcaption>You</figcaption>
+            </figure>
+            <figure style = {{display:"inline-block"}}>
+              <img className = "btn btn-secondary btn-lg btn-outline-primary" src="/images/blueSpeaker.png" height="150px" width="150px"
+                onClick = {this.testSpeaker.bind(this, "blue")}/>
+              <figcaption>Right Speaker</figcaption>
+            </figure>
+          </div>
+          <div className = "m-t-2"><h5>Click on icons to test speakers. When you are ready, click start.</h5></div>
+          <button onClick = {() => {pickRandomSpeaker();startTime = new Date();this.setState({startGame:true});}}
+          className = "btn btn-primary btn-lg m-t-2">Start</button>
+          <div><Link to = "/mainmenu" className = "btn btn-secondary btn-outline-danger m-t-2">Back to Main Menu</Link></div>
+        </div>
       );
     }
+  }
+
+  testSpeaker(speaker) {
+    console.log(speaker)
+    if(speaker == "red") {
+      panNode.pan.value = -1;
+    }
+    if (speaker == "blue") {
+      panNode.pan.value = 1;
+    }
+    this.playSound();
   }
 
   render() {
     return (
       <center>
         {this.renderUser()}
-        <h3 className = "text-md-center m-t-2">Play Mode</h3>
         {this.renderGame()}
-        <Link to = "/mainmenu" className = "btn btn-secondary m-t-2 btn-danger">Quit</Link>
       </center>
     );
   }

@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "483ab9c30d529447bddb"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "f67afe7c3b77d6291c4a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -18932,11 +18932,6 @@
 	            ),
 	            _react2.default.createElement(
 	              _reactRouter.Link,
-	              { to: '/test', className: 'btn btn-secondary', key: 2 },
-	              'Test'
-	            ),
-	            _react2.default.createElement(
-	              _reactRouter.Link,
 	              { to: '/settings', className: 'btn btn-secondary', key: 3 },
 	              'Settings'
 	            ),
@@ -19373,23 +19368,10 @@
 	var resultString = "Choose Left or Right";
 
 	var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-	var panControl = document.querySelector('.panning-control');
-	var panValue = document.querySelector('.panning-value');
-
-	// Create a MediaElementAudioSourceNode
-	// Feed the HTMLMediaElement into it
 	var source = audioCtx.createMediaElementSource(whereLongSound);
-
-	// Create a stereo panner
 	var panNode = audioCtx.createStereoPanner();
-	// connect the AudioBufferSourceNode to the gainNode
-	// and the gainNode to the destination, so we can play the
-	// music and adjust the panning using the controls
 	source.connect(panNode);
 	panNode.connect(audioCtx.destination);
-	//source.playSound();
-
 
 	var Play = function (_Component) {
 	  _inherits(Play, _Component);
@@ -19399,7 +19381,8 @@
 
 	    var _this = _possibleConstructorReturn(this, (Play.__proto__ || Object.getPrototypeOf(Play)).call(this, props));
 
-	    _this.state = { startGame: false, speakersLoaded: false, redSpeakerSink: null, blueSpeakerSink: null, resultString: "none", correctGuess: null };
+	    _this.state = { startGame: false, speakersLoaded: false, redSpeakerSink: null, blueSpeakerSink: null,
+	      resultString: "none", correctGuess: null, didUserGuess: false, userGuess: null };
 	    return _this;
 	  }
 
@@ -19413,13 +19396,12 @@
 	      this.props.fetchUser();
 	      this.props.fetchMediaDevices();
 	      speakerPlayingSound = pickRandomSpeaker();
-	      var self = this;
+	      this.resetTest();
 	    }
 	  }, {
 	    key: 'playSound',
 	    value: function playSound() {
 	      whereLongSound.play();
-	      //source.playSound();
 	    }
 	  }, {
 	    key: 'nextTrial',
@@ -19438,6 +19420,7 @@
 	        _reactRouter.browserHistory.push('/mainmenu');
 	      }
 	      speakerPlayingSound = pickRandomSpeaker();
+	      //this.renderResultString();
 	      this.forceUpdate();
 	    }
 	  }, {
@@ -19455,28 +19438,13 @@
 	        } else {
 	          rightCorrect++;
 	        }
+	        this.setState({ correctGuess: true });
 	        console.log("correct guess!");
 	        resultString = "Correct! You chose the correct speaker";
 	      } else {
+	        this.setState({ correctGuess: false });
 	        console.log("incorrect guess!");
 	        resultString = "Incorrect! You chose the wrong speaker.";
-	      }
-	    }
-	  }, {
-	    key: 'renderUser',
-	    value: function renderUser() {
-	      if (this.props.user === undefined) {
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          'Loading...'
-	        );
-	      } else {
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          'Place RED on your left, and BLUE on your right'
-	        );
 	      }
 	    }
 	  }, {
@@ -19509,7 +19477,46 @@
 	      timeElapsed = 0;
 	      trialCount = 1;
 	      correctCount = 0;
-	      resultString = "Which side is the sound coming from?";
+	      resultString = "Choose left or right";
+	    }
+	  }, {
+	    key: 'renderUser',
+	    value: function renderUser() {
+	      if (this.props.user === undefined) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          'Loading...'
+	        );
+	      } else {
+	        return;
+	      }
+	    }
+	  }, {
+	    key: 'renderResultString',
+	    value: function renderResultString() {
+	      if (this.state.correctGuess == false) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'btn btn-danger' },
+	          'Results: ',
+	          resultString
+	        );
+	      } else if (this.state.correctGuess == true) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'btn btn-success' },
+	          'Results: ',
+	          resultString
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'btn btn-info' },
+	          'Results: ',
+	          resultString
+	        );
+	      }
 	    }
 	  }, {
 	    key: 'renderGame',
@@ -19519,64 +19526,180 @@
 	      if (this.state.startGame == true) {
 	        return _react2.default.createElement(
 	          'div',
-	          { id: 'gameContainer', className: 'panel-primary m-t-2' },
+	          { className: 'm-t-2' },
 	          _react2.default.createElement(
 	            'div',
 	            { className: '' },
-	            'Progress: ',
-	            trialCount,
-	            '/',
-	            MAX_TRIALS
+	            _react2.default.createElement(
+	              'h3',
+	              null,
+	              'Trial: ',
+	              trialCount,
+	              '/',
+	              MAX_TRIALS
+	            )
+	          ),
+	          this.renderResultString(),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'm-t-1' },
+	            _react2.default.createElement(
+	              'figure',
+	              { style: { display: "inline-block" } },
+	              _react2.default.createElement('img', { className: 'btn btn-secondary btn-lg btn-outline-danger', src: '/images/redSpeaker.png', height: '150px', width: '150px',
+	                value: 'red', onClick: this.nextTrial.bind(this, "red") }),
+	              _react2.default.createElement(
+	                'figcaption',
+	                null,
+	                'Left Speaker'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'figure',
+	              { style: { display: "inline-block" } },
+	              _react2.default.createElement('img', { className: 'btn btn-secondary m-l-1 m-r-1', src: '/images/userIcon.png', height: '200px', width: '200px' }),
+	              _react2.default.createElement(
+	                'figcaption',
+	                null,
+	                'You'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'figure',
+	              { style: { display: "inline-block" } },
+	              _react2.default.createElement('img', { className: 'btn btn-secondary btn-lg btn-outline-primary', src: '/images/blueSpeaker.png', height: '150px', width: '150px',
+	                value: 'blue', onClick: this.nextTrial.bind(this, "blue") }),
+	              _react2.default.createElement(
+	                'figcaption',
+	                null,
+	                'Right Speaker'
+	              )
+	            )
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: '' },
-	            'Correct Guesses: ',
-	            correctCount
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'm-t-2' },
 	            _react2.default.createElement(
 	              'button',
-	              { onClick: this.playSound, className: 'btn btn-secondary btn-outline-primary' },
+	              { onClick: this.playSound, className: 'btn btn-lg btn-primary' },
 	              'Play Sound'
 	            )
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'm-t-2' },
+	            { className: 'row' },
 	            _react2.default.createElement(
 	              'button',
-	              { value: 'red', onClick: this.nextTrial.bind(this, "red"), className: 'btn btn-secondary btn-lg btn-outline-danger' },
-	              'Left'
-	            ),
-	            _react2.default.createElement(
-	              'button',
-	              { value: 'blue', onClick: this.nextTrial.bind(this, "blue"), className: 'btn btn-secondary btn-lg btn-outline-info m-l-2' },
-	              'Right'
+	              { onClick: this.nextTrial, className: 'm-t-2 btn btn-outline-primary' },
+	              'Next Trial'
 	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'btn btn-warning m-t-2' },
-	            'Results: ',
-	            resultString
 	          )
 	        );
 	      } else {
 	        return _react2.default.createElement(
 	          'div',
-	          null,
+	          { className: 'm-t-2' },
+	          _react2.default.createElement(
+	            'h2',
+	            { className: 'text-md-center m-t-2' },
+	            'Play Mode'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            'Place ',
+	            _react2.default.createElement(
+	              'span',
+	              { style: { color: "red" } },
+	              'RED'
+	            ),
+	            ' on your left, and ',
+	            _react2.default.createElement(
+	              'span',
+	              { style: { color: "blue" } },
+	              'BLUE'
+	            ),
+	            ' on your right'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'm-t-2' },
+	            _react2.default.createElement(
+	              'figure',
+	              { style: { display: "inline-block" } },
+	              _react2.default.createElement('img', { disabled: 'true', className: 'btn btn-secondary btn-lg btn-outline-danger', src: '/images/redSpeaker.png', height: '150px', width: '150px',
+	                onClick: this.testSpeaker.bind(this, "red") }),
+	              _react2.default.createElement(
+	                'figcaption',
+	                null,
+	                'Left Speaker'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'figure',
+	              { style: { display: "inline-block" } },
+	              _react2.default.createElement('img', { className: 'btn btn-secondary m-l-1 m-r-1', src: '/images/userIcon.png', height: '200px', width: '200px',
+	                onClick: function onClick() {
+	                  console.log("Hello, world!");
+	                } }),
+	              _react2.default.createElement(
+	                'figcaption',
+	                null,
+	                'You'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'figure',
+	              { style: { display: "inline-block" } },
+	              _react2.default.createElement('img', { className: 'btn btn-secondary btn-lg btn-outline-primary', src: '/images/blueSpeaker.png', height: '150px', width: '150px',
+	                onClick: this.testSpeaker.bind(this, "blue") }),
+	              _react2.default.createElement(
+	                'figcaption',
+	                null,
+	                'Right Speaker'
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'm-t-2' },
+	            _react2.default.createElement(
+	              'h5',
+	              null,
+	              'Click on icons to test speakers. When you are ready, click start.'
+	            )
+	          ),
 	          _react2.default.createElement(
 	            'button',
 	            { onClick: function onClick() {
-	                startTime = new Date();_this2.setState({ startGame: true });
-	              }, className: 'btn btn-primary btn-lg m-t-2' },
+	                pickRandomSpeaker();startTime = new Date();_this2.setState({ startGame: true });
+	              },
+	              className: 'btn btn-primary btn-lg m-t-2' },
 	            'Start'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: '/mainmenu', className: 'btn btn-secondary btn-outline-danger m-t-2' },
+	              'Back to Main Menu'
+	            )
 	          )
 	        );
 	      }
+	    }
+	  }, {
+	    key: 'testSpeaker',
+	    value: function testSpeaker(speaker) {
+	      console.log(speaker);
+	      if (speaker == "red") {
+	        panNode.pan.value = -1;
+	      }
+	      if (speaker == "blue") {
+	        panNode.pan.value = 1;
+	      }
+	      this.playSound();
 	    }
 	  }, {
 	    key: 'render',
@@ -19585,17 +19708,7 @@
 	        'center',
 	        null,
 	        this.renderUser(),
-	        _react2.default.createElement(
-	          'h3',
-	          { className: 'text-md-center m-t-2' },
-	          'Play Mode'
-	        ),
-	        this.renderGame(),
-	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: '/mainmenu', className: 'btn btn-secondary m-t-2 btn-danger' },
-	          'Quit'
-	        )
+	        this.renderGame()
 	      );
 	    }
 	  }]);
