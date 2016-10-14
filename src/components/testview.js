@@ -12,8 +12,7 @@ class History extends Component {
     }
 
     return (
-      <div>
-        <h3>Details for Test: {this.props.activeTest.testNumber}</h3>
+      <div className = "m-t-2">
         <div>
           Start Time: {this.props.activeTest.startTime}
         </div>
@@ -52,12 +51,13 @@ class History extends Component {
   render() {
     return (
       <div>
-        <h3 className = "text-md-center m-t-2">History View</h3>
+        <center>
+        <h3 className = "m-t-2">Details for Test: {this.props.activeTest.testNumber}</h3>
 
 
 
 
-          <center>
+
           {this.renderActiveTest()}
           <Link to = "/history" className = "btn btn-secondary m-t-2 bottomalligned">Back</Link>
         </center>

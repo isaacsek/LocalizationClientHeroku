@@ -64,6 +64,7 @@ class History extends Component {
         <center>
 
           <div className ="btn-group-vertical btn-group-lg m-t-1">
+            <Link to = "/mainmenu" className = "btn btn-secondary m-t-2">Back to Main Menu</Link>
             {this.renderList()}
             <Link to = "/mainmenu" className = "btn btn-secondary m-t-2">Back to Main Menu</Link>
           </div>

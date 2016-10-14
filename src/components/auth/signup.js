@@ -23,7 +23,7 @@ class Signup extends Component {
 
     return (
       <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-        <fieldset className="form-group">
+        <fieldset className="form-group m-t-2">
           <label>Username:</label>
           <input className="form-control" {...username} />
           {username.touched && username.error && <div className="error">{username.error}</div>}

@@ -13,10 +13,31 @@ var whereLongSound = new Audio("/audio/whereLong.wav");
 var speakerPlayingSound = pickRandomSpeaker;
 var correctCount = 0, trialCount = 1, startTime, endTime, rightCorrect = 0, leftCorrect = 0, rightSpeakerPlay = 0, leftSpeakerPlay = 0, timeElapsed = 0;
 
-
-var redSpeakerSink = null;
-var blueSpeakerSink = null;
 var resultString = "Choose Left or Right";
+
+
+var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+
+var panControl = document.querySelector('.panning-control');
+var panValue = document.querySelector('.panning-value');
+
+
+
+// Create a MediaElementAudioSourceNode
+// Feed the HTMLMediaElement into it
+var source = audioCtx.createMediaElementSource(whereLongSound);
+
+// Create a stereo panner
+var panNode = audioCtx.createStereoPanner();
+// connect the AudioBufferSourceNode to the gainNode
+// and the gainNode to the destination, so we can play the
+// music and adjust the panning using the controls
+source.connect(panNode);
+panNode.connect(audioCtx.destination);
+//source.playSound();
+
+
 
 class Play extends Component {
   constructor(props) {
@@ -29,34 +50,13 @@ class Play extends Component {
     this.props.fetchMessage();
     this.props.fetchUser();
     this.props.fetchMediaDevices();
+    speakerPlayingSound = pickRandomSpeaker();
     var self = this;
-    navigator.mediaDevices.enumerateDevices().then(function(devices)
-    {
-        var audioOutputSelect = document.querySelector('select#audioOutput');
-        devices.forEach(function(device)
-        {
-            if(device.kind == "audiooutput")
-            {
-                if(device.label.includes("red"))
-                {
-                  self.setState({redSpeakerSink:device.deviceId});
-                  redSpeakerSink = device.deviceId;
-                  speakerPlayingSound = pickRandomSpeaker();
-                };
-                if(device.label.includes("blue"))
-                {
-                  self.setState({blueSpeakerSink:device.deviceId});
-                  blueSpeakerSink = device.deviceId;
-                  speakerPlayingSound = pickRandomSpeaker();
-                };
-            };
-        });
-    });
-
   }
 
   playSound() {
     whereLongSound.play();
+    //source.playSound();
   }
 
   nextTrial(guess) {
@@ -133,10 +133,7 @@ class Play extends Component {
     timeElapsed = 0;
     trialCount = 1;
     correctCount = 0;
-  }
-
-  renderResultString(guess) {
-
+    resultString = "Which side is the sound coming from?";
   }
 
   renderGame() {
@@ -144,9 +141,9 @@ class Play extends Component {
       return (
         <div id = "gameContainer" className = "panel-primary m-t-2">
 
-            <div className = "small">Test #: {this.props.user.testCount + 1}</div>
-            <div className = "small">Progress: {trialCount}/{MAX_TRIALS}</div>
-            <div className = "small">Correct Guesses: {correctCount}</div>
+            {/*}<div className = "small">Test #: {this.props.user.testCount + 1}</div>*/}
+            <div className = "">Progress: {trialCount}/{MAX_TRIALS}</div>
+            <div className = "">Correct Guesses: {correctCount}</div>
             <div className = "m-t-2"><button onClick = {this.playSound} className = "btn btn-secondary btn-outline-primary">Play Sound</button></div>
             <div className = "m-t-2">
                 <button value = "red" onClick = {this.nextTrial.bind(this,"red")} className = "btn btn-secondary btn-lg btn-outline-danger">Left</button>
@@ -156,8 +153,6 @@ class Play extends Component {
             <div className = "btn btn-warning m-t-2">Results: {resultString}</div>
         </div>
       );
-    } else if (this.state.redSpeakerSink == null || this.state.blueSpeakerSink == null) {
-        return <div>Loading... Are the RED/BLUE speakers plugged in?</div>
     } else {
       return (
         <div><button onClick = {() => {startTime = new Date();this.setState({startGame:true});}} className = "btn btn-primary btn-lg m-t-2">Start</button></div>
@@ -182,35 +177,20 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+// -1 = left/red, 1 = right/blue
 function pickRandomSpeaker() {
   var random = getRandomInt(1,2);
   if(random == 1) {
+    console.log("red/left");
     speakerPlayingSound = "red";
-    attachSinkId(whereLongSound, redSpeakerSink, "red speaker");
+    panNode.pan.value = -1;
     return "red";
   } else {
+    console.log("blue/right");
     speakerPlayingSound = "blue";
-    attachSinkId(whereLongSound, blueSpeakerSink, "blue spaker");
+    panNode.pan.value = 1;
     return "blue";
   }
-}
-
-function attachSinkId(element, sinkId, speakerName) {
-    if (typeof element.sinkId !== 'undefined') {
-        element.setSinkId(sinkId).then(function() {
-            console.log('Success, audio output device attached: ' + speakerName);
-        }).catch(function(error) {
-            var errorMessage = error;
-            if (error.name === 'SecurityError') {
-              errorMessage = 'You need to use HTTPS for selecting audio output ' +
-                  'device: ' + error;
-            }
-            speakerPlayingSound = "red";
-            alert("Loading...");
-        });
-    } else {
-        console.warn('Browser does not support output device selection.');
-    }
 }
 
 function mapStateToProps(state) {

@@ -25,10 +25,12 @@ class MainMenu extends Component {
         <center>
 
           <div className ="btn-group-vertical btn-group-lg m-t-1">
-            <Link to = "/play" className = "btn btn-secondary" key = {1}>Play</Link>
+            <Link to = "/playpanner" className = "btn btn-secondary" key = {5}>Play</Link>
+            {/*}<Link to = "/play" className = "btn btn-secondary" key = {1}>Play</Link>*/}
             <Link to = "/test" className = "btn btn-secondary" key = {2}>Test</Link>
             <Link to = "/settings" className = "btn btn-secondary" key = {3}>Settings</Link>
             <Link to = "/history" className = "btn btn-secondary" key = {4}>History</Link>
+
           </div>
 
         </center>

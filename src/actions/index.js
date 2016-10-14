@@ -28,7 +28,7 @@ export function signinUser({ username, password }) {
         localStorage.setItem('token', response.data.token);
         //localStorage.setItem("username", response.data.username);
         // - redirect to the route '/feature'
-        browserHistory.push('/feature');
+        browserHistory.push('/mainmenu');
       })
       .catch(() => {
         // If request is bad...
@@ -44,7 +44,7 @@ export function signupUser({ username, password }) {
       .then(response => {
         dispatch({ type: AUTH_USER });
         localStorage.setItem('token', response.data.token);
-        browserHistory.push('/feature');
+        browserHistory.push('/mainmenu');
       })
       .catch(response => dispatch(authError(response.data.error)));
   }
