@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "81cbe80734fe46665107"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "28a33631fd718c0df8f1"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -4924,8 +4924,8 @@
 	var SAVE_TEST = exports.SAVE_TEST = "save_user";
 	var TEST_SELECTED = exports.TEST_SELECTED = "test_selected";
 	var SAVE_SETTINGS = exports.SAVE_SETTINGS = "save_settings";
-	//export const ROOT_URL = 'https://localization-server.herokuapp.com';
-	var ROOT_URL = exports.ROOT_URL = 'http://localhost:3090';
+	var ROOT_URL = exports.ROOT_URL = 'https://localization-server.herokuapp.com';
+	//export const ROOT_URL = 'http://localhost:3090';
 
 /***/ },
 /* 34 */
