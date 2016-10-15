@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "68d1bca912bf9109e126"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "8be99020b8a1a4c67241"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -19585,7 +19585,7 @@
 	            _react2.default.createElement(
 	              'figure',
 	              { style: { display: "inline-block" } },
-	              _react2.default.createElement('img', { id: 'redButton', className: 'disabledbutton btn btn-secondary btn-lg btn-outline-danger', src: 'images/redSpeaker.png', height: '150px', width: '150px',
+	              _react2.default.createElement('img', { id: 'redButton', className: 'disabledbutton btn btn-secondary btn-lg btn-outline-danger', src: '/static/images/redSpeaker.png', height: '150px', width: '150px',
 	                value: 'red', onClick: this.determineGuess.bind(this, "red") }),
 	              _react2.default.createElement(
 	                'figcaption',
@@ -19666,7 +19666,7 @@
 	            _react2.default.createElement(
 	              'figure',
 	              { style: { display: "inline-block" } },
-	              _react2.default.createElement('img', { disabled: 'true', className: 'btn btn-secondary btn-lg btn-outline-danger', src: 'images/redSpeaker.png', height: '150px', width: '150px',
+	              _react2.default.createElement('img', { disabled: 'true', className: 'btn btn-secondary btn-lg btn-outline-danger', src: '/static/images/redSpeaker.png', height: '150px', width: '150px',
 	                onClick: this.testSpeaker.bind(this, "red") }),
 	              _react2.default.createElement(
 	                'figcaption',

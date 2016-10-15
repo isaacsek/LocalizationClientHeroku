@@ -15,7 +15,7 @@ if(process.env.NODE_ENV !== 'production') {
   app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
   app.use(webpackHotMiddleware(compiler));
 }
-
+app.use('/static', express.static(__dirname + '/dist'));
 app.use(cors());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

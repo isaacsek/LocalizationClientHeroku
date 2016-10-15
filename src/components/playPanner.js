@@ -156,7 +156,7 @@ class Play extends Component {
           <div className = "m-t-1">
 
             <figure style = {{display:"inline-block"}}>
-              <img id = "redButton" className = "disabledbutton btn btn-secondary btn-lg btn-outline-danger" src="images/redSpeaker.png" height="150px" width="150px"
+              <img id = "redButton" className = "disabledbutton btn btn-secondary btn-lg btn-outline-danger" src="/static/images/redSpeaker.png" height="150px" width="150px"
                 value = "red" onClick = {this.determineGuess.bind(this,"red")}/>
               <figcaption>Left Speaker</figcaption>
             </figure>
@@ -189,7 +189,7 @@ class Play extends Component {
           </div>
           <div className = "m-t-2">
             <figure style = {{display:"inline-block"}}>
-              <img disabled = "true" className = "btn btn-secondary btn-lg btn-outline-danger" src="images/redSpeaker.png" height="150px" width="150px"
+              <img disabled = "true" className = "btn btn-secondary btn-lg btn-outline-danger" src="/static/images/redSpeaker.png" height="150px" width="150px"
                 onClick = {this.testSpeaker.bind(this, "red")}/>
               <figcaption>Left Speaker</figcaption>
             </figure>
