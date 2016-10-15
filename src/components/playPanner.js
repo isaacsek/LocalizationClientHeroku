@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import {ROOT_URL} from "../actions/types"
 import * as actions from '../actions';
 import axios from 'axios';
+import dateFormat from "dateFormat";
 
 const MAX_TRIALS = 10;
 var speakers = [];
@@ -25,7 +26,7 @@ class Play extends Component {
   constructor(props) {
     super(props);
     this.state = {startGame:false, speakersLoaded:false, redSpeakerSink: null, blueSpeakerSink: null,
-      resultString: "none", correctGuess:null, didUserGuess: false, userGuess: null};
+      resultString: "none", correctGuess:null, didUserGuess: false, userGuess: null, userGuessedAlready: false};
   }
 
   // Left speaker on red, blue speaker on right
@@ -39,11 +40,17 @@ class Play extends Component {
 
   playSound() {
     whereLongSound.play();
+
+      $("#redButton").removeClass("disabledbutton");
+      $("#blueButton").removeClass("disabledbutton");
+
   }
 
-  nextTrial(guess) {
-    this.determineGuess(guess);
-
+  nextTrial() {
+    //this.determineGuess(guess);
+    //$("#redButton").addClass("disabledbutton");
+    //$("#blueButton").addClass("disabledbutton");
+    $("#playSound").removeClass("disabledbutton");
     if(trialCount < MAX_TRIALS) {
       trialCount++;
     } else {
@@ -58,9 +65,15 @@ class Play extends Component {
     speakerPlayingSound = pickRandomSpeaker();
     //this.renderResultString();
     this.forceUpdate();
+    $("#nextTrial").addClass("disabledbutton");
   }
 
   determineGuess(userGuess) {
+    $("#redButton").addClass("disabledbutton");
+    $("#blueButton").addClass("disabledbutton");
+    $("#playSound").addClass("disabledbutton");
+    $("#nextTrial").removeClass("disabledbutton");
+    //$("#nextTrial").prop("disabled",true);
     if(speakerPlayingSound == "red") {
         leftSpeakerPlay++;
     } else {
@@ -88,8 +101,8 @@ class Play extends Component {
     testing.testNumber = this.props.user.testCount + 1;
     this.props.user.testCount++;
     testing.maxTrials = MAX_TRIALS;
-    testing.startTime = startTime.toString();
-    testing.endTime = endTime.toString();
+    testing.startTime = dateFormat(startTime, "dddd, mmmm dS, yyyy, h:MM:ss TT");
+    testing.endTime = dateFormat(endTime, "dddd, mmmm dS, yyyy, h:MM:ss TT");
     testing.leftCorrect = leftCorrect;
     testing.rightCorrect = rightCorrect;
     testing.leftSpeakerPlay = leftSpeakerPlay;
@@ -143,8 +156,8 @@ class Play extends Component {
           <div className = "m-t-1">
 
             <figure style = {{display:"inline-block"}}>
-              <img className = "btn btn-secondary btn-lg btn-outline-danger" src="/images/redSpeaker.png" height="150px" width="150px"
-                value = "red" onClick = {this.nextTrial.bind(this,"red")}/>
+              <img id = "redButton" className = "disabledbutton btn btn-secondary btn-lg btn-outline-danger" src="/images/redSpeaker.png" height="150px" width="150px"
+                value = "red" onClick = {this.determineGuess.bind(this,"red")}/>
               <figcaption>Left Speaker</figcaption>
             </figure>
 
@@ -154,15 +167,17 @@ class Play extends Component {
             </figure>
 
             <figure style = {{display:"inline-block"}}>
-              <img className = "btn btn-secondary btn-lg btn-outline-primary" src="/images/blueSpeaker.png" height="150px" width="150px"
-                value = "blue" onClick = {this.nextTrial.bind(this,"blue")}/>
+              <img id = "blueButton" className = "disabledbutton btn btn-secondary btn-lg btn-outline-primary" src="/images/blueSpeaker.png" height="150px" width="150px"
+                value = "blue" onClick = {this.determineGuess.bind(this,"blue")}/>
               <figcaption>Right Speaker</figcaption>
             </figure>
 
           </div>
-          <div className = ""><button onClick = {this.playSound} className = "btn btn-lg btn-primary">Play Sound</button></div>
-          <div className = "row"><button onClick={this.nextTrial} className = "m-t-2 btn btn-outline-primary">Next Trial</button></div>
+          <div id = "playSound" className = ""><button onClick = {this.playSound.bind(this)} className = "btn btn-lg btn-primary">Play Sound</button></div>
+          <div><button id = "nextTrial" onClick={this.nextTrial.bind(this)} className = "disabledbutton m-t-2 btn btn-outline-primary">Next Trial</button></div>
+
           {/*}<div><Link to = "/mainmenu" className = "btn btn-secondary m-t-2 btn-danger">Quit Test</Link></div>*/}
+
         </div>
       );
     } else {
@@ -190,7 +205,12 @@ class Play extends Component {
             </figure>
           </div>
           <div className = "m-t-2"><h5>Click on icons to test speakers. When you are ready, click start.</h5></div>
-          <button onClick = {() => {pickRandomSpeaker();startTime = new Date();this.setState({startGame:true});}}
+          <button onClick = {() => {
+
+            pickRandomSpeaker();
+            startTime = new Date();
+            this.setState({startGame:true});
+          }}
           className = "btn btn-primary btn-lg m-t-2">Start</button>
           <div><Link to = "/mainmenu" className = "btn btn-secondary btn-outline-danger m-t-2">Back to Main Menu</Link></div>
         </div>

@@ -112,8 +112,26 @@ export function selectTest(test) {
   };
 }
 
-export function saveSettings({ username, password, age, hearingDevice, deviceSide}) {
-  return function(dispatch) {
-    axios.post(`${ROOT_URL}/savesettings`, { username, password, age, hearingDevice, deviceSide})
-  }
+
+
+
+
+
+export function saveSettings({ name, password, age, hearingDevice, deviceSide}) {
+  console.log(name, password, age, hearingDevice);
+  const config = { headers: { authorization: localStorage.getItem('token')}};
+  //return function(dispatch) {
+    var response = axios.post(`${ROOT_URL}/savesettings`, { name, password, age, hearingDevice, deviceSide}, config);
+    console.log("response ", response);
+      //.then(response => {
+        //dispatch({ type: FETCH_USER });
+        //browserHistory.push('/mainmenu');
+      //})
+      alert("Settings saved!");
+      browserHistory.push('/mainmenu');
+      return {
+        type: FETCH_USER,
+        payload: response
+      };
+  //}
 }

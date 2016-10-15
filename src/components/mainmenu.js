@@ -4,6 +4,8 @@ import * as actions from '../actions';
 import { Link } from 'react-router';
 import { browserHistory } from 'react-router';
 
+'use strict';
+
 class MainMenu extends Component {
   componentWillMount() {
     this.props.fetchMessage();
@@ -12,8 +14,12 @@ class MainMenu extends Component {
   }
 
   loadUser() {
-    if (this.props.user != null){
-      return this.props.user.username;
+    if (this.props.user != undefined){
+      return <div>Hello {this.props.user.settings.name}</div>;
+    } else {
+      return <div>
+        Loading user...
+      </div>;
     }
   }
 
@@ -23,7 +29,7 @@ class MainMenu extends Component {
         <h3 className = "text-md-center m-t-2">Main Menu</h3>
 
         <center>
-
+          
           <div className ="btn-group-vertical btn-group-lg m-t-1">
             <Link to = "/playpanner" className = "btn btn-secondary" key = {5}>Play</Link>
             {/*}<Link to = "/play" className = "btn btn-secondary" key = {1}>Play</Link>*/}
