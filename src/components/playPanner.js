@@ -156,18 +156,18 @@ class Play extends Component {
           <div className = "m-t-1">
 
             <figure style = {{display:"inline-block"}}>
-              <img id = "redButton" className = "disabledbutton btn btn-secondary btn-lg btn-outline-danger" src="/images/redSpeaker.png" height="150px" width="150px"
+              <img id = "redButton" className = "disabledbutton btn btn-secondary btn-lg btn-outline-danger" src="/images/redSpeaker.PNG" height="150px" width="150px"
                 value = "red" onClick = {this.determineGuess.bind(this,"red")}/>
               <figcaption>Left Speaker</figcaption>
             </figure>
 
             <figure style = {{display:"inline-block"}}>
-              <img className = "btn btn-secondary m-l-1 m-r-1" src="/images/userIcon.png" height="200px" width="200px" />
+              <img className = "btn btn-secondary m-l-1 m-r-1" src="/images/userIcon.PNG" height="200px" width="200px" />
               <figcaption>You</figcaption>
             </figure>
 
             <figure style = {{display:"inline-block"}}>
-              <img id = "blueButton" className = "disabledbutton btn btn-secondary btn-lg btn-outline-primary" src="/images/blueSpeaker.png" height="150px" width="150px"
+              <img id = "blueButton" className = "disabledbutton btn btn-secondary btn-lg btn-outline-primary" src="/images/blueSpeaker.PNG" height="150px" width="150px"
                 value = "blue" onClick = {this.determineGuess.bind(this,"blue")}/>
               <figcaption>Right Speaker</figcaption>
             </figure>
@@ -189,17 +189,17 @@ class Play extends Component {
           </div>
           <div className = "m-t-2">
             <figure style = {{display:"inline-block"}}>
-              <img disabled = "true" className = "btn btn-secondary btn-lg btn-outline-danger" src="/images/redSpeaker.png" height="150px" width="150px"
+              <img disabled = "true" className = "btn btn-secondary btn-lg btn-outline-danger" src="/images/redSpeaker.PNG" height="150px" width="150px"
                 onClick = {this.testSpeaker.bind(this, "red")}/>
               <figcaption>Left Speaker</figcaption>
             </figure>
             <figure style = {{display:"inline-block"}}>
-              <img className = "btn btn-secondary m-l-1 m-r-1" src="/images/userIcon.png" height="200px" width="200px"
+              <img className = "btn btn-secondary m-l-1 m-r-1" src="/images/userIcon.PNG" height="200px" width="200px"
                 onClick = {() => {console.log("Hello, world!")}}/>
               <figcaption>You</figcaption>
             </figure>
             <figure style = {{display:"inline-block"}}>
-              <img className = "btn btn-secondary btn-lg btn-outline-primary" src="/images/blueSpeaker.png" height="150px" width="150px"
+              <img className = "btn btn-secondary btn-lg btn-outline-primary" src="/images/blueSpeaker.PNG" height="150px" width="150px"
                 onClick = {this.testSpeaker.bind(this, "blue")}/>
               <figcaption>Right Speaker</figcaption>
             </figure>
