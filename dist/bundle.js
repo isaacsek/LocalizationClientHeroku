@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "77b18e5b2e764f581ccd"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "68d1bca912bf9109e126"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -19585,7 +19585,7 @@
 	            _react2.default.createElement(
 	              'figure',
 	              { style: { display: "inline-block" } },
-	              _react2.default.createElement('img', { id: 'redButton', className: 'disabledbutton btn btn-secondary btn-lg btn-outline-danger', src: '/images/redSpeaker.PNG', height: '150px', width: '150px',
+	              _react2.default.createElement('img', { id: 'redButton', className: 'disabledbutton btn btn-secondary btn-lg btn-outline-danger', src: 'images/redSpeaker.png', height: '150px', width: '150px',
 	                value: 'red', onClick: this.determineGuess.bind(this, "red") }),
 	              _react2.default.createElement(
 	                'figcaption',
@@ -19596,7 +19596,7 @@
 	            _react2.default.createElement(
 	              'figure',
 	              { style: { display: "inline-block" } },
-	              _react2.default.createElement('img', { className: 'btn btn-secondary m-l-1 m-r-1', src: '/images/userIcon.PNG', height: '200px', width: '200px' }),
+	              _react2.default.createElement('img', { className: 'btn btn-secondary m-l-1 m-r-1', src: 'images/userIcon.png', height: '200px', width: '200px' }),
 	              _react2.default.createElement(
 	                'figcaption',
 	                null,
@@ -19606,7 +19606,7 @@
 	            _react2.default.createElement(
 	              'figure',
 	              { style: { display: "inline-block" } },
-	              _react2.default.createElement('img', { id: 'blueButton', className: 'disabledbutton btn btn-secondary btn-lg btn-outline-primary', src: '/images/blueSpeaker.PNG', height: '150px', width: '150px',
+	              _react2.default.createElement('img', { id: 'blueButton', className: 'disabledbutton btn btn-secondary btn-lg btn-outline-primary', src: 'images/blueSpeaker.png', height: '150px', width: '150px',
 	                value: 'blue', onClick: this.determineGuess.bind(this, "blue") }),
 	              _react2.default.createElement(
 	                'figcaption',
@@ -19666,7 +19666,7 @@
 	            _react2.default.createElement(
 	              'figure',
 	              { style: { display: "inline-block" } },
-	              _react2.default.createElement('img', { disabled: 'true', className: 'btn btn-secondary btn-lg btn-outline-danger', src: '/images/redSpeaker.PNG', height: '150px', width: '150px',
+	              _react2.default.createElement('img', { disabled: 'true', className: 'btn btn-secondary btn-lg btn-outline-danger', src: 'images/redSpeaker.png', height: '150px', width: '150px',
 	                onClick: this.testSpeaker.bind(this, "red") }),
 	              _react2.default.createElement(
 	                'figcaption',
@@ -19677,7 +19677,7 @@
 	            _react2.default.createElement(
 	              'figure',
 	              { style: { display: "inline-block" } },
-	              _react2.default.createElement('img', { className: 'btn btn-secondary m-l-1 m-r-1', src: '/images/userIcon.PNG', height: '200px', width: '200px',
+	              _react2.default.createElement('img', { className: 'btn btn-secondary m-l-1 m-r-1', src: 'images/userIcon.png', height: '200px', width: '200px',
 	                onClick: function onClick() {
 	                  console.log("Hello, world!");
 	                } }),
@@ -19690,7 +19690,7 @@
 	            _react2.default.createElement(
 	              'figure',
 	              { style: { display: "inline-block" } },
-	              _react2.default.createElement('img', { className: 'btn btn-secondary btn-lg btn-outline-primary', src: '/images/blueSpeaker.PNG', height: '150px', width: '150px',
+	              _react2.default.createElement('img', { className: 'btn btn-secondary btn-lg btn-outline-primary', src: 'images/blueSpeaker.png', height: '150px', width: '150px',
 	                onClick: this.testSpeaker.bind(this, "blue") }),
 	              _react2.default.createElement(
 	                'figcaption',
