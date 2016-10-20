@@ -43,7 +43,6 @@ class Play extends Component {
 
       $("#redButton").removeClass("disabledbutton");
       $("#blueButton").removeClass("disabledbutton");
-
   }
 
   nextTrial() {

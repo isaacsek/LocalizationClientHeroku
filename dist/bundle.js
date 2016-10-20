@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "07a5064440ad9a8afdc0"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1dc47fc9c2dcba8afa7e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -18739,7 +18739,6 @@
 	  _createClass(History, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      this.props.fetchMessage();
 	      this.props.fetchUser();
 	    }
 	  }]);
@@ -18748,8 +18747,6 @@
 	    _classCallCheck(this, History);
 
 	    return _possibleConstructorReturn(this, (History.__proto__ || Object.getPrototypeOf(History)).call(this, props));
-
-	    //this.onSelect = this.onSelect.bind(this);
 	  }
 
 	  _createClass(History, [{
@@ -18782,6 +18779,7 @@
 	            _react2.default.createElement(
 	              'span',
 	              { style: { color: "red" } },
+	              'Score: ',
 	              test.totalCorrect,
 	              '/',
 	              test.maxTrials
@@ -18918,9 +18916,7 @@
 	  _createClass(MainMenu, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      this.props.fetchMessage();
 	      this.props.fetchUser();
-	      this.props.fetchMediaDevices();
 	    }
 	  }, {
 	    key: 'loadUser',

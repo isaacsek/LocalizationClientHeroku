@@ -5,14 +5,11 @@ import { Link } from 'react-router';
 
 class History extends Component {
   componentWillMount() {
-    this.props.fetchMessage();
     this.props.fetchUser();
   }
 
   constructor(props) {
     super(props);
-
-    //this.onSelect = this.onSelect.bind(this);
   }
 
   loadUser() {
@@ -30,7 +27,7 @@ class History extends Component {
             key = {test.testNumber}
             className = "btn btn-secondary m-t-2"
             onClick = {() => this.props.selectTest(test)}>
-            Test #{test.testNumber}, {test.startTime}, <span style = {{color:"red"}}>{test.totalCorrect}/{test.maxTrials}</span></Link>
+            Test #{test.testNumber}, {test.startTime}, <span style = {{color:"red"}}>Score: {test.totalCorrect}/{test.maxTrials}</span></Link>
         );
       });
     } else {

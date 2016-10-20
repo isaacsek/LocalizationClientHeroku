@@ -8,9 +8,7 @@ import { browserHistory } from 'react-router';
 
 class MainMenu extends Component {
   componentWillMount() {
-    this.props.fetchMessage();
     this.props.fetchUser();
-    this.props.fetchMediaDevices();
   }
 
   loadUser() {
@@ -29,7 +27,7 @@ class MainMenu extends Component {
         <h3 className = "text-md-center m-t-2">Main Menu</h3>
 
         <center>
-          
+
           <div className ="btn-group-vertical btn-group-lg m-t-1">
             <Link to = "/playpanner" className = "btn btn-secondary" key = {5}>Play</Link>
             {/*}<Link to = "/play" className = "btn btn-secondary" key = {1}>Play</Link>*/}
