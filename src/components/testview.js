@@ -12,7 +12,7 @@ class History extends Component {
     }
 
     return (
-      <div className = "text-left m-t-2" id = "testView">
+      <div className = "text-left m-t-1" id = "testView">
         <div>
           Started: {this.props.activeTest.startTime}
         </div>

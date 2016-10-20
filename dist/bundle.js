@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "fdf383222a2508e33c3a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "07a5064440ad9a8afdc0"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -20314,7 +20314,7 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'text-left m-t-2', id: 'testView' },
+	        { className: 'text-left m-t-1', id: 'testView' },
 	        _react2.default.createElement(
 	          'div',
 	          null,
