@@ -212,7 +212,7 @@ class Play extends Component {
             this.setState({startGame:true});
           }}
           className = "btn btn-primary btn-lg m-t-2">Start</button>
-          <div><Link to = "/mainmenu" className = "btn btn-secondary btn-outline-danger m-t-2">Back to Main Menu</Link></div>
+          <div><Link to = "/mainmenu" className = "btn btn-secondary btn-danger m-t-2">Back to Main Menu</Link></div>
         </div>
       );
     }

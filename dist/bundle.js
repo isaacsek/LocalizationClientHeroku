@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "8be99020b8a1a4c67241"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "fdf383222a2508e33c3a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -18774,10 +18774,18 @@
 	              onClick: function onClick() {
 	                return _this2.props.selectTest(test);
 	              } },
-	            'Test # ',
+	            'Test #',
 	            test.testNumber,
 	            ', ',
-	            test.startTime
+	            test.startTime,
+	            ', ',
+	            _react2.default.createElement(
+	              'span',
+	              { style: { color: "red" } },
+	              test.totalCorrect,
+	              '/',
+	              test.maxTrials
+	            )
 	          );
 	        });
 	      } else {
@@ -19724,7 +19732,7 @@
 	            null,
 	            _react2.default.createElement(
 	              _reactRouter.Link,
-	              { to: '/mainmenu', className: 'btn btn-secondary btn-outline-danger m-t-2' },
+	              { to: '/mainmenu', className: 'btn btn-secondary btn-danger m-t-2' },
 	              'Back to Main Menu'
 	            )
 	          )
@@ -20306,66 +20314,70 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'm-t-2' },
+	        { className: 'text-left m-t-2', id: 'testView' },
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          'Start Time: ',
+	          'Started: ',
 	          this.props.activeTest.startTime
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          'End Time: ',
-	          this.props.activeTest.endTime
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          'Time Elapsed: ',
+	          'Duration: ',
 	          this.props.activeTest.timeElapsed
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          'Number of Trials: ',
+	          'Total Trials: ',
 	          this.props.activeTest.maxTrials
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          null,
 	          'Total Correct: ',
-	          this.props.activeTest.correctCount
+	          this.props.activeTest.totalCorrect
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          'Left Correct: ',
-	          this.props.activeTest.leftCorrect
+	          _react2.default.createElement(
+	            'span',
+	            { style: { color: "red" } },
+	            'Left Speaker Plays: ',
+	            this.props.activeTest.leftSpeakerPlay
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          'Right Correct: ',
-	          this.props.activeTest.rightCorrect
+	          _react2.default.createElement(
+	            'span',
+	            { style: { color: "red" } },
+	            'Left Correct: ',
+	            this.props.activeTest.leftCorrect
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          'Left Speaker Plays: ',
-	          this.props.activeTest.leftSpeakerPlay
+	          _react2.default.createElement(
+	            'span',
+	            { style: { color: "blue" } },
+	            'Right Speaker Plays: ',
+	            this.props.activeTest.rightSpeakerPlay
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          'Right Speaker Plays: ',
-	          this.props.activeTest.rightSpeakerPlay
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          'Left Correct: ',
-	          this.props.activeTest.leftCorrect
+	          _react2.default.createElement(
+	            'span',
+	            { style: { color: "blue" } },
+	            'Right Correct: ',
+	            this.props.activeTest.rightCorrect
+	          )
 	        )
 	      );
 	    }
@@ -20376,18 +20388,22 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(
+	          'div',
+	          { className: 'text-md-center' },
+	          _react2.default.createElement(
+	            'h2',
+	            { className: 'm-t-2' },
+	            'Results for Test #',
+	            this.props.activeTest.testNumber
+	          ),
+	          this.renderActiveTest()
+	        ),
+	        _react2.default.createElement(
 	          'center',
 	          null,
 	          _react2.default.createElement(
-	            'h3',
-	            { className: 'm-t-2' },
-	            'Details for Test: ',
-	            this.props.activeTest.testNumber
-	          ),
-	          this.renderActiveTest(),
-	          _react2.default.createElement(
 	            _reactRouter.Link,
-	            { to: '/history', className: 'btn btn-secondary m-t-2 bottomalligned' },
+	            { to: '/history', className: 'btn btn-danger m-t-2 bottomalligned' },
 	            'Back'
 	          )
 	        )

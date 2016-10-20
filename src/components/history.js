@@ -30,7 +30,7 @@ class History extends Component {
             key = {test.testNumber}
             className = "btn btn-secondary m-t-2"
             onClick = {() => this.props.selectTest(test)}>
-            Test # {test.testNumber}, {test.startTime}</Link>
+            Test #{test.testNumber}, {test.startTime}, <span style = {{color:"red"}}>{test.totalCorrect}/{test.maxTrials}</span></Link>
         );
       });
     } else {

@@ -12,36 +12,30 @@ class History extends Component {
     }
 
     return (
-      <div className = "m-t-2">
+      <div className = "text-left m-t-2" id = "testView">
         <div>
-          Start Time: {this.props.activeTest.startTime}
+          Started: {this.props.activeTest.startTime}
         </div>
         <div>
-          End Time: {this.props.activeTest.endTime}
+          Duration: {this.props.activeTest.timeElapsed}
         </div>
         <div>
-          Time Elapsed: {this.props.activeTest.timeElapsed}
+          Total Trials: {this.props.activeTest.maxTrials}
         </div>
         <div>
-          Number of Trials: {this.props.activeTest.maxTrials}
+          Total Correct: {this.props.activeTest.totalCorrect}
         </div>
         <div>
-          Total Correct: {this.props.activeTest.correctCount}
+          <span style = {{color:"red"}}>Left Speaker Plays: {this.props.activeTest.leftSpeakerPlay}</span>
         </div>
         <div>
-          Left Correct: {this.props.activeTest.leftCorrect}
+          <span style = {{color:"red"}}>Left Correct: {this.props.activeTest.leftCorrect}</span>
         </div>
         <div>
-          Right Correct: {this.props.activeTest.rightCorrect}
+          <span style = {{color:"blue"}}>Right Speaker Plays: {this.props.activeTest.rightSpeakerPlay}</span>
         </div>
         <div>
-          Left Speaker Plays: {this.props.activeTest.leftSpeakerPlay}
-        </div>
-        <div>
-          Right Speaker Plays: {this.props.activeTest.rightSpeakerPlay}
-        </div>
-        <div>
-          Left Correct: {this.props.activeTest.leftCorrect}
+          <span style = {{color:"blue"}}>Right Correct: {this.props.activeTest.rightCorrect}</span>
         </div>
       </div>
     )
@@ -51,15 +45,12 @@ class History extends Component {
   render() {
     return (
       <div>
+        <div className = "text-md-center">
+            <h2 className = "m-t-2">Results for Test #{this.props.activeTest.testNumber}</h2>
+            {this.renderActiveTest()}
+        </div>
         <center>
-        <h3 className = "m-t-2">Details for Test: {this.props.activeTest.testNumber}</h3>
-
-
-
-
-
-          {this.renderActiveTest()}
-          <Link to = "/history" className = "btn btn-secondary m-t-2 bottomalligned">Back</Link>
+          <Link to = "/history" className = "btn btn-danger m-t-2 bottomalligned">Back</Link>
         </center>
       </div>
     );
