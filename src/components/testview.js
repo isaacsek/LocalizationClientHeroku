@@ -14,28 +14,22 @@ class History extends Component {
     return (
       <div className = "text-left m-t-1" id = "testView">
         <div>
-          Started: {this.props.activeTest.startTime}
+          <strong>Started:</strong> {this.props.activeTest.startTime}
         </div>
         <div>
-          Duration: {this.props.activeTest.timeElapsed}
+          <strong>Duration:</strong> {this.props.activeTest.timeElapsed}
         </div>
         <div>
-          Total Trials: {this.props.activeTest.maxTrials}
+          <strong>Total Trials:</strong> {this.props.activeTest.maxTrials}
         </div>
         <div>
-          Total Correct: {this.props.activeTest.totalCorrect}
+          <strong>Total Correct:</strong> {this.props.activeTest.totalCorrect}
         </div>
         <div>
-          <span style = {{color:"red"}}>Left Speaker Plays: {this.props.activeTest.leftSpeakerPlay}</span>
+          <span style = {{color:"red"}}><strong>Left Speaker Correct:</strong> {this.props.activeTest.leftCorrect}/{this.props.activeTest.leftSpeakerPlay}</span>
         </div>
         <div>
-          <span style = {{color:"red"}}>Left Correct: {this.props.activeTest.leftCorrect}</span>
-        </div>
-        <div>
-          <span style = {{color:"blue"}}>Right Speaker Plays: {this.props.activeTest.rightSpeakerPlay}</span>
-        </div>
-        <div>
-          <span style = {{color:"blue"}}>Right Correct: {this.props.activeTest.rightCorrect}</span>
+          <span style = {{color:"blue"}}><strong>Right Speaker Correct:</strong> {this.props.activeTest.rightCorrect}/{this.props.activeTest.rightSpeakerPlay}</span>
         </div>
       </div>
     )

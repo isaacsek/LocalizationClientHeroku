@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1dc47fc9c2dcba8afa7e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1e319e81add016c8ce72"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -18197,33 +18197,37 @@
 
 
 	      return _react2.default.createElement(
-	        'form',
-	        { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) },
+	        'div',
+	        { className: '', style: {} },
 	        _react2.default.createElement(
-	          'fieldset',
-	          { className: 'form-group m-t-2' },
+	          'form',
+	          { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) },
 	          _react2.default.createElement(
-	            'label',
-	            null,
-	            'Username:'
+	            'fieldset',
+	            { className: 'form-group m-t-2' },
+	            _react2.default.createElement(
+	              'label',
+	              null,
+	              'Username:'
+	            ),
+	            _react2.default.createElement('input', _extends({}, username, { className: 'form-control' }))
 	          ),
-	          _react2.default.createElement('input', _extends({}, username, { className: 'form-control' }))
-	        ),
-	        _react2.default.createElement(
-	          'fieldset',
-	          { className: 'form-group' },
 	          _react2.default.createElement(
-	            'label',
-	            null,
-	            'Password:'
+	            'fieldset',
+	            { className: 'form-group' },
+	            _react2.default.createElement(
+	              'label',
+	              null,
+	              'Password:'
+	            ),
+	            _react2.default.createElement('input', _extends({}, password, { type: 'password', className: 'form-control' }))
 	          ),
-	          _react2.default.createElement('input', _extends({}, password, { type: 'password', className: 'form-control' }))
-	        ),
-	        this.renderAlert(),
-	        _react2.default.createElement(
-	          'button',
-	          { action: 'submit', className: 'btn btn-primary' },
-	          'Login'
+	          this.renderAlert(),
+	          _react2.default.createElement(
+	            'button',
+	            { action: 'submit', className: 'btn btn-primary' },
+	            'Login'
+	          )
 	        )
 	      );
 	    }
@@ -18627,19 +18631,19 @@
 	        // show a link to sign in or sign up
 	        return [_react2.default.createElement(
 	          'li',
-	          { className: 'nav-item', key: 1 },
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { className: 'nav-link', to: '/signin' },
-	            'Login'
-	          )
-	        ), _react2.default.createElement(
-	          'li',
-	          { className: 'nav-item', key: 2 },
+	          { className: 'nav-item m-r-1', key: 2, style: { float: "right", color: 'white' } },
 	          _react2.default.createElement(
 	            _reactRouter.Link,
 	            { className: 'nav-link', to: '/signup' },
 	            'Register'
+	          )
+	        ), _react2.default.createElement(
+	          'li',
+	          { className: 'nav-item m-r-2', key: 1, style: { float: "right", color: 'white' } },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { className: 'nav-link', to: '/signin' },
+	            'Login'
 	          )
 	        )];
 	      }
@@ -18658,7 +18662,7 @@
 	          )
 	        ), _react2.default.createElement(
 	          'li',
-	          { className: 'nav-item', key: 2 },
+	          { className: 'nav-item m-r-1', key: 2, style: { float: "right" } },
 	          _react2.default.createElement(
 	            _reactRouter.Link,
 	            { className: 'nav-link', to: '/signout' },
@@ -18767,7 +18771,7 @@
 	            _reactRouter.Link,
 	            { to: '/testview',
 	              key: test.testNumber,
-	              className: 'btn btn-secondary m-t-2',
+	              className: 'btn btn-secondary m-t-2 text-md-left', style: { color: 'black' },
 	              onClick: function onClick() {
 	                return _this2.props.selectTest(test);
 	              } },
@@ -18832,25 +18836,21 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'text-md-center' },
 	        _react2.default.createElement(
 	          'h3',
 	          { className: 'text-md-center m-t-2' },
 	          'History'
 	        ),
 	        _react2.default.createElement(
-	          'center',
-	          null,
+	          'div',
+	          { className: 'btn-group-vertical btn-group-lg' },
 	          _react2.default.createElement(
-	            'div',
-	            { className: 'btn-group-vertical btn-group-lg m-t-1' },
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: '/mainmenu', className: 'btn btn-danger m-t-1' },
-	              'Back to Main Menu'
-	            ),
-	            this.renderList()
-	          )
+	            _reactRouter.Link,
+	            { to: '/mainmenu', className: 'btn btn-danger m-t-1' },
+	            'Back to Main Menu'
+	          ),
+	          this.renderList()
 	        )
 	      );
 	    }
@@ -20314,25 +20314,45 @@
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          'Started: ',
+	          _react2.default.createElement(
+	            'strong',
+	            null,
+	            'Started:'
+	          ),
+	          ' ',
 	          this.props.activeTest.startTime
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          'Duration: ',
+	          _react2.default.createElement(
+	            'strong',
+	            null,
+	            'Duration:'
+	          ),
+	          ' ',
 	          this.props.activeTest.timeElapsed
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          'Total Trials: ',
+	          _react2.default.createElement(
+	            'strong',
+	            null,
+	            'Total Trials:'
+	          ),
+	          ' ',
 	          this.props.activeTest.maxTrials
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          'Total Correct: ',
+	          _react2.default.createElement(
+	            'strong',
+	            null,
+	            'Total Correct:'
+	          ),
+	          ' ',
 	          this.props.activeTest.totalCorrect
 	        ),
 	        _react2.default.createElement(
@@ -20341,7 +20361,14 @@
 	          _react2.default.createElement(
 	            'span',
 	            { style: { color: "red" } },
-	            'Left Speaker Plays: ',
+	            _react2.default.createElement(
+	              'strong',
+	              null,
+	              'Left Speaker Correct:'
+	            ),
+	            ' ',
+	            this.props.activeTest.leftCorrect,
+	            '/',
 	            this.props.activeTest.leftSpeakerPlay
 	          )
 	        ),
@@ -20350,29 +20377,16 @@
 	          null,
 	          _react2.default.createElement(
 	            'span',
-	            { style: { color: "red" } },
-	            'Left Correct: ',
-	            this.props.activeTest.leftCorrect
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(
-	            'span',
 	            { style: { color: "blue" } },
-	            'Right Speaker Plays: ',
+	            _react2.default.createElement(
+	              'strong',
+	              null,
+	              'Right Speaker Correct:'
+	            ),
+	            ' ',
+	            this.props.activeTest.rightCorrect,
+	            '/',
 	            this.props.activeTest.rightSpeakerPlay
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(
-	            'span',
-	            { style: { color: "blue" } },
-	            'Right Correct: ',
-	            this.props.activeTest.rightCorrect
 	          )
 	        )
 	      );

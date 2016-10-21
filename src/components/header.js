@@ -10,11 +10,11 @@ class Header extends Component {
     } else {
       // show a link to sign in or sign up
       return [
-        <li className="nav-item" key={1}>
-          <Link className="nav-link" to="/signin">Login</Link>
-        </li>,
-        <li className="nav-item" key={2}>
+        <li className="nav-item m-r-1" key={2} style = {{float:"right", color: 'white'}}>
           <Link className="nav-link" to="/signup">Register</Link>
+        </li>,
+        <li className="nav-item m-r-2" key={1} style = {{float:"right", color: 'white'}}>
+          <Link className="nav-link" to="/signin">Login</Link>
         </li>
       ];
     }
@@ -26,7 +26,7 @@ class Header extends Component {
         [<li className="nav-item" key = {1}>
           <Link className="nav-link" to="/mainmenu">Main Menu</Link>
         </li>,
-        <li className="nav-item" key = {2}>
+        <li className="nav-item m-r-1" key = {2} style = {{float:"right"}}>
           <Link className="nav-link" to="/signout">Sign Out</Link>
         </li>]
       );

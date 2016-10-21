@@ -34,3 +34,8 @@ figure {
   text-align: left;
   display: inline-block;
 }
+
+.loginContainer {
+  width: 300px;
+
+}

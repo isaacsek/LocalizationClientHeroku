@@ -25,9 +25,9 @@ class History extends Component {
 
           <Link to = "/testview"
             key = {test.testNumber}
-            className = "btn btn-secondary m-t-2"
+            className = "btn btn-secondary m-t-2 text-md-left" style = {{color: 'black'}}
             onClick = {() => this.props.selectTest(test)}>
-            Test #{test.testNumber}, {test.startTime}, <span style = {{color:"red"}}>Score: {test.totalCorrect}/{test.maxTrials}</span></Link>
+                Test #{test.testNumber}, {test.startTime}, <span style = {{color:"red"}}>Score: {test.totalCorrect}/{test.maxTrials}</span></Link>
         );
       });
     } else {
@@ -56,18 +56,18 @@ class History extends Component {
 
   render() {
     return (
-      <div>
+      <div className = "text-md-center">
         <h3 className = "text-md-center m-t-2">History</h3>
-        <center>
 
-          <div className ="btn-group-vertical btn-group-lg m-t-1">
+
+          <div className ="btn-group-vertical btn-group-lg">
             <Link to = "/mainmenu" className = "btn btn-danger m-t-1">Back to Main Menu</Link>
             {this.renderList()}
           </div>
 
 
 
-        </center>
+
       </div>
     );
   }
