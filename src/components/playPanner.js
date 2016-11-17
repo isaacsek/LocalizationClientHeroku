@@ -31,7 +31,7 @@ class Play extends Component {
 
   // Left speaker on red, blue speaker on right
   componentWillMount() {
-    this.props.fetchMessage();
+    //this.props.fetchMessage();
     this.props.fetchUser();
     this.props.fetchMediaDevices();
     speakerPlayingSound = pickRandomSpeaker();
@@ -261,7 +261,7 @@ function pickRandomSpeaker() {
 
 function mapStateToProps(state) {
   return {
-    message: state.auth.message,
+    //message: state.auth.message,
     user: state.auth.user,
     speakers: state.auth.mediaDevices
   };
