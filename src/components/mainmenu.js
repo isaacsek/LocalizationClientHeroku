@@ -34,6 +34,7 @@ class MainMenu extends Component {
             {/*<Link to = "/test" className = "btn btn-secondary" key = {2}>Test</Link> */}
             <Link to = "/settings" className = "btn btn-secondary" key = {3}>Settings</Link>
             <Link to = "/history" className = "btn btn-secondary" key = {4}>History</Link>
+            <Link to = "/playpannertimed" className = "btn btn-secondary" key = {6}>Timed Play</Link>
 
           </div>
 

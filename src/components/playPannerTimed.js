@@ -29,7 +29,7 @@ var startReaction, endReaction, totalReaction = 0;
 class Play extends Component {
   constructor(props) {
     super(props);
-    this.state = {startGame:false, gameOver:false, speakersLoaded:false, redSpeakerSink: null, blueSpeakerSink: null, test:{},
+    this.state = {startGame:false, speakersLoaded:false, redSpeakerSink: null, blueSpeakerSink: null,
       resultString: "none", correctGuess:null, didUserGuess: false, userGuess: null, userGuessedAlready: false, trials:10};
   }
 
@@ -45,7 +45,7 @@ class Play extends Component {
   playSound() {
     startReaction = new Date();
     whereLongSound.play();
-    $("#playSound").addClass("disabledbutton");
+
     $("#redButton").removeClass("disabledbutton");
     $("#blueButton").removeClass("disabledbutton");
   }
@@ -55,29 +55,22 @@ class Play extends Component {
     //$("#redButton").addClass("disabledbutton");
     //$("#blueButton").addClass("disabledbutton");
     $("#playSound").removeClass("disabledbutton");
-    //if(trialCount <= this.state.trials) {
+    if(trialCount < this.state.trials) {
       trialCount++;
-    //}
-
-     if(trialCount > this.state.trials) {
-        $("#playSound").addClass("disabledbutton");
-        setTimeout(() => {
-          alert("Test is over!");
-          this.setState({gameOver:true});
-          endTime = new Date();
-          this.setState({test:this.saveTestResults()})
-          //this.saveTestResults();
-          //this.resetTest();
-          //this.setState({startGame:false});
-          //this.props.fetchUser();
-          //browserHistory.push('/mainmenu');
-        }, 2000)
     } else {
-      speakerPlayingSound = pickRandomSpeaker();
-      //this.renderResultString();
-      this.forceUpdate();
-      $("#nextTrial").addClass("disabledbutton");
+      alert("End of test");
+      endTime = new Date();
+
+      this.saveTestResults();
+      this.resetTest();
+      this.setState({startGame:false});
+      this.props.fetchUser();
+      browserHistory.push('/mainmenu');
     }
+    speakerPlayingSound = pickRandomSpeaker();
+    //this.renderResultString();
+    this.forceUpdate();
+    $("#nextTrial").addClass("disabledbutton");
   }
 
   determineGuess(userGuess) {
@@ -112,7 +105,6 @@ class Play extends Component {
         //console.log("incorrect guess!");
         resultString = "Incorrect! You chose the wrong speaker."
     }
-    this.nextTrial();
   }
 
   saveTestResults() {
@@ -133,7 +125,6 @@ class Play extends Component {
 
     const config = { headers: { authorization: localStorage.getItem('token')}};
     axios.post(ROOT_URL + "/savetest", testing, config);
-    return testing;
   }
 
   resetTest() {
@@ -155,8 +146,8 @@ class Play extends Component {
           <div className = "v2">
             <i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
           </div>
-        </div>
-      );
+      </div>
+    );
     } else {
       return;
     }
@@ -183,61 +174,8 @@ class Play extends Component {
     }
   }
 
-  renderResults() {
-    if(this.state.gameOver == true) {
-      return (
-        <div className = "test-md-center m-t-2">
-          <div><h2 className = "text-left text-md-center">Results:</h2></div>
-
-
-          <div className = "text-left m-t-1" id = "testView">
-            <div>
-              <strong>Started:</strong> {this.state.test.startTime}
-            </div>
-            <div>
-              <strong>Duration:</strong> {this.state.test.timeElapsed} seconds
-            </div>
-            <div>
-              <strong>Average Reaction:</strong> {this.state.test.avgReaction} seconds
-            </div>
-            <div>
-              <strong>Total Trials:</strong> {this.state.test.maxTrials}
-            </div>
-            <div>
-              <strong>Total Correct:</strong> {this.state.test.totalCorrect}
-            </div>
-            <div>
-              <span style = {{color:"red"}}><strong>Left Speaker Correct:</strong> {this.state.test.leftCorrect}/{this.state.test.leftSpeakerPlay}</span>
-            </div>
-            <div>
-              <span style = {{color:"blue"}}><strong>Right Speaker Correct:</strong> {this.state.test.rightCorrect}/{this.state.test.rightSpeakerPlay}</span>
-            </div>
-          </div>
-
-
-            <div className = "text-left">
-                <Link to = "playpanner" className = "btn btn-secondary btn-success m-t-2" onClick = {() => {
-                  this.resetTest();
-                  this.setState({startGame:false, gameOver:false});
-                  this.props.fetchUser()
-                }}>Play Again</Link>
-
-                <span className = "m-l-2">
-                  <Link to = "/mainmenu" className = "btn btn-secondary btn-danger m-t-2" onClick = {() => {
-                    this.resetTest();
-                    this.setState({startGame:false, gameOver:false});
-                    this.props.fetchUser();
-                    browserHistory.push('/mainmenu');
-                  }}>Quit</Link>
-                </span>
-            </div>
-        </div>
-      );
-    }
-  }
-
   renderGame() {
-    if(this.state.startGame == true && this.state.gameOver == false) {
+    if(this.state.startGame == true) {
 
       return (
         <div className = "m-t-2">
@@ -267,13 +205,13 @@ class Play extends Component {
 
           </div>
           <div id = "playSound" className = ""><button onClick = {this.playSound.bind(this)} className = "btn btn-lg btn-primary">Play Sound</button></div>
-          {/*}<div><button id = "nextTrial" onClick={this.nextTrial.bind(this)} className = "disabledbutton m-t-2 btn btn-outline-primary">Next Trial</button></div>*/}
+          <div><button id = "nextTrial" onClick={this.nextTrial.bind(this)} className = "disabledbutton m-t-2 btn btn-outline-primary">Next Trial</button></div>
 
           {/*}<div><Link to = "/mainmenu" className = "btn btn-secondary m-t-2 btn-danger">Quit Test</Link></div>*/}
 
         </div>
       );
-    } else if(this.state.startGame == false && this.state.gameOver == false){
+    } else {
       return (
         <div className = "m-t-2">
           <h2 className = "text-md-center m-t-2">Play Mode</h2>
@@ -334,7 +272,6 @@ class Play extends Component {
       <center>
         {/*}{this.renderUser()}*/}
         {this.renderGame()}
-        {this.renderResults()}
       </center>
     );
   }

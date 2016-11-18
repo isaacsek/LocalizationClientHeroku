@@ -12,6 +12,31 @@
   background-color: "orange";
 }
 
+.vertAlign {
+  float:none;
+  vertical-align:middle;
+}
+
+.container3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.v1 {
+  position: relative;
+  height: 14rem;
+
+}
+
+.v2 {
+  position: absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+
+}
 
 input {
    text-align:center;

@@ -6,7 +6,7 @@ import { reduxForm } from 'redux-form';
 
 class Settings extends Component {
   componentWillMount() {
-    //this.props.fetchUser();
+    this.props.fetchUser();
   }
 
   handleFormSubmit(formProps) {
@@ -59,7 +59,7 @@ class Settings extends Component {
           </fieldset>
           <fieldset className="form-group">
             <label>Age:</label>
-            <input className="form-control" {...age} />
+            <input type = "number" className="form-control" {...age} />
             {age.touched && age.error && <div className="error">{age.error}</div>}
           </fieldset>
           <fieldset className="form-group">
@@ -80,7 +80,15 @@ class Settings extends Component {
 
       );
     } else {
-      return (<div>Loading...</div>)
+      return (
+
+
+        <div className = "v1">
+            <div className = "v2">
+              <i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+            </div>
+        </div>
+      )
     }
   }
 
@@ -129,19 +137,22 @@ function validate(formProps) {
 }
 
 function mapStateToProps(state) {
-  return {
-    errorMessage: state.auth.error,
-    user: state.auth.user,
-    initialValues: {
-      name: state.auth.user.settings.name,
-      password: state.auth.user.password,
-      passwordConfirm: state.auth.user.password,
-      age: state.auth.user.settings.age,
-      hearingDevice: state.auth.user.settings.hearingDevice,
-      deviceSide: state.auth.user.settings.deviceSide
-    }
-
-  };
+  if (state.auth.user === undefined || state.auth.user.settings === undefined) {
+    return;
+  } else {
+    return {
+        errorMessage: state.auth.error,
+        user: state.auth.user,
+        initialValues: {
+          name: state.auth.user.settings.name,
+          password: state.auth.user.password,
+          passwordConfirm: state.auth.user.password,
+          age: state.auth.user.settings.age,
+          hearingDevice: state.auth.user.settings.hearingDevice,
+          deviceSide: state.auth.user.settings.deviceSide
+        }
+    };
+  }
 }
 
 export default reduxForm({

@@ -20,18 +20,34 @@ class History extends Component {
 
   renderList() {
     if(this.props.user != undefined) {
-      return this.props.user.history.map((test) => {
-        return (
+      return (
+            this.props.user.history.map((test) => {
+            return (
 
-          <Link to = "/testview"
-            key = {test.testNumber}
-            className = "btn btn-secondary m-t-2 text-md-left" style = {{color: 'black'}}
-            onClick = {() => this.props.selectTest(test)}>
-                Test #{test.testNumber}, {test.startTime}, <span style = {{color:"red"}}>Score: {test.totalCorrect}/{test.maxTrials}</span></Link>
+              <Link to = "/testview"
+                key = {test.testNumber}
+                className = "btn btn-secondary m-t-2 text-md-left" style = {{color: 'black'}}
+                onClick = {() => this.props.selectTest(test)}>
+                    Test #{test.testNumber}, {test.startTime}, <span style = {{color:"red"}}>Score: {test.totalCorrect}/{test.maxTrials}</span></Link>
+            );
+          })
         );
-      });
     } else {
-      return <div>Loading...</div>
+      return (
+        <div className = "v1">
+          <div className = "v2">
+            <i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+          </div>
+        </div>
+      );
+    }
+  }
+
+  renderBack() {
+    if(this.props.user != undefined) {
+      return (
+        <Link to = "/mainmenu" className = "btn btn-danger">Back to Main Menu</Link>
+      );
     }
   }
 
@@ -61,7 +77,7 @@ class History extends Component {
 
 
           <div className ="btn-group-vertical btn-group-lg">
-            <Link to = "/mainmenu" className = "btn btn-danger m-t-1">Back to Main Menu</Link>
+            {this.renderBack()}
             {this.renderList()}
           </div>
 
