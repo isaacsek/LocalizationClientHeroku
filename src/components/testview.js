@@ -17,7 +17,10 @@ class History extends Component {
           <strong>Started:</strong> {this.props.activeTest.startTime}
         </div>
         <div>
-          <strong>Duration:</strong> {this.props.activeTest.timeElapsed}
+          <strong>Duration:</strong> {this.props.activeTest.timeElapsed} seconds
+        </div>
+        <div>
+          <strong>Average Reaction:</strong> {this.props.activeTest.avgReaction} seconds
         </div>
         <div>
           <strong>Total Trials:</strong> {this.props.activeTest.maxTrials}

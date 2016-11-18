@@ -39,12 +39,10 @@ class Settings extends Component {
       return (
 
         <div className = "container m-t-2" style = {{width:"300px"}}>
-        <h2 className = "text-md-center m-t-2">Settings</h2>
         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-
-          <fieldset className="form-group">
+          <fieldset className="form-group row">
             <label className = "">Name:</label>
-            <input className="form-control" placeholder = "password" {...name} type="text" />
+            <input className="form-control" {...name} />
             {name.touched && name.error && <div className="error">{name.error}</div>}
           </fieldset>
           <fieldset className="form-group">

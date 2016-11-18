@@ -57,7 +57,7 @@ class History extends Component {
   render() {
     return (
       <div className = "text-md-center">
-        <h3 className = "text-md-center m-t-2">History</h3>
+        <h2 className = "text-md-center m-t-2">History</h2>
 
 
           <div className ="btn-group-vertical btn-group-lg">

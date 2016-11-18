@@ -38,43 +38,62 @@ class Settings extends Component {
     if (this.props.user != undefined) {
       return (
 
-        <div className = "container m-t-2" style = {{width:"300px"}}>
-        <h2 className = "text-md-center m-t-2">Settings</h2>
+        <div className = "container-fluid m-t-2" style = {{}}>
         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
 
-          <fieldset className="form-group">
-            <label className = "">Name:</label>
-            <input className="form-control" placeholder = "password" {...name} type="text" />
-            {name.touched && name.error && <div className="error">{name.error}</div>}
-          </fieldset>
-          <fieldset className="form-group">
-            <label className = "">Password:</label>
-            <input className="form-control" placeholder = "password" {...password} type="password" />
-            {password.touched && password.error && <div className="error">{password.error}</div>}
-          </fieldset>
-          <fieldset className="form-group">
-            <label>Confirm Password:</label>
-            <input className="form-control" {...passwordConfirm} type="password" />
-            {passwordConfirm.touched && passwordConfirm.error && <div className="error">{passwordConfirm.error}</div>}
-          </fieldset>
-          <fieldset className="form-group">
-            <label>Age:</label>
-            <input className="form-control" {...age} />
-            {age.touched && age.error && <div className="error">{age.error}</div>}
-          </fieldset>
-          <fieldset className="form-group">
-            <label>Type of hearing device:</label>
-            <input className="form-control" {...hearingDevice} />
-            {hearingDevice.touched && hearingDevice.error && <div className="error">{hearingDevice.error}</div>}
-          </fieldset>
-          <fieldset className="form-group">
-            <label>Side device is on:</label>
-            <input className="form-control" {...deviceSide} />
-            {deviceSide.touched && deviceSide.error && <div className="error">{deviceSide.error}</div>}
-          </fieldset>
+
+        <div class="form-group row">
+          <label for="nameInput" className="col-md-4 col-form-label">Name:</label>
+          <div class ="">
+              <input className ="col-md-4" type="text" id="nameInput" {...name}></input>
+              {name.touched && name.error && <div className="error">{name.error}</div>}
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="passwordInput" className="col-md-4 col-form-label">Password:</label>
+          <div className ="">
+              <input class="col-md-4" type="password" id="passwordInput" {...password}></input>
+              {password.touched && password.error && <div className="error">{password.error}</div>}
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="confirmInput" className="col-sm-2 col-form-label">Password:</label>
+          <div class ="">
+              <input class="form-control" type="password" id="confirmInput" {...passwordConfirm}></input>
+              {passwordConfirm.touched && passwordConfirm.error && <div className="error">{passwordConfirm.error}</div>}
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="ageInput" className="col-sm-2 col-form-label">Password:</label>
+          <div class ="">
+              <input class="form-control" type="number" id="ageInput" {...age}></input>
+              {age.touched && age.error && <div className="error">{age.error}</div>}
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="deviceInput" className="col-sm-2 col-form-label">Password:</label>
+          <div class ="">
+              <input class="form-control" type="text" id="deviceInput" {...hearingDevice}></input>
+              {hearingDevice.touched && hearingDevice.error && <div className="error">{hearingDevice.error}</div>}
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="deviceSideInput" className="col-sm-2 col-form-label">Password:</label>
+          <div class ="">
+              <input class="form-control" type="text" id="deviceSideInput" {...deviceSide}></input>
+              {deviceSide.touched && deviceSide.error && <div className="error">{deviceSide.error}</div>}
+          </div>
+        </div>
+
           {this.renderAlert()}
-          <center><button action="submit" className="btn btn-primary left">Change Settings</button>
-          <span><Link id = "left" to = "/mainmenu" className = "btn btn-danger">Cancel</Link></span></center>
+          <div>
+          <button action="submit" className="btn btn-primary left">Change Settings</button>
+          <span><Link id = "left" to = "/mainmenu" className = "btn btn-danger">Cancel</Link></span></div>
         </form>
         </div>
 

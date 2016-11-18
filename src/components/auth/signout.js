@@ -8,7 +8,11 @@ class Signout extends Component {
   }
 
   render() {
-    return <div>Come back soon!</div>;
+    return (
+      <div className="text-md-center">
+        <h1 className="display-5 m-t-2">Come back soon!</h1>
+      </div>
+    )
   }
 }
 

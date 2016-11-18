@@ -38,46 +38,26 @@ class Settings extends Component {
     if (this.props.user != undefined) {
       return (
 
-        <div className = "container m-t-2" style = {{width:"300px"}}>
-        <h2 className = "text-md-center m-t-2">Settings</h2>
-        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+        <div className = "container m-t-2" style = {{}}>
 
-          <fieldset className="form-group">
-            <label className = "">Name:</label>
-            <input className="form-control" placeholder = "password" {...name} type="text" />
-            {name.touched && name.error && <div className="error">{name.error}</div>}
-          </fieldset>
-          <fieldset className="form-group">
-            <label className = "">Password:</label>
-            <input className="form-control" placeholder = "password" {...password} type="password" />
-            {password.touched && password.error && <div className="error">{password.error}</div>}
-          </fieldset>
-          <fieldset className="form-group">
-            <label>Confirm Password:</label>
-            <input className="form-control" {...passwordConfirm} type="password" />
-            {passwordConfirm.touched && passwordConfirm.error && <div className="error">{passwordConfirm.error}</div>}
-          </fieldset>
-          <fieldset className="form-group">
-            <label>Age:</label>
-            <input className="form-control" {...age} />
-            {age.touched && age.error && <div className="error">{age.error}</div>}
-          </fieldset>
-          <fieldset className="form-group">
-            <label>Type of hearing device:</label>
-            <input className="form-control" {...hearingDevice} />
-            {hearingDevice.touched && hearingDevice.error && <div className="error">{hearingDevice.error}</div>}
-          </fieldset>
-          <fieldset className="form-group">
-            <label>Side device is on:</label>
-            <input className="form-control" {...deviceSide} />
-            {deviceSide.touched && deviceSide.error && <div className="error">{deviceSide.error}</div>}
-          </fieldset>
-          {this.renderAlert()}
-          <center><button action="submit" className="btn btn-primary left">Change Settings</button>
-          <span><Link id = "left" to = "/mainmenu" className = "btn btn-danger">Cancel</Link></span></center>
-        </form>
+            <form  onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+
+            <div className="form-group row">
+              <label for = "nameInput" className="col-sm-2 col-form-label">Name:</label>
+              <div className="col-sm-10">
+                <input type="username" className="form-control" placeholder="Name" id = "nameInput" style = {{width:"100px"}}{...name}/>
+              </div>
+            </div>
+            <div className="form-group row">
+              <label for = "pw" className="col-sm-2 col-form-label">Password:</label>
+              <div className="col-sm-10">
+                <input type="password" className="form-control" placeholder="Password" id = "pw" style = {{width:"100px"}} {...password}/>
+              </div>
+            </div>
+
+            </form>
+
         </div>
-
       );
     } else {
       return (<div>Loading...</div>)
