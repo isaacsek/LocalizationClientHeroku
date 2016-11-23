@@ -8,6 +8,9 @@ import * as actions from '../actions';
 import axios from 'axios';
 import dateFormat from "dateFormat";
 import ReactCountdownClock from "react-countdown-clock";
+import Clock from "./clock";
+import moment from "moment";
+import {updateActiveTest} from "../actions/index";
 
 const MAX_TRIALS = 10;
 var speakers = [];
@@ -81,6 +84,8 @@ class Play extends Component {
   }
 
   determineGuess(userGuess) {
+    this.props.updateActiveTest(userGuess);
+    console.log("guess " + this.state.activeTest);
     endReaction = new Date();
     var reactionTime = (endReaction.getTime() - startReaction.getTime()) / 1000;
     totalReaction += reactionTime;
@@ -135,7 +140,7 @@ class Play extends Component {
     axios.post(ROOT_URL + "/savetest", testing, config);
     return testing;
   }
-
+// update test results, this.props.updateActiveTest(test)
   resetTest() {
     rightCorrect = 0;
     leftCorrect = 0;
@@ -333,6 +338,7 @@ class Play extends Component {
     return (
       <center>
         {/*}{this.renderUser()}*/}
+        <Clock/>
         {this.renderGame()}
         {this.renderResults()}
       </center>
@@ -365,7 +371,8 @@ function mapStateToProps(state) {
   return {
     //message: state.auth.message,
     user: state.auth.user,
-    speakers: state.auth.mediaDevices
+    speakers: state.auth.mediaDevices,
+    activeTest: state.auth.activeTest
   };
 }
 

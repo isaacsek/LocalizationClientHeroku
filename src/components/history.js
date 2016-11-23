@@ -46,13 +46,13 @@ class History extends Component {
   renderBack() {
     if(this.props.user != undefined) {
       return (
-        <Link to = "/mainmenu" className = "btn btn-danger">Back to Main Menu</Link>
+        <Link to = "/mainmenu" className = "btn btn-danger m-t-2">Back to Main Menu</Link>
       );
     }
   }
 
-  renderActiveTest() {
-    if(!this.props.activeTest)
+  rendertestSelected() {
+    if(!this.props.testSelected)
     {
       return <div>Select a test to get started</div>
     }
@@ -61,10 +61,10 @@ class History extends Component {
       <div>
         <h3>Details for:</h3>
         <div>
-          Title: {this.props.activeTest.testNumber}
+          Title: {this.props.testSelected.testNumber}
         </div>
         <div>
-          Total Correct: {this.props.activeTest.totalCorrect}
+          Total Correct: {this.props.testSelected.totalCorrect}
         </div>
       </div>
     )
@@ -75,14 +75,10 @@ class History extends Component {
       <div className = "text-md-center">
         <h2 className = "text-md-center m-t-2">History</h2>
 
-
           <div className ="btn-group-vertical btn-group-lg">
             {this.renderBack()}
             {this.renderList()}
           </div>
-
-
-
 
       </div>
     );
@@ -92,7 +88,7 @@ class History extends Component {
 function mapStateToProps(state) {
   return { message: state.auth.message,
            user: state.auth.user,
-           activeTest: state.auth.testSelected
+           testSelected: state.auth.testSelected
          };
 }
 

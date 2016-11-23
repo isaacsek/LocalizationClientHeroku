@@ -22,7 +22,8 @@ import Test from "./components/test";
 import Settings from "./components/settings";
 import History from "./components/history";
 import TestView from "./components/testview";
-import TimedPlay from "./components/playPannerTimed"
+import TimedPlay from "./components/playPannerTimed";
+import TestingMode from "./components/testCode/testingMode";
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk, promise)(createStore);
 const store = createStoreWithMiddleware(reducers);
@@ -51,6 +52,7 @@ ReactDOM.render(
         <Route path="history" component={RequireAuth(History)} />
         <Route path="testview" component={RequireAuth(TestView)} />
         <Route path="playpannertimed" component={RequireAuth(TimedPlay)} />
+        <Route path = "testingmode" component = {RequireAuth(TestingMode)} />
       </Route>
     </Router>
   </Provider>

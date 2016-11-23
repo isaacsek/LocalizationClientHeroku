@@ -9,8 +9,18 @@ import {
   FETCH_USER,
   FETCH_MEDIA_DEVICES,
   TEST_SELECTED,
-  ROOT_URL
+  ROOT_URL,
+  START_NEW_TEST,
+  PAUSE_TEST,
+  RESUME_TEST,
+  CLEAR_TEST,
+  FETCH_ACTIVE_TEST,
+  COMPLETE_TEST,
+  UPDATE_TEST,
+  TIC,
+  SAVE_ACTIVE_TEST
 } from './types';
+import "../components/testCode/testObject";
 
 //const ROOT_URL = 'http://localhost:3090';
 
@@ -134,4 +144,94 @@ export function saveSettings({ name, password, age, hearingDevice, deviceSide}) 
         payload: response
       };
   //}
+}
+
+export function updateTest(test) {
+
+  localStorage.setItem("activeTest", JSON.stringify(test));
+  return {
+    type: UPDATE_TEST,
+    payload: test
+  };
+}
+
+export function startNewTest(test) {
+  localStorage.setItem("activeTest", JSON.stringify(test));
+  //console.log("startNewTest action, localstroage = " + localStorage.activeTest);
+  return {
+    type: START_NEW_TEST,
+    payload: test
+  }
+}
+
+export function pauseTest() {
+  return {
+    type: PAUSE_TEST,
+    payload: true
+  }
+}
+
+export function resumeTest() {
+  return {
+    type: RESUME_TEST,
+    payload: false
+  }
+}
+
+export function clearTest() {
+  //console.log(localStorage.activeTest);
+  //console.log("removed test");
+  localStorage.removeItem("activeTest");
+  //console.log(localStorage.activeTest);
+  return {
+    type: CLEAR_TEST,
+    payload: null
+  }
+}
+
+export function completeTest(test) {
+  //localStorage.removeItem("activeTest");
+//console.log(test);
+  const config = { headers: { authorization: localStorage.getItem('token')}};
+  //axios.post(ROOT_URL + "/savetest", test, config);
+  //console.log("saved in actions:" + saved);
+  return {
+    type: COMPLETE_TEST,
+    payload: test
+  }
+}
+
+export function fetchActiveTest() {
+  //var x = localStorage.getItem("activeTest");
+  //console.log(x);
+  if(localStorage.getItem("activeTest") == null) {
+    return {
+      type: FETCH_ACTIVE_TEST,
+      payload: null
+    }
+  } else {
+      return {
+        type: FETCH_ACTIVE_TEST,
+        payload: JSON.parse(localStorage.activeTest)
+      }
+  }
+}
+
+export function tic(test) {
+  //console.log(test.timeLeft);
+  test.timeLeft = test.timeLeft - 1;
+  return {
+    type: TIC,
+    payload: test
+  }
+}
+
+export function saveTest(test) {
+  const config = { headers: { authorization: localStorage.getItem('token')}};
+  axios.post(ROOT_URL + "/savetest", test, config);
+
+  return {
+    type: SAVE_ACTIVE_TEST,
+    payload: test
+  }
 }

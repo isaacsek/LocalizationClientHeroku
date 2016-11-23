@@ -1,7 +1,7 @@
 var path = require('path');
 var express = require('express');
 var app = express();
-const cors = require('cors');
+var cors = require('cors');
 var PORT = process.env.PORT || 8080
 
 // using webpack-dev-server and middleware in development environment
@@ -15,12 +15,13 @@ if(process.env.NODE_ENV !== 'production') {
   app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
   app.use(webpackHotMiddleware(compiler));
 }
-app.use('/static', express.static(__dirname + '/dist'));
+
 app.use(cors());
+app.use('/static', express.static(__dirname + '/dist'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
 app.use(express.static(path.join(__dirname, 'dist')));
+
 app.use('/*', function(request, response) {
   response.render('index')
 });
