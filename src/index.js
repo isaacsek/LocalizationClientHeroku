@@ -18,6 +18,7 @@ import { AUTH_USER } from './actions/types';
 import MainMenu from "./components/mainmenu.js";
 import Play from "./components/play";
 import PlayPanner from "./components/playPanner";
+import Evaluation from "./components/evaluation";
 import Test from "./components/test";
 import Settings from "./components/settings";
 import History from "./components/history";
@@ -47,6 +48,7 @@ ReactDOM.render(
         <Route path="mainmenu" component={RequireAuth(MainMenu)} />
         <Route path="play" component={RequireAuth(Play)} />
         <Route path="playpanner" component={RequireAuth(PlayPanner)} />
+        <Route path="evaluation" component={RequireAuth(Evaluation)} />
         <Route path="test" component={RequireAuth(Test)} />
         <Route path="settings" component={RequireAuth(Settings)} />
         <Route path="history" component={RequireAuth(History)} />

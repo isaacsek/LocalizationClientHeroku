@@ -15,9 +15,13 @@ class MainMenu extends Component {
     if (this.props.user != undefined){
       return <div>Hello {this.props.user.settings.name}</div>;
     } else {
-      return <div>
-        Loading user...
-      </div>;
+      return (
+        <div className = "v1">
+          <div className = "v2">
+            <i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+          </div>
+        </div>
+      );
     }
   }
 
@@ -27,18 +31,12 @@ class MainMenu extends Component {
         <h3 className = "text-md-center m-t-2">Main Menu</h3>
 
         <center>
-
           <div className ="btn-group-vertical btn-group-lg m-t-1">
-            <Link to = "/playpanner" className = "btn btn-secondary" key = {5}>Play</Link>
-            {/*}<Link to = "/play" className = "btn btn-secondary" key = {1}>Play</Link>*/}
-            {/*<Link to = "/test" className = "btn btn-secondary" key = {2}>Test</Link> */}
+            <Link to = "/evaluation" className = "btn btn-secondary" key = {1}>Evaluation</Link>
+            <Link to = "/testingmode" className = "btn btn-secondary" key = {2}>Timed Practice</Link>
             <Link to = "/settings" className = "btn btn-secondary" key = {3}>Settings</Link>
             <Link to = "/history" className = "btn btn-secondary" key = {4}>History</Link>
-            <Link to = "/playpannertimed" className = "btn btn-secondary" key = {6}>Timed Play</Link>
-            <Link to = "/testingmode" className = "btn btn-secondary" key = {7}>Testing Mode</Link>
-
           </div>
-
         </center>
 
       </div>
@@ -47,9 +45,10 @@ class MainMenu extends Component {
 }
 
 function mapStateToProps(state) {
-  return { message: state.auth.message,
-           user: state.auth.user
-         };
+  return {
+    message: state.auth.message,
+    user: state.auth.user
+  };
 }
 
 export default connect(mapStateToProps, actions)(MainMenu);

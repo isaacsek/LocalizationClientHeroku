@@ -44,8 +44,6 @@ class TestingMode extends Component {
   }
 
   renderView() {
-    //console.log("before " + this.props.activeTest);
-    // || this.props.activeTest != null
     if(this.props.user == undefined || this.props.activeTest === undefined) {
       return (
         <div className = "v1">
@@ -60,7 +58,7 @@ class TestingMode extends Component {
       return <TestConfig startTest = {(numTrials) => this.startTest(numTrials)}/>;
     } else if (this.state.testInProgress == true) {
         return <TestInProgress endTest = {() => this.endTest()}/>;
-      } else {
+    } else {
       return <TestResults playAgain = {() => this.setState({testInProgress:false})}/>;
     }
   }
@@ -72,16 +70,8 @@ class TestingMode extends Component {
   }
 
   endTest() {
-    //var temp = this.props.activeTest;
-    //if(temp.endTime == 0) {
-      //temp.endTime = new Moment();
-      //this.props.updateTest(temp);
-    //}
-    //console.log("hereww")
     this.setState({testInProgress: "Over"})
   }
-
-
 
   render() {
     return (
@@ -93,13 +83,11 @@ class TestingMode extends Component {
 }
 
 function mapStateToProps(state) {
-
     return {
       user: state.auth.user,
       speakers: state.auth.mediaDevices,
       activeTest: state.activeTest.activeTest
     };
-
 }
 
 export default connect(mapStateToProps, actions)(TestingMode);
