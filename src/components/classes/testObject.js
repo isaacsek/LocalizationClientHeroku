@@ -1,14 +1,17 @@
 import axios from 'axios';
 import dateFormat from "dateFormat";
-import moment from "moment";
+import Moment from "moment";
 import {ROOT_URL} from "../../actions/types"
 
 export default class Test {
 
-  constructor(testNumber, maxTrials = 0, startTime = new Moment(), duration = 0, practice = true) {
+  constructor(testNumber, maxTrials = 0, duration = 0, startTime = new Moment(),  practice = true) {
 
     this.testNumber = testNumber;
+    this.maxTrials = maxTrials;
+    this.duration = duration;
     this.startTime = startTime
+    this.practice = practice;
     this.endTime = 0;
     this.totalCorrect = 0;
     this.trialCount = 1;
@@ -16,17 +19,14 @@ export default class Test {
     this.rightCorrect = 0;
     this.leftSpeakerPlay = 0;
     this.rightSpeakerPlay = 0;
-    this.duration = duration;
+    this.avgReactionTime = 0;
     //this.avgReactionTime = Math.round((this.totalReaction / this.trialCount) * 100) / 100;
-    this.practice = practice;
-    this.maxTrials = maxTrials;
     this.timeLeft = duration * 60;
     this.totalReaction = 0;
     this.completed = false;
   }
 
   saveTestResults() {
-    console.log("testing here");
     var testing = {};
     if(practice == true) {
       testing.testNumber = this.testNumber;

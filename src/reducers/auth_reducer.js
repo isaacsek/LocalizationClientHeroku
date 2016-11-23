@@ -26,6 +26,5 @@ export default function(state = {}, action) {
     case TEST_SELECTED:
       return {...state, testSelected:action.payload};
   }
-
   return state;
 }

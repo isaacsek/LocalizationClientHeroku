@@ -6,11 +6,11 @@ import {ROOT_URL} from "../../actions/types"
 import * as actions from '../../actions';
 import axios from 'axios';
 import dateFormat from "dateFormat";
-import moment from "moment";
-import TestObject from "./testObject";
-import Sound from "./sound";
+import Moment from "moment";
+import TestObject from "../classes/testObject";
+import Sound from "../classes/sound";
 
-class TestResults extends Component {
+class PracticeResults extends Component {
   constructor(props) {
     super(props);
     this.state = {startGame:false};
@@ -20,6 +20,7 @@ class TestResults extends Component {
     this.props.fetchUser();
     this.props.fetchMediaDevices();
     this.props.fetchActiveTest();
+    //console.log(this.props.activeTest.startTime);
   }
 
   playAgain() {
@@ -38,10 +39,10 @@ class TestResults extends Component {
             <strong>Test #</strong> {this.props.activeTest.testNumber}
           </div>
             <div>
-              <strong>Started:</strong> {this.props.activeTest.startTime}
+              <strong>Started:</strong> {Moment(this.props.activeTest.startTime).format("dddd, MMMM Do YYYY, h:mm:ss a")}
             </div>
             <div>
-              <strong>Finished:</strong> {this.props.activeTest.endTime.toString()}
+              <strong>Finished:</strong> {Moment(this.props.activeTest.endTime).format("dddd, MMMM Do YYYY, h:mm:ss a")}
             </div>
             <div>
               <strong>Practice Duration:</strong> {this.props.activeTest.duration} minutes
@@ -50,7 +51,7 @@ class TestResults extends Component {
               <strong>Total Trials:</strong> {this.props.activeTest.trialCount}
             </div>
             <div>
-              <strong>Total Correct:</strong> {this.props.activeTest.correctCount}
+              <strong>Total Correct:</strong> {this.props.activeTest.totalCorrect}
             </div>
             <div>
               <span style = {{color:"red"}}><strong>Left Speaker Correct:</strong> {this.props.activeTest.leftCorrect}/{this.props.activeTest.leftSpeakerPlay}</span>
@@ -59,7 +60,7 @@ class TestResults extends Component {
               <span style = {{color:"blue"}}><strong>Right Speaker Correct:</strong> {this.props.activeTest.rightCorrect}/{this.props.activeTest.rightSpeakerPlay}</span>
             </div>
             <div>
-              <strong>Average Reaction:</strong> {this.props.activeTest.avgReactionTime} seconds
+              <strong>Average Reaction:</strong> {(this.props.activeTest.totalReaction / this.props.activeTest.trialCount).toFixed(3)} seconds
             </div>
           </div>
 
@@ -79,4 +80,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, actions)(TestResults);
+export default connect(mapStateToProps, actions)(PracticeResults);

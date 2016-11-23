@@ -7,8 +7,8 @@ import * as actions from '../../actions';
 import axios from 'axios';
 import dateFormat from "dateFormat";
 import moment from "moment";
-import TestObject from "./testObject";
-import Sound from "./sound";
+import TestObject from "../classes/testObject";
+import Sound from "../classes/sound";
 
 var sounds = new Sound();
 
@@ -26,7 +26,7 @@ class TestConfig extends Component {
 
   updateTrials(n) {
     if(n < 1) {
-      alert("Cannot be less than 1 trial");
+      alert("Practice cannot be less than 1 minute.");
       this.setState({trials:10});
     } else {
       this.setState({trials:n});
@@ -42,7 +42,7 @@ class TestConfig extends Component {
             Place <span style = {{color:"blue"}}>BLUE</span> on your left, and <span style = {{color:"red"}}>RED</span> on your right
           </div>
           <div className = "m-t-2">
-            Number of Trials? <input style = {{width:"50px"}} type = "number" value = {this.state.trials} onChange = {(event) => {this.updateTrials(event.target.value)}}></input>
+            Number of Trials? <input style = {{width:"50px"}} type = "number" value = {this.state.trials} onChange = {(event) => {this.updateTrials(event.target.value)}}></input> minutes
           </div>
           <div className = "m-t-2">
 

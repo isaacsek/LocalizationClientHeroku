@@ -7,10 +7,8 @@ import * as actions from '../../actions';
 import axios from 'axios';
 import dateFormat from "dateFormat";
 import Moment from "moment";
-import TestObject from "./testObject";
-import Sound from "./sound";
-import Test from "./testObject"
-import Clocl from "./clock";
+import TestObject from "../classes/testObject";
+import Sound from "../classes/sound";
 import TestConfig from "./testConfig";
 import TestResults from "./testResults";
 import TestInProgress from "./testInProgress";

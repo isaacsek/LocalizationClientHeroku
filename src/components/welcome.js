@@ -28,12 +28,4 @@ function mapStateToProps(state) {
   };
 }
 
-{/*export default () =>
-  <div className="text-md-center">
-    <h1 className="display-3 m-t-2">Welcome!</h1>
-    <p className="lead">Improve your hearing here.</p>
-
-    <Link to="/signin" className="btn btn-primary btn-md" role="button">Login</Link>
-  </div>*/}
-
-  export default connect(mapStateToProps)(Welcome);
+export default connect(mapStateToProps)(Welcome);

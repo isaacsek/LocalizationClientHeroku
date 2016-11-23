@@ -7,8 +7,8 @@ import * as actions from '../../actions';
 import axios from 'axios';
 import dateFormat from "dateFormat";
 import moment from "moment";
-import TestObject from "./testObject";
-import Sound from "./sound";
+import TestObject from "../classes/testObject";
+import Sound from "../classes/sound";
 
 class TestResults extends Component {
   constructor(props) {
@@ -32,28 +32,34 @@ class TestResults extends Component {
       <div>
         <div className = "text-md-center m-t-2">
 
-        <div><h2 className = "text-left text-md-center">Results:</h2></div>
+        <div><h2 className = "text-left text-md-center">Practice Results:</h2></div>
           <div className = "text-left m-t-2" id = "testView">
+          <div>
+            <strong>Test #</strong> {this.props.activeTest.testNumber}
+          </div>
             <div>
               <strong>Started:</strong> {this.props.activeTest.startTime}
             </div>
             <div>
-              <strong>Duration:</strong> {this.props.activeTest.timeElapsed} seconds
+              <strong>Finished:</strong> {this.props.activeTest.endTime.toString()}
             </div>
             <div>
-              <strong>Average Reaction:</strong> {this.props.activeTest.avgReaction} seconds
+              <strong>Practice Duration:</strong> {this.props.activeTest.duration} minutes
             </div>
             <div>
-              <strong>Total Trials:</strong> {this.props.activeTest.maxTrials}
+              <strong>Total Trials:</strong> {this.props.activeTest.trialCount}
             </div>
             <div>
-              <strong>Total Correct:</strong> {this.props.activeTest.totalCorrect}
+              <strong>Total Correct:</strong> {this.props.activeTest.correctCount}
             </div>
             <div>
               <span style = {{color:"red"}}><strong>Left Speaker Correct:</strong> {this.props.activeTest.leftCorrect}/{this.props.activeTest.leftSpeakerPlay}</span>
             </div>
             <div>
               <span style = {{color:"blue"}}><strong>Right Speaker Correct:</strong> {this.props.activeTest.rightCorrect}/{this.props.activeTest.rightSpeakerPlay}</span>
+            </div>
+            <div>
+              <strong>Average Reaction:</strong> {this.props.activeTest.avgReactionTime} seconds
             </div>
           </div>
 

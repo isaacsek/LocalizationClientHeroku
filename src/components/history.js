@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { Link } from 'react-router';
+import Moment from "moment";
 
 class History extends Component {
   componentWillMount() {
@@ -24,11 +25,11 @@ class History extends Component {
             this.props.user.history.map((test) => {
             return (
 
-              <Link to = "/testview"
+              <Link to = "/resultview"
                 key = {test.testNumber}
                 className = "btn btn-secondary m-t-2 text-md-left" style = {{color: 'black'}}
                 onClick = {() => this.props.selectTest(test)}>
-                    Test #{test.testNumber}, {test.startTime}, <span style = {{color:"red"}}>Score: {test.totalCorrect}/{test.maxTrials}</span></Link>
+                    Test #{test.testNumber}, {Moment(test.startTime).format("MMMM Do YYYY")}, <span style = {{color:"red"}}>Score: {test.totalCorrect}/{test.trialCount}</span></Link>
             );
           })
         );

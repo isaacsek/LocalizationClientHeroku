@@ -7,10 +7,7 @@ import {ROOT_URL} from "../actions/types"
 import * as actions from '../actions';
 import axios from 'axios';
 import dateFormat from "dateFormat";
-import ReactCountdownClock from "react-countdown-clock";
-import Clock from "./clock";
 import moment from "moment";
-import {updateActiveTest} from "../actions/index";
 
 const MAX_TRIALS = 10;
 var speakers = [];
@@ -20,7 +17,7 @@ var incorrectSound = new Audio("/audio/incorrectSound.mp3");
 var speakerPlayingSound = pickRandomSpeaker;
 var correctCount = 0, trialCount = 1, startTime, endTime, rightCorrect = 0, leftCorrect = 0, rightSpeakerPlay = 0, leftSpeakerPlay = 0, timeElapsed = 0;
 
-var resultString = "Choose Left or Right";
+var resultString = "Good Luck!";
 
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 var source = audioCtx.createMediaElementSource(whereLongSound);
@@ -84,7 +81,6 @@ class Play extends Component {
   }
 
   determineGuess(userGuess) {
-    this.props.updateActiveTest(userGuess);
     console.log("guess " + this.state.activeTest);
     endReaction = new Date();
     var reactionTime = (endReaction.getTime() - startReaction.getTime()) / 1000;
@@ -107,15 +103,15 @@ class Play extends Component {
         } else {
             rightCorrect++;
         }
-        this.setState({correctGuess:true});
-        correctSound.play();
+        //this.setState({correctGuess:true});
+        //correctSound.play();
         //console.log("correct guess!");
-        resultString = "Correct! You chose the correct speaker";
+        //resultString = "Correct! You chose the correct speaker";
     } else {
-        this.setState({correctGuess:false});
-        incorrectSound.play();
+        //this.setState({correctGuess:false});
+        //incorrectSound.play();
         //console.log("incorrect guess!");
-        resultString = "Incorrect! You chose the wrong speaker."
+        //resultString = "Incorrect! You chose the wrong speaker."
     }
     this.nextTrial();
   }
@@ -124,15 +120,18 @@ class Play extends Component {
     var testing = {};
     testing.testNumber = this.props.user.testCount + 1;
     this.props.user.testCount++;
-    testing.maxTrials = this.state.trials;
     testing.startTime = dateFormat(startTime, "dddd, mmmm dS, yyyy, h:MM:ss TT");
     testing.endTime = dateFormat(endTime, "dddd, mmmm dS, yyyy, h:MM:ss TT");
+    testing.totalCorrect = correctCount;
+    testing.trialCount = 0;
     testing.leftCorrect = leftCorrect;
     testing.rightCorrect = rightCorrect;
     testing.leftSpeakerPlay = leftSpeakerPlay;
     testing.rightSpeakerPlay = rightSpeakerPlay;
-    testing.totalCorrect = correctCount;
-    testing.timeElapsed = (endTime.getTime() - startTime.getTime()) / 1000;
+    testing.duration = (endTime.getTime() - startTime.getTime()) / 1000;
+    testing.practice = false;
+    testing.maxTrials = this.state.trials;
+    testing.timeLeft = 0;
     testing.avgReaction = Math.round((totalReaction / this.state.trials) * 100) / 100;
     console.log("Test Results: " + testing);
 
@@ -281,7 +280,7 @@ class Play extends Component {
     } else if(this.state.startGame == false && this.state.gameOver == false){
       return (
         <div className = "m-t-2">
-          <h2 className = "text-md-center m-t-2">Play Mode</h2>
+          <h2 className = "text-md-center m-t-2">Evaluation</h2>
           <div>
             Place <span style = {{color:"blue"}}>BLUE</span> on your left, and <span style = {{color:"red"}}>RED</span> on your right
           </div>
@@ -337,8 +336,6 @@ class Play extends Component {
   render() {
     return (
       <center>
-        {/*}{this.renderUser()}*/}
-        <Clock/>
         {this.renderGame()}
         {this.renderResults()}
       </center>
