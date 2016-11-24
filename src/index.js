@@ -20,7 +20,7 @@ import Settings from "./components/settings";
 import History from "./components/history";
 import ResultView from "./components/resultView";
 import PracticeMode from "./components/practiceCode/PracticeApp";
-import EvalMode from "./components/evalCode/testingMode";
+import EvalMode from "./components/evalCode/evalApp";
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk, promise)(createStore);
 const store = createStoreWithMiddleware(reducers);

@@ -32,7 +32,7 @@ class MainMenu extends Component {
 
         <center>
           <div className ="btn-group-vertical btn-group-lg m-t-1">
-            {/*}<Link to = "/evalmode" className = "btn btn-secondary" key = {1}>Evaluation</Link>*/}
+            <Link to = "/evalmode" className = "btn btn-secondary" key = {1}>Evaluation</Link>
             <Link to = "/practicemode" className = "btn btn-secondary" key = {2}>Timed Practice</Link>
             <Link to = "/settings" className = "btn btn-secondary" key = {3}>Settings</Link>
             <Link to = "/history" className = "btn btn-secondary" key = {4}>History</Link>
