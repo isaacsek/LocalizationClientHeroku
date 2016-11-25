@@ -154,7 +154,7 @@ class PracticeInProgress extends Component {
           {/*}<div><button className = "btn btn-secondary btn-warning" onClick =
           {this.saveTestResults.bind(this, this.props.activeTest)}>End Test</button></div>*/}
 
-          <Link to = "/mainmenu" onClick = {this.props.clearTest} className = "btn btn-danger m-t-2">Quit</Link>
+          <Link to = "/mainmenu" onClick = {() => this.props.clearTest} className = "btn btn-danger m-t-2">Quit</Link>
         </div>
       </div>
     );

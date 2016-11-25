@@ -12,7 +12,6 @@ class Settings extends Component {
   handleFormSubmit(formProps) {
     // Call action creator to sign up the user!
     this.props.saveSettings(formProps);
-    console.log("sumbit settings, make action");
   }
 
   loadUser() {
@@ -34,55 +33,47 @@ class Settings extends Component {
   }
 
   renderForm() {
-    const { handleSubmit, fields: { name, password, passwordConfirm, age, hearingDevice, deviceSide }} = this.props;
+    const { handleSubmit, fields: { name, age, hearingDevice, deviceSide }} = this.props;
     if (this.props.user != undefined) {
       return (
 
         <div className = "container m-t-2" style = {{width:"300px"}}>
-        <h2 className = "text-md-center m-t-2">Settings</h2>
-        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+          <h2 className = "text-md-center m-t-2">Settings</h2>
+          <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
 
-          <fieldset className="form-group">
-            <label className = "">Name:</label>
-            <input className="form-control" placeholder = "password" {...name} type="text" />
-            {name.touched && name.error && <div className="error">{name.error}</div>}
-          </fieldset>
-          <fieldset className="form-group">
-            <label className = "">Password:</label>
-            <input className="form-control" placeholder = "password" {...password} type="password" />
-            {password.touched && password.error && <div className="error">{password.error}</div>}
-          </fieldset>
-          <fieldset className="form-group">
-            <label>Confirm Password:</label>
-            <input className="form-control" {...passwordConfirm} type="password" />
-            {passwordConfirm.touched && passwordConfirm.error && <div className="error">{passwordConfirm.error}</div>}
-          </fieldset>
-          <fieldset className="form-group">
-            <label>Age:</label>
-            <input type = "number" className="form-control" {...age} />
-            {age.touched && age.error && <div className="error">{age.error}</div>}
-          </fieldset>
-          <fieldset className="form-group">
-            <label>Type of hearing device:</label>
-            <input className="form-control" {...hearingDevice} />
-            {hearingDevice.touched && hearingDevice.error && <div className="error">{hearingDevice.error}</div>}
-          </fieldset>
-          <fieldset className="form-group">
-            <label>Side device is on:</label>
-            <input className="form-control" {...deviceSide} />
-            {deviceSide.touched && deviceSide.error && <div className="error">{deviceSide.error}</div>}
-          </fieldset>
-          {this.renderAlert()}
-          <center><button action="submit" className="btn btn-primary left">Change Settings</button>
-          <span><Link id = "left" to = "/mainmenu" className = "btn btn-danger">Cancel</Link></span></center>
-        </form>
+            <fieldset className="form-group">
+              <label className = "">Name:</label>
+              <input className="form-control" placeholder = "password" {...name} type="text" />
+              {name.touched && name.error && <div className="error">{name.error}</div>}
+            </fieldset>
+            <fieldset className="form-group">
+              <label>Age:</label>
+              <input type = "number" className="form-control" {...age} />
+              {age.touched && age.error && <div className="error">{age.error}</div>}
+            </fieldset>
+            <fieldset className="form-group">
+              <label>Type of hearing device:</label>
+              <input className="form-control" {...hearingDevice} />
+              {hearingDevice.touched && hearingDevice.error && <div className="error">{hearingDevice.error}</div>}
+            </fieldset>
+            <fieldset className="form-group">
+              <label>Side device is on:</label>
+              <input className="form-control" {...deviceSide} />
+              {deviceSide.touched && deviceSide.error && <div className="error">{deviceSide.error}</div>}
+            </fieldset>
+            {this.renderAlert()}
+            <center>
+              <button action="submit" className="btn btn-primary left">Submit</button>
+              <span className = "m-l-1"><Link to = "/mainmenu" className = "btn btn-danger">Cancel</Link></span>
+              <div className = "m-t-1">
+                <Link to = "/changepassword" className = "btn btn-warning">Change Password</Link>
+              </div>
+            </center>
+          </form>
         </div>
-
       );
     } else {
       return (
-
-
         <div className = "v1">
             <div className = "v2">
               <i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
@@ -91,7 +82,6 @@ class Settings extends Component {
       )
     }
   }
-
 
   render() {
     return (
@@ -107,18 +97,6 @@ function validate(formProps) {
 
   if (!formProps.name) {
     errors.name = 'Please enter your name';
-  }
-
-  if (!formProps.password) {
-    errors.password = 'Please enter a password';
-  }
-
-  if (!formProps.passwordConfirm) {
-    errors.passwordConfirm = 'Please enter a password confirmation';
-  }
-
-  if (formProps.password !== formProps.passwordConfirm) {
-    errors.password = 'Passwords must match';
   }
 
   if (!formProps.age) {
@@ -145,8 +123,6 @@ function mapStateToProps(state) {
         user: state.auth.user,
         initialValues: {
           name: state.auth.user.settings.name,
-          password: state.auth.user.password,
-          passwordConfirm: state.auth.user.password,
           age: state.auth.user.settings.age,
           hearingDevice: state.auth.user.settings.hearingDevice,
           deviceSide: state.auth.user.settings.deviceSide
@@ -157,6 +133,6 @@ function mapStateToProps(state) {
 
 export default reduxForm({
   form: 'settings',
-  fields: ['name', 'password', 'passwordConfirm', 'age', 'hearingDevice', 'deviceSide'],
+  fields: ['name','age', 'hearingDevice', 'deviceSide'],
   validate
 }, mapStateToProps, actions)(Settings);

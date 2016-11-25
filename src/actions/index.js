@@ -14,6 +14,7 @@ import {
   UPDATE_TEST,
   CLEAR_TEST,
   TIC,
+  CHANGE_PASSWORD,
 
 } from './types';
 
@@ -82,7 +83,7 @@ export function fetchMessage() {
 
 export function fetchUser() {
   return function(dispatch) {
-    axios.get(ROOT_URL + "/updateuser", {
+    axios.get(ROOT_URL + "/fetchuser", {
       headers: { authorization: localStorage.getItem('token') }
     })
       .then(response => {
@@ -95,7 +96,6 @@ export function fetchUser() {
   }
 }
 
-
 export function fetchMediaDevices() {
   var request = navigator.mediaDevices.enumerateDevices();
 
@@ -106,7 +106,6 @@ export function fetchMediaDevices() {
 }
 
 export function selectTest(test) {
-  console.log("A test has been selected: " + test.testNumber);
   return {
     type: TEST_SELECTED, //action type
     payload: test //payload info of object
@@ -114,7 +113,6 @@ export function selectTest(test) {
 }
 
 export function saveSettings({ name, password, age, hearingDevice, deviceSide}) {
-  console.log(name, password, age, hearingDevice);
   const config = { headers: { authorization: localStorage.getItem('token')}};
   var response = axios.post(`${ROOT_URL}/savesettings`, { name, password, age, hearingDevice, deviceSide}, config);
   alert("Settings saved!");
@@ -126,7 +124,7 @@ export function saveSettings({ name, password, age, hearingDevice, deviceSide}) 
 }
 
 export function fetchActiveTest() {
-  if(localStorage.getItem("activeTest") == null) {
+  if(localStorage.getItem("activeTest") == null || localStorage.getItem("activeTest") === "undefined") {
     return {
       type: FETCH_ACTIVE_TEST,
       payload: null
@@ -171,4 +169,15 @@ export function tic(test) {
     type: TIC,
     payload: test
   }
+}
+
+export function savePassword({password}) {
+  const config = { headers: { authorization: localStorage.getItem('token')}};
+  var response = axios.post(`${ROOT_URL}/savepassword`, {password}, config);
+  alert("Password saved!");
+  browserHistory.push('/mainmenu');
+  return {
+    type: FETCH_USER,
+    payload: response
+  };
 }

@@ -20,12 +20,11 @@ class PracticeApp extends Component {
     this.props.fetchUser();
     this.props.fetchMediaDevices();
     this.props.fetchActiveTest();
-
     this.checkTest();
   }
 
   checkTest() {
-    if(localStorage.getItem("activeTest") != null) {
+    if(localStorage.getItem("activeTest") != null && localStorage.getItem("activeTest") !== "undefined") {
       this.setState({testInProgress:true});
 
       if(JSON.parse(localStorage.getItem("activeTest")).completed == true) {
@@ -48,7 +47,7 @@ class PracticeApp extends Component {
     if(this.state.testInProgress == false) {
       return <PracticeConfig startTest = {(numTrials) => this.startTest(numTrials)}/>;
     } else if (this.state.testInProgress == true) {
-        return <PracticeInProgress endTest = {() => this.endTest()}/>;
+      return <PracticeInProgress endTest = {() => this.endTest()}/>;
     } else {
       return <PracticeResults playAgain = {() => this.setState({testInProgress:false})}/>;
     }

@@ -17,6 +17,7 @@ import reducers from './reducers';
 import { AUTH_USER } from './actions/types';
 import MainMenu from "./components/mainmenu.js";
 import Settings from "./components/settings";
+import ChangePassword from "./components/changepassword";
 import History from "./components/history";
 import ResultView from "./components/resultView";
 import PracticeMode from "./components/practiceCode/PracticeApp";
@@ -43,6 +44,7 @@ ReactDOM.render(
         <Route path="feature" component={RequireAuth(Feature)} />
         <Route path="mainmenu" component={RequireAuth(MainMenu)} />
         <Route path="settings" component={RequireAuth(Settings)} />
+        <Route path="changepassword" component={RequireAuth(ChangePassword)}/> 
         <Route path="history" component={RequireAuth(History)} />
         <Route path="resultview" component={RequireAuth(ResultView)} />
         <Route path="practicemode" component = {RequireAuth(PracticeMode)} />

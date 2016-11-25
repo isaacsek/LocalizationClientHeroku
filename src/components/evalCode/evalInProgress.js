@@ -26,7 +26,7 @@ class EvalInProgress extends Component {
   }
 
   componentWillUnmount() {
-
+    //console.log("dismounting");
   }
 
   saveTestResults(completedTest) {
