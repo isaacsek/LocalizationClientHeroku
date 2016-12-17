@@ -6,13 +6,14 @@ import * as actions from '../../actions';
 import moment from "moment";
 import Sound from "../classes/sound";
 import TestObject from "../classes/testObject";
+import json2csv from "json2csv";
 
 var sounds = new Sound();
 
 class EvalConfig extends Component {
   constructor(props) {
     super(props);
-    this.state = {trials:10};
+    this.state = {trials:10, password:""};
   }
 
   componentWillMount() {
@@ -29,15 +30,47 @@ class EvalConfig extends Component {
     }
   }
 
+  updatePassword(n) {
+    //console.log(n);
+    this.setState({password:n});
+  }
+
+  downloadCSV() {
+    var history = this.props.user.history;
+    var fields =  ["testNumber",
+                "maxTrials",
+                "duration",
+                "startTime",
+                "practice",
+                "endTime",
+                "totalCorrect",
+                "trialCount",
+                "leftCorrect",
+                "rightCorrect",
+                "leftSpeakerPlay",
+                "rightSpeakerPlay",
+                "avgReactionTime",
+                "timeLeft",
+                "totalReaction",
+                "completed"]
+    var csv = json2csv({ data: history, fields: fields });
+    csv = 'data:text/csv;charset=utf-8,' + csv;
+    var data = encodeURI(csv);
+    return data;
+  }
+
   render() {
     return (
       <div>
+
         <div className = "text-md-center m-t-2">
           <h2 className = "text-md-center">Configuration</h2>
           <div>Place <span style = {{color:"blue"}}>BLUE</span> on your left, and <span style = {{color:"red"}}>RED</span> on your right</div>
-
+          {/*<a href = {this.downloadCSV()} download = "exports.csv">Download</a>*/}
           <div className = "m-t-2">Number of Trials? <input style = {{width:"50px"}} type = "number" value = {this.state.trials}
             onChange = {(event) => {this.updateTrials(event.target.value)}}></input> Trials</div>
+          <div className = "m-t-2">Test Password? <input style = {{width:"150px"}} type = "text" value = {this.state.password}
+            onChange = {(event) => {this.updatePassword(event.target.value)}}></input></div>
           <div className = "m-t-2">
             <figure style = {{display:"inline-block"}}>
               <img className = "btn btn-secondary btn-lg btn-outline-primary" src="images/blueSpeaker.png" height="150px" width="150px"
@@ -59,8 +92,8 @@ class EvalConfig extends Component {
           </div>
 
           <div className = "m-t-2"><h5>Click on icons to test speakers. When you are ready, click start.</h5></div>
-          <button onClick = {this.props.startTest.bind(this, this.state.trials)}className = "btn btn-primary btn-lg m-t-2">Start</button>
-          <div><Link to = "/mainmenu" className = "btn btn-secondary btn-danger m-t-2">Back to Main Menu</Link></div>
+          <button onClick = {this.props.startTest.bind(this, this.state.trials, this.state.password)}className = "btn btn-primary btn-lg m-t-2">Start</button>
+          <div><Link to = "/mainmenu" className = "m-t-2 btn btn-secondary btn-danger">Back to Main Menu</Link></div>
         </div>
       </div>
     );

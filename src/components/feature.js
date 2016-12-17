@@ -36,9 +36,10 @@ class Feature extends Component {
 }
 
 function mapStateToProps(state) {
-  return { message: state.auth.message,
-           user: state.auth.user
-         };
+  return {
+    message: state.auth.message,
+    user: state.auth.user
+  };
 }
 
 export default connect(mapStateToProps, actions)(Feature);

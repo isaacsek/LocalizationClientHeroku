@@ -97,7 +97,9 @@ class EvalInProgress extends Component {
           this.props.endTest();
         }, 2000)
     } else {
+      // change sound and side
       this.setState({speakerPlayingSound: sounds.pickRandomSide()});
+      console.log(this.state.speakerPlayingSound);
       this.props.updateEval(temp);
       this.forceUpdate();
     }

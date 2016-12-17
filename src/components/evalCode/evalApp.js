@@ -33,7 +33,7 @@ class EvalApp extends Component {
     }
 
     if(this.state.testInProgress == false) {
-      return <EvalConfig evaluation = {this.state.evaluation} startTest = {(numTrials) => this.startTest(numTrials)}/>;
+      return <EvalConfig evaluation = {this.state.evaluation} startTest = {(numTrials, password) => this.startTest(numTrials, password)}/>;
     } else if (this.state.testInProgress == true) {
         return <EvalInProgress evaluation = {this.state.evaluation} updateEval = {(test) => this.updateEval(test)} endTest = {() => this.endTest()}/>;
     } else {
@@ -45,9 +45,14 @@ class EvalApp extends Component {
     this.setState({evalatuion:evaluation});
   }
 
-  startTest(trials) {
-    var newTest = new Test(this.props.user.testCount + 1, trials, 0, new Moment(), false)
-    this.setState({testInProgress:true, evaluation:newTest});
+  startTest(trials, password) {
+    //console.log(password);
+    if(password == "pass") {
+      var newTest = new Test(this.props.user.testCount + 1, trials, 0, new Moment(), false)
+      this.setState({testInProgress:true, evaluation:newTest});
+    } else {
+      alert("Incorrect password. Try again.");
+    }
   }
 
   endTest() {

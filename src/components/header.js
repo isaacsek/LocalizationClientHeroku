@@ -9,9 +9,6 @@ class Header extends Component {
       return;
     } else {
       // show a link to sign in or sign up
-
-
-      {/*}
       return [
         <li className="nav-item m-r-1" key={2} style = {{float:"right", color: 'white'}}>
           <Link className="nav-link" to="/signup">Register</Link>
@@ -20,8 +17,6 @@ class Header extends Component {
           <Link className="nav-link" to="/signin">Login</Link>
         </li>
       ];
-      */}
-
     }
   }
 
