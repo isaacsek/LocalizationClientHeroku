@@ -34,7 +34,7 @@ class EvalInProgress extends Component {
     completedTest.startTime = new Moment(completedTest.startTime);
     completedTest.endTime = new Moment();
     completedTest.avgReactionTime = completedTest.totalReaction / completedTest.trialCount;
-    this.props.saveTestToDB(completedTest);
+    this.props.saveEvalToDB(completedTest);
   }
 
   renderResultString() {
@@ -93,13 +93,13 @@ class EvalInProgress extends Component {
           temp.trialCount = temp.trialCount - 1;
           temp.avgReactionTime = temp.totalReaction / temp.trialCount;
           this.props.updateEval(temp);
-          this.props.saveTestToDB(temp);
+          this.saveTestResults(temp);
+          //this.props.saveEvalToDB(temp);
           this.props.endTest();
         }, 2000)
     } else {
       // change sound and side
       this.setState({speakerPlayingSound: sounds.pickRandomSide()});
-      console.log(this.state.speakerPlayingSound);
       this.props.updateEval(temp);
       this.forceUpdate();
     }

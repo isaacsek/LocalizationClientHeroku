@@ -25,17 +25,30 @@ class MainMenu extends Component {
     }
   }
 
+  loadUser() {
+    if (this.props.user == undefined){
+      return;
+    } else {
+      if(this.props.user.username == "admin") {
+        return (
+          <Link to = "/admin" className = "btn btn-secondary" key = {5}>Admin</Link>
+        );
+      }
+    return;
+    }
+  }
+
   render() {
     return (
-      <div className = "mt-2">
-        <h3 className = "text-md-center">Main Menu</h3>
-
+      <div className = "mt-2 text-md-center">
+        <h2>Main Menu</h2>
         <center>
           <div className ="btn-group-vertical btn-group-lg">
             <Link to = "/evalmode" className = "btn btn-secondary" key = {1}>Evaluation</Link>
             <Link to = "/practicemode" className = "btn btn-secondary" key = {2}>Timed Practice</Link>
             <Link to = "/settings" className = "btn btn-secondary" key = {3}>Settings</Link>
             <Link to = "/history" className = "btn btn-secondary" key = {4}>History</Link>
+            {this.loadUser()}
           </div>
         </center>
 

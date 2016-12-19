@@ -153,9 +153,19 @@ export function clearTest() {
   }
 }
 
-export function saveTestToDB(test) {
+export function savePracticeToDB(test) {
   const config = { headers: { authorization: localStorage.getItem('token')}};
-  axios.post(ROOT_URL + "/savetest", test, config);
+  axios.post(ROOT_URL + "/savepractice", test, config);
+
+  return {
+    type: UPDATE_TEST,
+    payload: test
+  }
+}
+
+export function saveEvalToDB(test) {
+  const config = { headers: { authorization: localStorage.getItem('token')}};
+  axios.post(ROOT_URL + "/saveevaluation", test, config);
 
   return {
     type: UPDATE_TEST,

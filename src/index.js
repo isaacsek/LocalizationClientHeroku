@@ -22,6 +22,7 @@ import History from "./components/history";
 import ResultView from "./components/resultView";
 import PracticeMode from "./components/practiceCode/PracticeApp";
 import EvalMode from "./components/evalCode/evalApp";
+import Admin from "./components/adminCode/adminApp";
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk, promise)(createStore);
 const store = createStoreWithMiddleware(reducers);
@@ -44,11 +45,12 @@ ReactDOM.render(
         <Route path="feature" component={RequireAuth(Feature)} />
         <Route path="mainmenu" component={RequireAuth(MainMenu)} />
         <Route path="settings" component={RequireAuth(Settings)} />
-        <Route path="changepassword" component={RequireAuth(ChangePassword)}/> 
+        <Route path="changepassword" component={RequireAuth(ChangePassword)}/>
         <Route path="history" component={RequireAuth(History)} />
         <Route path="resultview" component={RequireAuth(ResultView)} />
         <Route path="practicemode" component = {RequireAuth(PracticeMode)} />
         <Route path="evalmode" component = {RequireAuth(EvalMode)} />
+        <Route path="admin" component={RequireAuth(Admin)} />
       </Route>
     </Router>
   </Provider>

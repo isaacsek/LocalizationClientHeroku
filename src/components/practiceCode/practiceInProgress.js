@@ -55,7 +55,7 @@ class PracticeInProgress extends Component {
     completedTest.startTime = new Moment(completedTest.startTime);
     completedTest.endTime = new Moment();
     completedTest.avgReactionTime = completedTest.totalReaction / completedTest.trialCount;
-    this.props.saveTestToDB(completedTest);
+    this.props.savePracticeToDB(completedTest);
   }
 
   renderResultString() {

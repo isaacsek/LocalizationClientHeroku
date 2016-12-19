@@ -48,7 +48,7 @@ class EvalApp extends Component {
   startTest(trials, password) {
     //console.log(password);
     if(password == "pass") {
-      var newTest = new Test(this.props.user.testCount + 1, trials, 0, new Moment(), false)
+      var newTest = new Test(this.props.user.history.evalCount + 1, trials, 0, new Moment(), false)
       this.setState({testInProgress:true, evaluation:newTest});
     } else {
       alert("Incorrect password. Try again.");

@@ -54,7 +54,7 @@ class PracticeApp extends Component {
   }
 
   startTest(minutes) {
-    var newTest = new Test(this.props.user.testCount + 1, 0, minutes, new Moment(), true)
+    var newTest = new Test(this.props.user.history.practiceCount + 1, 0, minutes, new Moment(), true)
     this.props.updateTest(newTest);
 
     this.setState({testInProgress:true});

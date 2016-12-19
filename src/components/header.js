@@ -10,10 +10,10 @@ class Header extends Component {
     } else {
       // show a link to sign in or sign up
       return [
-        <li className="nav-item m-r-1" key={2} style = {{float:"right", color: 'white'}}>
+        <li className="nav-item mr-1" key={2} style = {{float:"right", color: 'white'}}>
           <Link className="nav-link" to="/signup">Register</Link>
         </li>,
-        <li className="nav-item m-r-2" key={1} style = {{float:"right", color: 'white'}}>
+        <li className="nav-item mr-1" key={1} style = {{float:"right", color: 'white'}}>
           <Link className="nav-link" to="/signin">Login</Link>
         </li>
       ];
@@ -39,13 +39,41 @@ class Header extends Component {
     }
   }
 
+  renderAdminLink() {
+    if(this.props.authenticated) {
+      if(this.props.user.username == "arl_sni") {
+        return (
+          <li className="nav-item" key = {1}>
+            <Link className="nav-link" to="/mainmenu">ADMIN</Link>
+          </li>
+        );
+      }
+    }
+  }
+
+  loadUser() {
+    if (this.props.user == undefined){
+      return;
+    } else {
+      if(this.props.user.username == "arl_sni") {
+        return (
+          <li className="nav-item" key = {1}>
+            <Link className="nav-link" to="/mainmenu">ADMIN</Link>
+          </li>
+        );
+      }
+    return;
+    }
+  }
+
+
   render() {
     return (
       <nav className="navbar navbar-dark bg-primary navbar-full">
         <Link to="/" className="navbar-brand">iLocalize</Link>
-        {this.renderLogin()}
         <ul className="nav navbar-nav">
           {this.renderLinks()}
+          {this.loadUser()}
           {this.renderFeatureLink()}
         </ul>
       </nav>
