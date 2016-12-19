@@ -31,10 +31,10 @@ class PracticeResults extends Component {
   render() {
     return (
       <div>
-        <div className = "text-md-center m-t-2">
+        <div className = "text-md-center mt-2">
 
         <div><h2 className = "text-left text-md-center">Practice Results:</h2></div>
-          <div className = "text-left m-t-2" id = "testView">
+          <div className = "text-left mt-2" id = "testView">
           <div>
             <strong>Test #</strong> {this.props.activeTest.testNumber}
           </div>
@@ -64,8 +64,8 @@ class PracticeResults extends Component {
             </div>
           </div>
 
-          <div><button onClick = {() => this.playAgain()} className = "btn btn-success m-t-2">Play again</button></div>
-          <div><Link to = "/mainmenu" onClick = {this.props.clearTest} className = "btn btn-danger m-t-2">Quit</Link></div>
+          <div><button onClick = {() => this.playAgain()} className = "btn btn-success mt-2">Play again</button></div>
+          <div><Link to = "/mainmenu" onClick = {this.props.clearTest} className = "btn btn-danger mt-1">Quit</Link></div>
         </div>
       </div>
     );

@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0699d7f457917524e0df"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a6dad7f6b664c5056cf8"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -34618,10 +34618,10 @@
 	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'text-md-center m-t-2' },
+	          { className: 'text-md-center mt-2' },
 	          _react2.default.createElement(
 	            'h2',
-	            { className: 'text-md-center' },
+	            { className: '' },
 	            'Configuration'
 	          ),
 	          _react2.default.createElement(
@@ -34643,26 +34643,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'm-t-2' },
-	            'Number of Trials? ',
-	            _react2.default.createElement('input', { style: { width: "50px" }, type: 'number', value: this.state.trials,
-	              onChange: function onChange(event) {
-	                _this2.updateTrials(event.target.value);
-	              } }),
-	            ' Trials'
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'm-t-2' },
-	            'Test Password? ',
-	            _react2.default.createElement('input', { style: { width: "150px" }, type: 'text', value: this.state.password,
-	              onChange: function onChange(event) {
-	                _this2.updatePassword(event.target.value);
-	              } })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'm-t-2' },
+	            { className: '' },
 	            _react2.default.createElement(
 	              'figure',
 	              { style: { display: "inline-block" } },
@@ -34679,7 +34660,7 @@
 	            _react2.default.createElement(
 	              'figure',
 	              { style: { display: "inline-block" } },
-	              _react2.default.createElement('img', { className: 'btn btn-secondary m-l-1 m-r-1', src: 'images/userIcon.png', height: '200px', width: '200px',
+	              _react2.default.createElement('img', { className: 'btn btn-secondary ml-1 mr-1', src: 'images/userIcon.png', height: '200px', width: '200px',
 	                onClick: function onClick() {
 	                  console.log("Hello, world!");
 	                } }),
@@ -34705,7 +34686,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'm-t-2' },
+	            { className: '' },
 	            _react2.default.createElement(
 	              'h5',
 	              null,
@@ -34713,8 +34694,26 @@
 	            )
 	          ),
 	          _react2.default.createElement(
+	            'div',
+	            { className: 'mt-2' },
+	            'Number of Trials? ',
+	            _react2.default.createElement('input', { style: { width: "50px" }, type: 'number', value: this.state.trials,
+	              onChange: function onChange(event) {
+	                _this2.updateTrials(event.target.value);
+	              } })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: '' },
+	            'Password? ',
+	            _react2.default.createElement('input', { style: { align: "left", width: "100px" }, type: 'text', value: this.state.password,
+	              onChange: function onChange(event) {
+	                _this2.updatePassword(event.target.value);
+	              } })
+	          ),
+	          _react2.default.createElement(
 	            'button',
-	            { onClick: this.props.startTest.bind(this, this.state.trials, this.state.password), className: 'btn btn-primary btn-lg m-t-2' },
+	            { onClick: this.props.startTest.bind(this, this.state.trials, this.state.password), className: 'btn btn-primary btn-lg mt-1' },
 	            'Start'
 	          ),
 	          _react2.default.createElement(
@@ -34722,7 +34721,7 @@
 	            null,
 	            _react2.default.createElement(
 	              _reactRouter.Link,
-	              { to: '/mainmenu', className: 'm-t-2 btn btn-secondary btn-danger' },
+	              { to: '/mainmenu', className: 'mt-1 btn btn-secondary btn-danger' },
 	              'Back to Main Menu'
 	            )
 	          )
@@ -34844,21 +34843,18 @@
 	        return _react2.default.createElement(
 	          'div',
 	          { className: 'btn btn-danger' },
-	          'Results: ',
 	          resultString
 	        );
 	      } else if (this.state.correctGuess == true) {
 	        return _react2.default.createElement(
 	          'div',
 	          { className: 'btn btn-success' },
-	          'Results: ',
 	          resultString
 	        );
 	      } else {
 	        return _react2.default.createElement(
 	          'div',
 	          { className: 'btn btn-info' },
-	          'Results: ',
 	          resultString
 	        );
 	      }
@@ -34930,7 +34926,7 @@
 	    value: function renderTest() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'm-t-2' },
+	        { className: 'mt-2' },
 	        _react2.default.createElement(
 	          'div',
 	          { className: '' },
@@ -34946,7 +34942,7 @@
 	        this.renderResultString(),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'm-t-1' },
+	          { className: 'mt-1' },
 	          _react2.default.createElement(
 	            'figure',
 	            { style: { display: "inline-block" } },
@@ -34961,7 +34957,7 @@
 	          _react2.default.createElement(
 	            'figure',
 	            { style: { display: "inline-block" } },
-	            _react2.default.createElement('img', { className: 'btn btn-secondary m-l-1 m-r-1', src: 'images/userIcon.png', height: '200px', width: '200px' }),
+	            _react2.default.createElement('img', { className: 'btn btn-secondary ml-1 mr-1', src: 'images/userIcon.png', height: '200px', width: '200px' }),
 	            _react2.default.createElement(
 	              'figcaption',
 	              null,
@@ -34999,11 +34995,11 @@
 	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'text-md-center m-t-2' },
+	          { className: 'text-md-center mt-2' },
 	          this.renderTest(),
 	          _react2.default.createElement(
 	            _reactRouter.Link,
-	            { to: '/mainmenu', className: 'btn btn-danger m-t-2' },
+	            { to: '/mainmenu', className: 'btn btn-danger mt-2' },
 	            'Quit'
 	          )
 	        )
@@ -35112,7 +35108,7 @@
 	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'text-md-center m-t-2' },
+	          { className: 'text-md-center mt-2' },
 	          _react2.default.createElement(
 	            'div',
 	            null,
@@ -35124,7 +35120,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'text-left m-t-2', id: 'testView' },
+	            { className: 'text-left mt-2', id: 'testView' },
 	            _react2.default.createElement(
 	              'div',
 	              null,
@@ -35244,7 +35240,7 @@
 	            null,
 	            _react2.default.createElement(
 	              _reactRouter.Link,
-	              { to: '/mainmenu', className: 'btn btn-danger m-t-2' },
+	              { to: '/mainmenu', className: 'btn btn-danger mt-2' },
 	              'Main Menu'
 	            )
 	          )
@@ -35577,7 +35573,7 @@
 	            _reactRouter.Link,
 	            { to: '/resultview',
 	              key: test.testNumber,
-	              className: 'btn btn-secondary m-t-2 text-md-left', style: { color: 'black' },
+	              className: 'btn btn-secondary mt-2 text-md-left', style: { color: 'black' },
 	              onClick: function onClick() {
 	                return _this2.props.selectTest(test);
 	              } },
@@ -35614,7 +35610,7 @@
 	      if (this.props.user != undefined) {
 	        return _react2.default.createElement(
 	          _reactRouter.Link,
-	          { to: '/mainmenu', className: 'btn btn-danger m-t-2' },
+	          { to: '/mainmenu', className: 'btn btn-danger mt-1' },
 	          'Back to Main Menu'
 	        );
 	      }
@@ -35660,7 +35656,7 @@
 	        { className: 'text-md-center' },
 	        _react2.default.createElement(
 	          'h2',
-	          { className: 'text-md-center m-t-2' },
+	          { className: 'text-md-center mt-2' },
 	          'History'
 	        ),
 	        _react2.default.createElement(
@@ -35762,10 +35758,10 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'mt-2' },
 	        _react2.default.createElement(
 	          'h3',
-	          { className: 'text-md-center m-t-2' },
+	          { className: 'text-md-center' },
 	          'Main Menu'
 	        ),
 	        _react2.default.createElement(
@@ -35773,7 +35769,7 @@
 	          null,
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'btn-group-vertical btn-group-lg m-t-1' },
+	            { className: 'btn-group-vertical btn-group-lg' },
 	            _react2.default.createElement(
 	              _reactRouter.Link,
 	              { to: '/evalmode', className: 'btn btn-secondary', key: 1 },
@@ -36056,7 +36052,7 @@
 	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'text-md-center m-t-2' },
+	          { className: 'text-md-center mt-2' },
 	          _react2.default.createElement(
 	            'h2',
 	            { className: 'text-md-center' },
@@ -36081,7 +36077,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'm-t-2' },
+	            { className: 'mt-2' },
 	            'Amount of time? ',
 	            _react2.default.createElement('input', { style: { width: "50px" }, type: 'number', value: this.state.minutes,
 	              onChange: function onChange(event) {
@@ -36091,7 +36087,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'm-t-2' },
+	            { className: 'mt-2' },
 	            _react2.default.createElement(
 	              'figure',
 	              { style: { display: "inline-block" } },
@@ -36108,7 +36104,7 @@
 	            _react2.default.createElement(
 	              'figure',
 	              { style: { display: "inline-block" } },
-	              _react2.default.createElement('img', { className: 'btn btn-secondary m-l-1 m-r-1', src: 'images/userIcon.png', height: '200px', width: '200px',
+	              _react2.default.createElement('img', { className: 'btn btn-secondary ml-1 mr-1', src: 'images/userIcon.png', height: '200px', width: '200px',
 	                onClick: function onClick() {
 	                  console.log("Hello, world!");
 	                } }),
@@ -36134,7 +36130,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'm-t-2' },
+	            { className: 'mt-2' },
 	            _react2.default.createElement(
 	              'h5',
 	              null,
@@ -36143,7 +36139,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this.props.startTest.bind(this, this.state.minutes), className: 'btn btn-primary btn-lg m-t-2' },
+	            { onClick: this.props.startTest.bind(this, this.state.minutes), className: 'btn btn-primary btn-lg mt-2' },
 	            'Start'
 	          ),
 	          _react2.default.createElement(
@@ -36151,7 +36147,7 @@
 	            null,
 	            _react2.default.createElement(
 	              _reactRouter.Link,
-	              { to: '/mainmenu', className: 'btn btn-secondary btn-danger m-t-2' },
+	              { to: '/mainmenu', className: 'btn btn-secondary btn-danger mt-1' },
 	              'Back to Main Menu'
 	            )
 	          )
@@ -36368,11 +36364,11 @@
 	    value: function renderTest() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'm-t-2' },
+	        { className: 'mt-2' },
 	        this.renderResultString(),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'm-t-1' },
+	          { className: 'mt-1' },
 	          _react2.default.createElement(
 	            'figure',
 	            { style: { display: "inline-block" } },
@@ -36387,7 +36383,7 @@
 	          _react2.default.createElement(
 	            'figure',
 	            { style: { display: "inline-block" } },
-	            _react2.default.createElement('img', { className: 'btn btn-secondary m-l-1 m-r-1', src: 'images/userIcon.png', height: '200px', width: '200px' }),
+	            _react2.default.createElement('img', { className: 'btn btn-secondary ml-1 mr-1', src: 'images/userIcon.png', height: '200px', width: '200px' }),
 	            _react2.default.createElement(
 	              'figcaption',
 	              null,
@@ -36427,7 +36423,7 @@
 	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'text-md-center m-t-2' },
+	          { className: 'text-md-center mt-2' },
 	          _react2.default.createElement(
 	            'h2',
 	            { className: 'text-md-center' },
@@ -36443,7 +36439,7 @@
 	            _reactRouter.Link,
 	            { to: '/mainmenu', onClick: function onClick() {
 	                return _this3.props.clearTest;
-	              }, className: 'btn btn-danger m-t-2' },
+	              }, className: 'btn btn-danger mt-1' },
 	            'Quit'
 	          )
 	        )
@@ -36556,7 +36552,7 @@
 	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'text-md-center m-t-2' },
+	          { className: 'text-md-center mt-2' },
 	          _react2.default.createElement(
 	            'div',
 	            null,
@@ -36568,7 +36564,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'text-left m-t-2', id: 'testView' },
+	            { className: 'text-left mt-2', id: 'testView' },
 	            _react2.default.createElement(
 	              'div',
 	              null,
@@ -36690,7 +36686,7 @@
 	              'button',
 	              { onClick: function onClick() {
 	                  return _this2.playAgain();
-	                }, className: 'btn btn-success m-t-2' },
+	                }, className: 'btn btn-success mt-2' },
 	              'Play again'
 	            )
 	          ),
@@ -36699,7 +36695,7 @@
 	            null,
 	            _react2.default.createElement(
 	              _reactRouter.Link,
-	              { to: '/mainmenu', onClick: this.props.clearTest, className: 'btn btn-danger m-t-2' },
+	              { to: '/mainmenu', onClick: this.props.clearTest, className: 'btn btn-danger mt-1' },
 	              'Quit'
 	            )
 	          )
@@ -37050,7 +37046,7 @@
 	      if (this.props.user != undefined) {
 	        return _react2.default.createElement(
 	          'div',
-	          { className: 'container m-t-2', style: { width: "300px" } },
+	          { className: 'container mt-2', style: { width: "300px" } },
 	          _react2.default.createElement(
 	            'h2',
 	            { className: 'text-md-center m-t-2' },
@@ -37130,7 +37126,7 @@
 	              ),
 	              _react2.default.createElement(
 	                'span',
-	                { className: 'm-l-1' },
+	                { className: 'ml-1' },
 	                _react2.default.createElement(
 	                  _reactRouter.Link,
 	                  { to: '/mainmenu', className: 'btn btn-danger' },
@@ -37139,7 +37135,7 @@
 	              ),
 	              _react2.default.createElement(
 	                'div',
-	                { className: 'm-t-1' },
+	                { className: 'mt-1' },
 	                _react2.default.createElement(
 	                  _reactRouter.Link,
 	                  { to: '/changepassword', className: 'btn btn-warning' },
@@ -37276,7 +37272,7 @@
 	        { className: 'text-md-center' },
 	        _react2.default.createElement(
 	          'h1',
-	          { className: 'display-3 m-t-2' },
+	          { className: 'display-3 mt-2' },
 	          'Welcome!'
 	        ),
 	        _react2.default.createElement(

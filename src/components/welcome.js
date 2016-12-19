@@ -14,7 +14,7 @@ class Welcome extends React.Component {
   render() {
     return (
       <div className="text-md-center">
-        <h1 className="display-3 m-t-2">Welcome!</h1>
+        <h1 className="display-3 mt-2">Welcome!</h1>
         <p className="lead">Improve your sound localization here.</p>
         {this.renderLogin()}
       </div>

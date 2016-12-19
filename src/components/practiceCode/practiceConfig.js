@@ -33,13 +33,13 @@ class PracticeConfig extends Component {
   render() {
     return (
       <div>
-        <div className = "text-md-center m-t-2">
+        <div className = "text-md-center mt-2">
           <h2 className = "text-md-center">Configuration</h2>
           <div>Place <span style = {{color:"blue"}}>BLUE</span> on your left, and <span style = {{color:"red"}}>RED</span> on your right</div>
 
-          <div className = "m-t-2">Amount of time? <input style = {{width:"50px"}} type = "number" value = {this.state.minutes}
+          <div className = "mt-2">Amount of time? <input style = {{width:"50px"}} type = "number" value = {this.state.minutes}
             onChange = {(event) => {this.updateMinutes(event.target.value)}}></input> minutes</div>
-          <div className = "m-t-2">
+          <div className = "mt-2">
             <figure style = {{display:"inline-block"}}>
               <img className = "btn btn-secondary btn-lg btn-outline-primary" src="images/blueSpeaker.png" height="150px" width="150px"
                 onClick = {() => {sounds.setSide("left"); sounds.play();}}/>
@@ -47,7 +47,7 @@ class PracticeConfig extends Component {
             </figure>
 
             <figure style = {{display:"inline-block"}}>
-              <img className = "btn btn-secondary m-l-1 m-r-1" src="images/userIcon.png" height="200px" width="200px"
+              <img className = "btn btn-secondary ml-1 mr-1" src="images/userIcon.png" height="200px" width="200px"
                 onClick = {() => {console.log("Hello, world!")}}/>
               <figcaption>You</figcaption>
             </figure>
@@ -59,9 +59,9 @@ class PracticeConfig extends Component {
             </figure>
           </div>
 
-          <div className = "m-t-2"><h5>Click on icons to test speakers. When you are ready, click start.</h5></div>
-          <button onClick = {this.props.startTest.bind(this, this.state.minutes)}className = "btn btn-primary btn-lg m-t-2">Start</button>
-          <div><Link to = "/mainmenu" className = "btn btn-secondary btn-danger m-t-2">Back to Main Menu</Link></div>
+          <div className = "mt-2"><h5>Click on icons to test speakers. When you are ready, click start.</h5></div>
+          <button onClick = {this.props.startTest.bind(this, this.state.minutes)}className = "btn btn-primary btn-lg mt-2">Start</button>
+          <div><Link to = "/mainmenu" className = "btn btn-secondary btn-danger mt-1">Back to Main Menu</Link></div>
         </div>
       </div>
     );

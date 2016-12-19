@@ -39,13 +39,13 @@ class EvalInProgress extends Component {
 
   renderResultString() {
     if(this.state.correctGuess == false) {
-      return (<div className = "btn btn-danger">Results: {resultString}</div>);
+      return (<div className = "btn btn-danger">{resultString}</div>);
     }
     else if(this.state.correctGuess == true) {
-      return (<div className = "btn btn-success">Results: {resultString}</div>);
+      return (<div className = "btn btn-success">{resultString}</div>);
     }
     else {
-      return (<div className = "btn btn-info">Results: {resultString}</div>);
+      return (<div className = "btn btn-info">{resultString}</div>);
     }
   }
 
@@ -111,10 +111,10 @@ class EvalInProgress extends Component {
 
   renderTest() {
     return (
-      <div className = "m-t-2">
+      <div className = "mt-2">
         <div className = ""><h3>Trial: {this.props.evaluation.trialCount}/{this.props.evaluation.maxTrials}</h3></div>
         {this.renderResultString()}
-        <div className = "m-t-1">
+        <div className = "mt-1">
           <figure style = {{display:"inline-block"}}>
             <img id = "blueButton" className = "disabledbutton btn btn-secondary btn-lg btn-outline-primary" src="images/blueSpeaker.png" height="150px" width="150px"
               value = "blue" onClick = {this.determineGuess.bind(this,"blue")}/>
@@ -122,7 +122,7 @@ class EvalInProgress extends Component {
           </figure>
 
             <figure style = {{display:"inline-block"}}>
-              <img className = "btn btn-secondary m-l-1 m-r-1" src="images/userIcon.png" height="200px" width="200px" />
+              <img className = "btn btn-secondary ml-1 mr-1" src="images/userIcon.png" height="200px" width="200px" />
               <figcaption>You</figcaption>
             </figure>
 
@@ -140,10 +140,10 @@ class EvalInProgress extends Component {
   render() {
     return (
       <div>
-        <div className = "text-md-center m-t-2">
+        <div className = "text-md-center mt-2">
           {/*}<h2 className = "text-md-center">Practice Time Remaining: <span style = {{color:"red"}}>{Moment.duration(this.props.activeTest.timeLeft, "seconds").format("mm:ss")}</span></h2>*/}
           {this.renderTest()}
-          <Link to = "/mainmenu" className = "btn btn-danger m-t-2">Quit</Link>
+          <Link to = "/mainmenu" className = "btn btn-danger mt-2">Quit</Link>
         </div>
       </div>
     );

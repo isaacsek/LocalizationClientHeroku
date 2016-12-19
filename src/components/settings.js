@@ -37,7 +37,7 @@ class Settings extends Component {
     if (this.props.user != undefined) {
       return (
 
-        <div className = "container m-t-2" style = {{width:"300px"}}>
+        <div className = "container mt-2" style = {{width:"300px"}}>
           <h2 className = "text-md-center m-t-2">Settings</h2>
           <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
 
@@ -64,8 +64,8 @@ class Settings extends Component {
             {this.renderAlert()}
             <center>
               <button action="submit" className="btn btn-primary left">Submit</button>
-              <span className = "m-l-1"><Link to = "/mainmenu" className = "btn btn-danger">Cancel</Link></span>
-              <div className = "m-t-1">
+              <span className = "ml-1"><Link to = "/mainmenu" className = "btn btn-danger">Cancel</Link></span>
+              <div className = "mt-1">
                 <Link to = "/changepassword" className = "btn btn-warning">Change Password</Link>
               </div>
             </center>
