@@ -27,11 +27,11 @@ class MainMenu extends Component {
 
   render() {
     return (
-      <div>
-        <h3 className = "text-md-center m-t-2">Main Menu</h3>
+      <div className = "mt-2">
+        <h3 className = "text-md-center">Main Menu</h3>
 
         <center>
-          <div className ="btn-group-vertical btn-group-lg m-t-1">
+          <div className ="btn-group-vertical btn-group-lg">
             <Link to = "/evalmode" className = "btn btn-secondary" key = {1}>Evaluation</Link>
             <Link to = "/practicemode" className = "btn btn-secondary" key = {2}>Timed Practice</Link>
             <Link to = "/settings" className = "btn btn-secondary" key = {3}>Settings</Link>
