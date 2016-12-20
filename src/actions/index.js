@@ -15,6 +15,7 @@ import {
   CLEAR_TEST,
   TIC,
   CHANGE_PASSWORD,
+  FETCH_DB,
 
 } from './types';
 
@@ -88,8 +89,21 @@ export function fetchUser() {
     })
       .then(response => {
         dispatch({
-
           type: FETCH_USER,
+          payload: response.data.token
+        });
+      });
+  }
+}
+
+export function fetchDB() {
+  return function(dispatch) {
+    axios.get(ROOT_URL + "/fetchdb", {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+      .then(response => {
+        dispatch({
+          type: FETCH_DB,
           payload: response.data.token
         });
       });
@@ -108,6 +122,20 @@ export function fetchMediaDevices() {
 export function selectTest(test) {
   return {
     type: TEST_SELECTED, //action type
+    payload: test //payload info of object
+  };
+}
+
+export function selectUser(user) {
+  return {
+    type: "USER_SELECTED", //action type
+    payload: user //payload info of object
+  };
+}
+
+export function selectUserTest(test) {
+  return {
+    type: "USER_TEST_SELECTED", //action type
     payload: test //payload info of object
   };
 }

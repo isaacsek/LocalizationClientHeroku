@@ -13,4 +13,5 @@ export const UPDATE_TEST = "update_test";
 export const CLEAR_TEST = "clear_test";
 export const TIC = "tic";
 export const CHANGE_PASSWORD = "change_password";
+export const FETCH_DB = "sfsfsdf";
 //export const ROOT_URL = 'http://localhost:3090';
