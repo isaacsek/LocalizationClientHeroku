@@ -182,6 +182,7 @@ export function saveSettings({ name, password, age, hearingDevice, deviceSide}) 
   }
 }
 
+
 export function fetchActiveTest() {
   if(localStorage.getItem("activeTest") == null || localStorage.getItem("activeTest") === "undefined") {
     return {

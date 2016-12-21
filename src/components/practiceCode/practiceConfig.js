@@ -35,7 +35,8 @@ class PracticeConfig extends Component {
       <div>
         <div className = "text-md-center mt-2">
           <h2 className = "text-md-center">Configuration</h2>
-          <div>Place <span style = {{color:"blue"}}>BLUE</span> on your left, and <span style = {{color:"red"}}>RED</span> on your right</div>
+          <div>Place <span style = {{color:"blue"}}>BLUE</span> on your left, and <span style = {{color:"red"}}>RED</span> on your right.</div>
+          <div>Set computer volume to 50.</div>
 
           <div className = "mt-2">Amount of time? <input style = {{width:"50px"}} type = "number" value = {this.state.minutes}
             onChange = {(event) => {this.updateMinutes(event.target.value)}}></input> minutes</div>

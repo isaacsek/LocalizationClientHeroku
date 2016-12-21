@@ -65,11 +65,12 @@ class EvalConfig extends Component {
 
         <div className = "text-md-center mt-2">
           <h2 className = "">Configuration</h2>
-          <div>Place <span style = {{color:"blue"}}>BLUE</span> on your left, and <span style = {{color:"red"}}>RED</span> on your right</div>
+          <div>Place <span style = {{color:"blue"}}>BLUE</span> on your left, and <span style = {{color:"red"}}>RED</span> on your right.</div>
+          <div>Set computer volume to 50.</div>
           {/*<a href = {this.downloadCSV()} download = "exports.csv">Download</a>*/}
 
 
-          <div className = "">
+          <div className = "mt-2">
             <figure style = {{display:"inline-block"}}>
               <img className = "btn btn-secondary btn-lg btn-outline-primary" src="images/blueSpeaker.png" height="150px" width="150px"
                 onClick = {() => {sounds.setSide("left"); sounds.play();}}/>

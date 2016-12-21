@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "9c8c4bdcde0d1dc820b9"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "cc03e56130d1e40b02d2"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -35434,11 +35434,16 @@
 	              { style: { color: "red" } },
 	              'RED'
 	            ),
-	            ' on your right'
+	            ' on your right.'
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: '' },
+	            null,
+	            'Set computer volume to 50.'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'mt-2' },
 	            _react2.default.createElement(
 	              'figure',
 	              { style: { display: "inline-block" } },
@@ -36955,7 +36960,12 @@
 	              { style: { color: "red" } },
 	              'RED'
 	            ),
-	            ' on your right'
+	            ' on your right.'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            'Set computer volume to 50.'
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -37141,7 +37151,7 @@
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
 	      clearInterval(this.timerID);
-	      this.props.updateTest(this.props.activeTest);
+	      //this.props.updateTest(this.props.activeTest);
 	    }
 	  }, {
 	    key: 'tick',
@@ -37157,6 +37167,7 @@
 	        }
 	        this.props.endTest();
 	      }
+	      this.props.updateTest(this.props.activeTest);
 	    }
 	  }, {
 	    key: 'saveTestResults',
@@ -37323,7 +37334,7 @@
 	          _react2.default.createElement(
 	            _reactRouter.Link,
 	            { to: '/mainmenu', onClick: function onClick() {
-	                return _this3.props.clearTest;
+	                return _this3.props.clearTest();
 	              }, className: 'btn btn-danger mt-1' },
 	            'Quit'
 	          )

@@ -33,7 +33,7 @@ class PracticeInProgress extends Component {
 
   componentWillUnmount() {
     clearInterval(this.timerID);
-    this.props.updateTest(this.props.activeTest);
+    //this.props.updateTest(this.props.activeTest);
   }
 
   tick() {
@@ -48,6 +48,7 @@ class PracticeInProgress extends Component {
       }
       this.props.endTest();
     }
+    this.props.updateTest(this.props.activeTest);
   }
 
   saveTestResults(completedTest) {
@@ -157,7 +158,7 @@ class PracticeInProgress extends Component {
           {/*}<div><button className = "btn btn-secondary btn-warning" onClick =
           {this.saveTestResults.bind(this, this.props.activeTest)}>End Test</button></div>*/}
 
-          <Link to = "/mainmenu" onClick = {() => this.props.clearTest} className = "btn btn-danger mt-1">Quit</Link>
+          <Link to = "/mainmenu" onClick = {() => this.props.clearTest()} className = "btn btn-danger mt-1">Quit</Link>
         </div>
       </div>
     );
