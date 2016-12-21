@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "d04602ce8a70064627cd"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "9c8c4bdcde0d1dc820b9"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -5298,6 +5298,7 @@
 	exports.fetchMessage = fetchMessage;
 	exports.fetchUser = fetchUser;
 	exports.fetchDB = fetchDB;
+	exports.fetchEvalPass = fetchEvalPass;
 	exports.fetchMediaDevices = fetchMediaDevices;
 	exports.selectTest = selectTest;
 	exports.selectUser = selectUser;
@@ -5412,6 +5413,19 @@
 	    }).then(function (response) {
 	      dispatch({
 	        type: _types.FETCH_DB,
+	        payload: response.data.token
+	      });
+	    });
+	  };
+	}
+
+	function fetchEvalPass() {
+	  return function (dispatch) {
+	    _axios2.default.get(_types.ROOT_URL + "/fetchevalpass", {
+	      headers: { authorization: localStorage.getItem('token') }
+	    }).then(function (response) {
+	      dispatch({
+	        type: "FETCH_EVAL_PASS",
 	        payload: response.data.token
 	      });
 	    });
@@ -35213,6 +35227,7 @@
 	    value: function componentWillMount() {
 	      this.props.fetchUser();
 	      this.props.fetchMediaDevices();
+	      this.props.fetchEvalPass();
 	    }
 	  }, {
 	    key: 'renderView',
@@ -35255,8 +35270,7 @@
 	  }, {
 	    key: 'startTest',
 	    value: function startTest(trials, password) {
-	      //console.log(password);
-	      if (password == "pass") {
+	      if (password == this.props.evalPass) {
 	        var newTest = new _testObject2.default(this.props.user.history.evalCount + 1, trials, 0, new _moment2.default(), false);
 	        this.setState({ testInProgress: true, evaluation: newTest });
 	      } else {
@@ -35286,7 +35300,8 @@
 	  return {
 	    user: state.auth.user,
 	    speakers: state.auth.mediaDevices,
-	    activeTest: state.activeTest.activeTest
+	    activeTest: state.activeTest.activeTest,
+	    evalPass: state.activeTest.evalPass
 	  };
 	}
 
@@ -35645,8 +35660,11 @@
 	      startReaction = (0, _moment2.default)();
 	      sounds.play();
 	      $("#playSound").addClass("disabledbutton");
-	      $("#redButton").removeClass("disabledbutton");
-	      $("#blueButton").removeClass("disabledbutton");
+
+	      setTimeout(function () {
+	        $("#redButton").removeClass("disabledbutton");
+	        $("#blueButton").removeClass("disabledbutton");
+	      }, 1000);
 	    }
 	  }, {
 	    key: 'determineGuess',
@@ -36599,7 +36617,6 @@
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      this.props.fetchUser();
-	      console.log("here");
 	    }
 	  }, {
 	    key: 'loadAdmin',
@@ -37182,8 +37199,11 @@
 	      startReaction = (0, _moment2.default)();
 	      sounds.play();
 	      $("#playSound").addClass("disabledbutton");
-	      $("#redButton").removeClass("disabledbutton");
-	      $("#blueButton").removeClass("disabledbutton");
+
+	      setTimeout(function () {
+	        $("#redButton").removeClass("disabledbutton");
+	        $("#blueButton").removeClass("disabledbutton");
+	      }, 1000);
 	    }
 	  }, {
 	    key: 'determineGuess',
@@ -38324,6 +38344,8 @@
 	      return _extends({}, state, { selectedUser: action.payload });
 	    case "USER_TEST_SELECTED":
 	      return _extends({}, state, { selectedUserTest: action.payload });
+	    case "FETCH_EVAL_PASS":
+	      return _extends({}, state, { evalPass: action.payload });
 
 	  }
 	  return state;

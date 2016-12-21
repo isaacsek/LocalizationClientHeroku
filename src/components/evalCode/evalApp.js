@@ -19,6 +19,7 @@ class EvalApp extends Component {
   componentWillMount() {
     this.props.fetchUser();
     this.props.fetchMediaDevices();
+    this.props.fetchEvalPass();
   }
 
   renderView() {
@@ -46,8 +47,7 @@ class EvalApp extends Component {
   }
 
   startTest(trials, password) {
-    //console.log(password);
-    if(password == "pass") {
+    if(password == this.props.evalPass) {
       var newTest = new Test(this.props.user.history.evalCount + 1, trials, 0, new Moment(), false)
       this.setState({testInProgress:true, evaluation:newTest});
     } else {
@@ -72,7 +72,8 @@ function mapStateToProps(state) {
     return {
       user: state.auth.user,
       speakers: state.auth.mediaDevices,
-      activeTest: state.activeTest.activeTest
+      activeTest: state.activeTest.activeTest,
+      evalPass: state.activeTest.evalPass
     };
 }
 

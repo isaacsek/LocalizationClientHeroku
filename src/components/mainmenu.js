@@ -9,7 +9,6 @@ import { browserHistory } from 'react-router';
 class MainMenu extends Component {
   componentWillMount() {
     this.props.fetchUser();
-    console.log("here");
   }
 
   loadAdmin() {
