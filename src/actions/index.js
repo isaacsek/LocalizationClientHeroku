@@ -110,6 +110,20 @@ export function fetchDB() {
   }
 }
 
+export function fetchEvalPass() {
+  return function(dispatch) {
+    axios.get(ROOT_URL + "/fetchevalpass", {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+      .then(response => {
+        dispatch({
+          type: "FETCH_EVAL_PASS",
+          payload: response.data.token
+        });
+      });
+  }
+}
+
 export function fetchMediaDevices() {
   var request = navigator.mediaDevices.enumerateDevices();
 

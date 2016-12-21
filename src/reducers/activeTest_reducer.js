@@ -30,6 +30,8 @@ export default function(state = {}, action) {
         return {...state, selectedUser: action.payload};
       case "USER_TEST_SELECTED":
         return {...state, selectedUserTest: action.payload};
+      case "FETCH_EVAL_PASS":
+        return {...state, evalPass: action.payload};
 
     }
     return state;
