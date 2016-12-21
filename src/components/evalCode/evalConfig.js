@@ -6,7 +6,6 @@ import * as actions from '../../actions';
 import moment from "moment";
 import Sound from "../classes/sound";
 import TestObject from "../classes/testObject";
-import json2csv from "json2csv";
 
 var sounds = new Sound();
 
@@ -31,32 +30,7 @@ class EvalConfig extends Component {
   }
 
   updatePassword(n) {
-    //console.log(n);
     this.setState({password:n});
-  }
-
-  downloadCSV() {
-    var history = this.props.user.history;
-    var fields =  ["testNumber",
-                "maxTrials",
-                "duration",
-                "startTime",
-                "practice",
-                "endTime",
-                "totalCorrect",
-                "trialCount",
-                "leftCorrect",
-                "rightCorrect",
-                "leftSpeakerPlay",
-                "rightSpeakerPlay",
-                "avgReactionTime",
-                "timeLeft",
-                "totalReaction",
-                "completed"]
-    var csv = json2csv({ data: history, fields: fields });
-    csv = 'data:text/csv;charset=utf-8,' + csv;
-    var data = encodeURI(csv);
-    return data;
   }
 
   render() {

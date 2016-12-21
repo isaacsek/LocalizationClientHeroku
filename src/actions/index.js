@@ -16,7 +16,9 @@ import {
   TIC,
   CHANGE_PASSWORD,
   FETCH_DB,
-
+  FETCH_EVAL_PASS,
+  USER_SELECTED,
+  USER_TEST_SELECTED,
 } from './types';
 
 export function signinUser({ username, password }) {
@@ -117,7 +119,7 @@ export function fetchEvalPass() {
     })
       .then(response => {
         dispatch({
-          type: "FETCH_EVAL_PASS",
+          type: FETCH_EVAL_PASS,
           payload: response.data.token
         });
       });
@@ -142,39 +144,29 @@ export function selectTest(test) {
 
 export function selectUser(user) {
   return {
-    type: "USER_SELECTED", //action type
+    type: USER_SELECTED, //action type
     payload: user //payload info of object
   };
 }
 
 export function selectUserTest(test) {
   return {
-    type: "USER_TEST_SELECTED", //action type
+    type: USER_TEST_SELECTED, //action type
     payload: test //payload info of object
   };
 }
 
-export function saveSettings2({ name, password, age, hearingDevice, deviceSide}) {
-  const config = { headers: { authorization: localStorage.getItem('token')}};
-  var response = axios.post(`${ROOT_URL}/savesettings`, { name, password, age, hearingDevice, deviceSide}, config);
-  alert("Settings saved!");
-  browserHistory.push('/mainmenu');
-  return {
-    type: FETCH_USER,
-    payload: response
-  };
-}
-
-export function saveSettings({ name, password, age, hearingDevice, deviceSide}) {
+export function saveSettings({ name, age, hearingDevice, deviceSide}) {
   //const config = { headers: { authorization: localStorage.getItem('token')}};
   return function(dispatch) {
-    axios.post(ROOT_URL + "/savesettings", { name, password, age, hearingDevice, deviceSide}, {
+    axios.post(ROOT_URL + "/savesettings", { name, age, hearingDevice, deviceSide}, {
       headers: { authorization: localStorage.getItem('token') }
     })
       .then(response => {
+        //console.log(JSON.stringify(response.data.user));
         dispatch({
           type: FETCH_USER,
-          payload: response
+          payload: response.data.user
         });
         alert("Settings saved!");
         browserHistory.push('/mainmenu');
@@ -182,6 +174,23 @@ export function saveSettings({ name, password, age, hearingDevice, deviceSide}) 
   }
 }
 
+export function savePassword({password}) {
+  //const config = { headers: { authorization: localStorage.getItem('token')}};
+  return function(dispatch) {
+    axios.post(ROOT_URL + "/savepassword", {password}, {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+      .then(response => {
+        //console.log(JSON.stringify(response.data.token));
+        dispatch({
+          type: FETCH_USER,
+          payload: response.data.user
+        });
+        alert("Password changed!");
+        browserHistory.push('/mainmenu');
+      });
+  }
+}
 
 export function fetchActiveTest() {
   if(localStorage.getItem("activeTest") == null || localStorage.getItem("activeTest") === "undefined") {
@@ -239,15 +248,4 @@ export function tic(test) {
     type: TIC,
     payload: test
   }
-}
-
-export function savePassword({password}) {
-  const config = { headers: { authorization: localStorage.getItem('token')}};
-  var response = axios.post(`${ROOT_URL}/savepassword`, {password}, config);
-  alert("Password saved!");
-  browserHistory.push('/mainmenu');
-  return {
-    type: FETCH_USER,
-    payload: response
-  };
 }

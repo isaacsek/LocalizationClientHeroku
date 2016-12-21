@@ -12,6 +12,9 @@ import {
   CLEAR_TEST,
   TIC,
   FETCH_DB,
+  USER_SELECTED,
+  USER_TEST_SELECTED,
+  FETCH_EVAL_PASS,
 } from '../actions/types';
 
 export default function(state = {}, action) {
@@ -26,11 +29,11 @@ export default function(state = {}, action) {
         return {...state, activeTest: action.payload};
       case FETCH_DB:
         return {...state, users: action.payload};
-      case "USER_SELECTED":
+      case USER_SELECTED:
         return {...state, selectedUser: action.payload};
-      case "USER_TEST_SELECTED":
+      case USER_TEST_SELECTED:
         return {...state, selectedUserTest: action.payload};
-      case "FETCH_EVAL_PASS":
+      case FETCH_EVAL_PASS:
         return {...state, evalPass: action.payload};
 
     }

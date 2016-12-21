@@ -14,14 +14,6 @@ class Settings extends Component {
     this.props.saveSettings(formProps);
   }
 
-  loadUser() {
-    if (this.props.user != null){
-      return;
-    } else {
-      return;
-    }
-  }
-
   renderAlert() {
     if (this.props.errorMessage) {
       return (
