@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "b177b6c1ae11254be853"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "d04602ce8a70064627cd"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -5302,6 +5302,7 @@
 	exports.selectTest = selectTest;
 	exports.selectUser = selectUser;
 	exports.selectUserTest = selectUserTest;
+	exports.saveSettings2 = saveSettings2;
 	exports.saveSettings = saveSettings;
 	exports.fetchActiveTest = fetchActiveTest;
 	exports.updateTest = updateTest;
@@ -5447,7 +5448,7 @@
 	  };
 	}
 
-	function saveSettings(_ref3) {
+	function saveSettings2(_ref3) {
 	  var name = _ref3.name;
 	  var password = _ref3.password;
 	  var age = _ref3.age;
@@ -5461,6 +5462,28 @@
 	  return {
 	    type: _types.FETCH_USER,
 	    payload: response
+	  };
+	}
+
+	function saveSettings(_ref4) {
+	  var name = _ref4.name;
+	  var password = _ref4.password;
+	  var age = _ref4.age;
+	  var hearingDevice = _ref4.hearingDevice;
+	  var deviceSide = _ref4.deviceSide;
+
+	  //const config = { headers: { authorization: localStorage.getItem('token')}};
+	  return function (dispatch) {
+	    _axios2.default.post(_types.ROOT_URL + "/savesettings", { name: name, password: password, age: age, hearingDevice: hearingDevice, deviceSide: deviceSide }, {
+	      headers: { authorization: localStorage.getItem('token') }
+	    }).then(function (response) {
+	      dispatch({
+	        type: _types.FETCH_USER,
+	        payload: response
+	      });
+	      alert("Settings saved!");
+	      _reactRouter.browserHistory.push('/mainmenu');
+	    });
 	  };
 	}
 
@@ -5522,8 +5545,8 @@
 	  };
 	}
 
-	function savePassword(_ref4) {
-	  var password = _ref4.password;
+	function savePassword(_ref5) {
+	  var password = _ref5.password;
 
 	  var config = { headers: { authorization: localStorage.getItem('token') } };
 	  var response = _axios2.default.post(_types.ROOT_URL + '/savepassword', { password: password }, config);
@@ -34121,7 +34144,7 @@
 	        return this.props.selectedUser.history.evaluations.map(function (test) {
 	          return _react2.default.createElement(
 	            'div',
-	            { className: '', key: test.testNumber, onClick: function onClick() {
+	            { className: 'btn btn-secondary mt-1', key: test.testNumber, onClick: function onClick() {
 	                _this2.props.selectUserTest(test);
 	              } },
 	            'Test #',
@@ -34156,7 +34179,7 @@
 	        return this.props.selectedUser.history.practices.map(function (test) {
 	          return _react2.default.createElement(
 	            'div',
-	            { className: '', key: test.testNumber, onClick: function onClick() {
+	            { className: 'btn btn-secondary mt-1', key: test.testNumber, onClick: function onClick() {
 	                _this3.props.selectUserTest(test);
 	              } },
 	            'Test #',
@@ -34304,7 +34327,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'a',
-	            { href: this.downloadCSV(this.props.selectedUserTest), download: this.props.selectedUser.username + "_test_" + this.props.selectedUserTest.testNumber + ".csv" },
+	            { className: 'btn btn-success mt-2', href: this.downloadCSV(this.props.selectedUserTest), download: this.props.selectedUser.username + "_test_" + this.props.selectedUserTest.testNumber + ".csv" },
 	            'Download'
 	          )
 	        );
@@ -34321,7 +34344,7 @@
 	            'button',
 	            {
 	              key: user._id,
-	              className: 'btn btn-secondary', style: { color: 'black' },
+	              className: 'btn btn-secondary mt-1', style: { color: 'black' },
 	              onClick: function onClick() {
 	                _this4.props.selectUser(user);
 	              } },
@@ -34360,34 +34383,29 @@
 	            { className: 'row' },
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'btn-group-vertical btn-group-lg col-md-4' },
+	              { className: 'btn-group-vertical btn-group-md col-md-2' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'btn btn-primary' },
+	                'Users'
+	              ),
 	              this.renderUsers()
 	            ),
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'btn-group-lg col-md-2 text-md-left' },
+	              { className: 'btn-group-vertical btn-group-md col-md-4' },
 	              _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement(
-	                  'strong',
-	                  null,
-	                  'Evaluations'
-	                ),
-	                ' ',
-	                this.renderUserTests()
+	                'strong',
+	                { className: 'btn btn-danger' },
+	                'Evaluations'
 	              ),
+	              this.renderUserTests(),
 	              _react2.default.createElement(
-	                'div',
-	                { className: 'mt-2' },
-	                _react2.default.createElement(
-	                  'strong',
-	                  null,
-	                  'Practices'
-	                ),
-	                ' ',
-	                this.renderUserPractices()
-	              )
+	                'strong',
+	                { className: 'btn btn-danger mt-2' },
+	                'Practices'
+	              ),
+	              this.renderUserPractices()
 	            ),
 	            _react2.default.createElement(
 	              'div',
@@ -36362,12 +36380,13 @@
 	      }
 	    }
 	  }, {
-	    key: 'renderList',
-	    value: function renderList() {
+	    key: 'renderEvals',
+	    value: function renderEvals() {
 	      var _this2 = this;
 
 	      if (this.props.user != undefined) {
-	        return this.props.user.history.map(function (test) {
+	        //console.log(this.props.user);
+	        return this.props.user.history.evaluations.map(function (test) {
 	          return _react2.default.createElement(
 	            _reactRouter.Link,
 	            { to: '/resultview',
@@ -36404,13 +36423,44 @@
 	      }
 	    }
 	  }, {
-	    key: 'renderBack',
-	    value: function renderBack() {
+	    key: 'renderPractices',
+	    value: function renderPractices() {
+	      var _this3 = this;
+
 	      if (this.props.user != undefined) {
+	        return this.props.user.history.practices.map(function (test) {
+	          return _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/resultview',
+	              key: test.testNumber,
+	              className: 'btn btn-secondary mt-2 text-md-left', style: { color: 'black' },
+	              onClick: function onClick() {
+	                return _this3.props.selectTest(test);
+	              } },
+	            'Test #',
+	            test.testNumber,
+	            ', ',
+	            (0, _moment2.default)(test.startTime).format("MMMM Do YYYY"),
+	            ', ',
+	            _react2.default.createElement(
+	              'span',
+	              { style: { color: "red" } },
+	              'Score: ',
+	              test.totalCorrect,
+	              '/',
+	              test.trialCount
+	            )
+	          );
+	        });
+	      } else {
 	        return _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: '/mainmenu', className: 'btn btn-danger mt-1' },
-	          'Back to Main Menu'
+	          'div',
+	          { className: 'v1' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'v2' },
+	            _react2.default.createElement('i', { className: 'fa fa-spinner fa-pulse fa-3x fa-fw' })
+	          )
 	        );
 	      }
 	    }
@@ -36460,9 +36510,28 @@
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'btn-group-vertical btn-group-lg' },
-	          this.renderBack(),
-	          this.renderList()
+	          { className: '' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'btn-group-vertical btn-group-lg mr-2' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'mt-2 btn btn-primary' },
+	              'Evaluations'
+	            ),
+	            this.renderEvals(),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'mt-2 btn btn-primary' },
+	              'Practices'
+	            ),
+	            this.renderPractices(),
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: '/mainmenu', className: 'btn btn-danger mt-2' },
+	              'Back to Main Menu'
+	            )
+	          )
 	        )
 	      );
 	    }
@@ -36472,7 +36541,8 @@
 	}(_react.Component);
 
 	function mapStateToProps(state) {
-	  return { message: state.auth.message,
+	  return {
+	    message: state.auth.message,
 	    user: state.auth.user,
 	    testSelected: state.auth.testSelected
 	  };
@@ -36529,6 +36599,7 @@
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      this.props.fetchUser();
+	      console.log("here");
 	    }
 	  }, {
 	    key: 'loadAdmin',
@@ -37843,7 +37914,7 @@
 	          { className: 'container mt-2', style: { width: "300px" } },
 	          _react2.default.createElement(
 	            'h2',
-	            { className: 'text-md-center m-t-2' },
+	            { className: 'text-md-center' },
 	            'Settings'
 	          ),
 	          _react2.default.createElement(
@@ -37857,7 +37928,7 @@
 	                { className: '' },
 	                'Name:'
 	              ),
-	              _react2.default.createElement('input', _extends({ className: 'form-control', placeholder: 'password' }, name, { type: 'text' })),
+	              _react2.default.createElement('input', _extends({ className: 'form-control', placeholder: 'Name' }, name, { type: 'text' })),
 	              name.touched && name.error && _react2.default.createElement(
 	                'div',
 	                { className: 'error' },
@@ -37872,7 +37943,7 @@
 	                null,
 	                'Age:'
 	              ),
-	              _react2.default.createElement('input', _extends({ type: 'number', className: 'form-control' }, age)),
+	              _react2.default.createElement('input', _extends({ type: 'number', placeholder: 'Age', className: 'form-control' }, age)),
 	              age.touched && age.error && _react2.default.createElement(
 	                'div',
 	                { className: 'error' },
@@ -37887,7 +37958,7 @@
 	                null,
 	                'Type of hearing device:'
 	              ),
-	              _react2.default.createElement('input', _extends({ className: 'form-control' }, hearingDevice)),
+	              _react2.default.createElement('input', _extends({ className: 'form-control', placeholder: 'Type of Hearing Device' }, hearingDevice)),
 	              hearingDevice.touched && hearingDevice.error && _react2.default.createElement(
 	                'div',
 	                { className: 'error' },
@@ -37902,7 +37973,7 @@
 	                null,
 	                'Side device is on:'
 	              ),
-	              _react2.default.createElement('input', _extends({ className: 'form-control' }, deviceSide)),
+	              _react2.default.createElement('input', _extends({ className: 'form-control', placeholder: 'Device Side' }, deviceSide)),
 	              deviceSide.touched && deviceSide.error && _react2.default.createElement(
 	                'div',
 	                { className: 'error' },

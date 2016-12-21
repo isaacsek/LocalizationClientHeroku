@@ -75,7 +75,7 @@ class Admin extends Component {
     } else {
       return this.props.selectedUser.history.evaluations.map((test) => {
         return (
-          <div className = "" key = {test.testNumber} onClick = {() => {this.props.selectUserTest(test)}}>
+          <div className = "btn btn-secondary mt-1" key = {test.testNumber} onClick = {() => {this.props.selectUserTest(test)}} >
             Test #{test.testNumber}, {Moment(test.startTime).format("MMMM Do YYYY")}, <span style = {{color:"red"}}>Score: {test.totalCorrect}/{test.trialCount}</span>
           </div>
         );
@@ -93,7 +93,7 @@ class Admin extends Component {
     } else {
       return this.props.selectedUser.history.practices.map((test) => {
         return (
-          <div className = "" key = {test.testNumber} onClick = {() => {this.props.selectUserTest(test)}}>
+          <div className = "btn btn-secondary mt-1" key = {test.testNumber} onClick = {() => {this.props.selectUserTest(test)}}>
             Test #{test.testNumber}, {Moment(test.startTime).format("MMMM Do YYYY")}, <span style = {{color:"red"}}>Score: {test.totalCorrect}/{test.trialCount}</span>
           </div>
         );
@@ -138,7 +138,7 @@ class Admin extends Component {
           <div>
             <strong>Average Reaction:</strong> {(this.props.selectedUserTest.totalReaction / this.props.selectedUserTest.trialCount).toFixed(3)} seconds
           </div>
-          <a href = {this.downloadCSV(this.props.selectedUserTest)} download = {this.props.selectedUser.username + "_test_" + this.props.selectedUserTest.testNumber + ".csv"}>Download</a>
+          <a className = "btn btn-success mt-2" href = {this.downloadCSV(this.props.selectedUserTest)} download = {this.props.selectedUser.username + "_test_" + this.props.selectedUserTest.testNumber + ".csv"}>Download</a>
         </div>
       );
     }
@@ -151,7 +151,7 @@ class Admin extends Component {
             return (
               <button
                 key = {user._id}
-                className = "btn btn-secondary" style = {{color: 'black'}}
+                className = "btn btn-secondary mt-1" style = {{color: 'black'}}
                 onClick = {() => {this.props.selectUser(user)}}>
                     User: {user.username}</button>
             );
@@ -168,25 +168,32 @@ class Admin extends Component {
     }
   }
 
+
   render() {
     return (
       <div>
         <h2 className = "text-md-center mt-2">Admin Page</h2>
 
         <div className = "text-md-center container mt-2">
-
           <div className = "row">
-            <div className ="btn-group-vertical btn-group-lg col-md-4">
+
+            <div className ="btn-group-vertical btn-group-md col-md-2">
+              <div className = "btn btn-primary">Users</div>
               {this.renderUsers()}
             </div>
-            <div className = "btn-group-lg col-md-2 text-md-left">
-              <div><strong>Evaluations</strong> {this.renderUserTests()}</div>
 
-              <div className = "mt-2"><strong>Practices</strong> {this.renderUserPractices()}</div>
+            <div className = "btn-group-vertical btn-group-md col-md-4">
+              <strong className = "btn btn-danger" >Evaluations</strong>
+              {this.renderUserTests()}
+
+              <strong className = "btn btn-danger mt-2">Practices</strong>
+              {this.renderUserPractices()}
             </div>
+
             <div className = "col-md-6">
               {this.renderUserTestsSelected()}
             </div>
+
           </div>
         </div>
       </div>

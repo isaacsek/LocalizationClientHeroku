@@ -140,7 +140,7 @@ export function selectUserTest(test) {
   };
 }
 
-export function saveSettings({ name, password, age, hearingDevice, deviceSide}) {
+export function saveSettings2({ name, password, age, hearingDevice, deviceSide}) {
   const config = { headers: { authorization: localStorage.getItem('token')}};
   var response = axios.post(`${ROOT_URL}/savesettings`, { name, password, age, hearingDevice, deviceSide}, config);
   alert("Settings saved!");
@@ -149,6 +149,23 @@ export function saveSettings({ name, password, age, hearingDevice, deviceSide}) 
     type: FETCH_USER,
     payload: response
   };
+}
+
+export function saveSettings({ name, password, age, hearingDevice, deviceSide}) {
+  //const config = { headers: { authorization: localStorage.getItem('token')}};
+  return function(dispatch) {
+    axios.post(ROOT_URL + "/savesettings", { name, password, age, hearingDevice, deviceSide}, {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+      .then(response => {
+        dispatch({
+          type: FETCH_USER,
+          payload: response
+        });
+        alert("Settings saved!");
+        browserHistory.push('/mainmenu');
+      });
+  }
 }
 
 export function fetchActiveTest() {

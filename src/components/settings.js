@@ -38,27 +38,27 @@ class Settings extends Component {
       return (
 
         <div className = "container mt-2" style = {{width:"300px"}}>
-          <h2 className = "text-md-center m-t-2">Settings</h2>
+          <h2 className = "text-md-center">Settings</h2>
           <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
 
             <fieldset className="form-group">
               <label className = "">Name:</label>
-              <input className="form-control" placeholder = "password" {...name} type="text" />
+              <input className="form-control" placeholder = "Name" {...name} type="text" />
               {name.touched && name.error && <div className="error">{name.error}</div>}
             </fieldset>
             <fieldset className="form-group">
               <label>Age:</label>
-              <input type = "number" className="form-control" {...age} />
+              <input type = "number" placeholder = "Age" className="form-control" {...age} />
               {age.touched && age.error && <div className="error">{age.error}</div>}
             </fieldset>
             <fieldset className="form-group">
               <label>Type of hearing device:</label>
-              <input className="form-control" {...hearingDevice} />
+              <input className="form-control" placeholder = "Type of Hearing Device" {...hearingDevice} />
               {hearingDevice.touched && hearingDevice.error && <div className="error">{hearingDevice.error}</div>}
             </fieldset>
             <fieldset className="form-group">
               <label>Side device is on:</label>
-              <input className="form-control" {...deviceSide} />
+              <input className="form-control" placeholder = "Device Side" {...deviceSide} />
               {deviceSide.touched && deviceSide.error && <div className="error">{deviceSide.error}</div>}
             </fieldset>
             {this.renderAlert()}
