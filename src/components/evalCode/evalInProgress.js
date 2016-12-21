@@ -53,8 +53,11 @@ class EvalInProgress extends Component {
     startReaction = Moment();
     sounds.play();
     $("#playSound").addClass("disabledbutton");
-    $("#redButton").removeClass("disabledbutton");
-    $("#blueButton").removeClass("disabledbutton");
+
+    setTimeout(() => {
+      $("#redButton").removeClass("disabledbutton");
+      $("#blueButton").removeClass("disabledbutton");
+    }, 1000)
   }
 
   determineGuess(userGuess) {
