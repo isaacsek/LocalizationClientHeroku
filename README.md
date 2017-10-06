@@ -1,8 +1,11 @@
 # Localization App made with React (for [Heroku](https://www.heroku.com/) deployment)
 
+This app was orinally made to help patients with hearing implants 'localize' sound. Works best with a left and right speakers.
+Can also be used with headphones.
+
 https://localization-client.herokuapp.com/
 
-### UP & RUNNING (Local/Development)
+### INSTALL (Local/Development)
 * `npm install`
 * `npm start`
 * visit `http://localhost:8080/`
